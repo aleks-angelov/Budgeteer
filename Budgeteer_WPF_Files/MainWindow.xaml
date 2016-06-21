@@ -5,6 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budgeteer_WPF_Files"
         mc:Ignorable="d"
-        Title="Budgeteer - Your Family Budget Tracker" Height="350" Width="525" WindowStartupLocation="CenterScreen">
-    <Grid />
+        Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen">
+    <DockPanel LastChildFill="True">
+        <Menu x:Name="menu" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
+            <MenuItem Header="MenuItem" Height="28"/>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom" Height="30"/>
+        <TabControl x:Name="tabControl" TabStripPlacement="Left">
+            <TabItem Header="Overview" Width="90" Height="151">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Expenditure" Height="152">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Income" Height="152">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Balance" Height="151">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
