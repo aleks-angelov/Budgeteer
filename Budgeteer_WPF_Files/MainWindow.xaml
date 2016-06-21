@@ -5,28 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budgeteer_WPF_Files"
         mc:Ignorable="d"
-        Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen">
+        Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen" Background="#FFE5E5E5">
     <DockPanel LastChildFill="True">
         <Menu x:Name="menu" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
             <MenuItem Header="MenuItem" Height="28"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="30"/>
-        <TabControl x:Name="tabControl" TabStripPlacement="Left">
-            <TabItem Header="Overview" Width="90" Height="151">
+        <TabControl x:Name="tabControl" TabStripPlacement="Left" SelectedIndex="1">
+            <TabItem Width="192" Height="173" Focusable="False">
+                <TabItem.Header>
+                    <Calendar/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Header="Overview" Height="146">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <DatePicker HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Border Margin="303,77,653,162">
+                        <Grid>
+                            <RadioButton x:Name="radioButton" Content="Debit" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
+                            <RadioButton x:Name="radioButton1" Content="Credit" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
                 </Grid>
             </TabItem>
-            <TabItem Header="Expenditure" Height="152">
+            <TabItem Header="Expenditure" Height="146">
+                <DatePicker Height="100" Width="100"/>
+            </TabItem>
+            <TabItem Header="Income" Height="146">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
-            <TabItem Header="Income" Height="152">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Balance" Height="151">
+            <TabItem Header="Balance" Height="146">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
