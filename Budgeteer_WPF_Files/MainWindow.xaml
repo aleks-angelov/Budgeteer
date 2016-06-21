@@ -5,42 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budgeteer_WPF_Files"
         mc:Ignorable="d"
-        Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen" Background="#FFE5E5E5">
+        Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen"
+        Background="#FFE5E5E5" ResizeMode="CanMinimize">
     <DockPanel LastChildFill="True">
         <Menu x:Name="menu" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
-            <MenuItem Header="MenuItem" Height="28"/>
+            <MenuItem Header="MenuItem" Height="28" />
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom" Height="30"/>
+        <StatusBar DockPanel.Dock="Bottom" Height="30" />
         <TabControl x:Name="tabControl" TabStripPlacement="Left" SelectedIndex="1">
             <TabItem Width="192" Height="173" Focusable="False">
                 <TabItem.Header>
-                    <Calendar/>
+                    <Calendar FirstDayOfWeek="Monday" />
                 </TabItem.Header>
             </TabItem>
             <TabItem Header="Overview" Height="146">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <DatePicker HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <Border Margin="303,77,653,162">
-                        <Grid>
-                            <RadioButton x:Name="radioButton" Content="Debit" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
-                            <RadioButton x:Name="radioButton1" Content="Credit" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Top"/>
-                        </Grid>
-                    </Border>
+                    <StackPanel Margin="10,10,96,215" Orientation="Horizontal" Height="30">
+                        <Label x:Name="label" Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center"/>
+                        <Separator Opacity="0" Width="38"/>
+                        <Label x:Name="label_Copy" Content="Person:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center"/>
+                        <Separator Opacity="0" Width="38"/>
+                        <Label x:Name="label_Copy1" Content="Type:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="104" HorizontalContentAlignment="Center"/>
+                        <Separator Opacity="0" Width="38"/>
+                        <Label x:Name="label_Copy2" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center"/>
+                        <Separator Opacity="0" Width="38"/>
+                        <Label x:Name="label_Copy3" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="90" HorizontalContentAlignment="Center"/>
+                        <Separator Opacity="0" Width="38"/>
+                        <Label x:Name="label_Copy4" Content="Notes (optional):" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="180" HorizontalContentAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="10,42,96,183" Orientation="Horizontal" Height="30">
+                        <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday" Width="105" />
+                        <Separator Opacity="0" Width="37"/>
+                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top"
+                			Width="150" IsEditable="True" />
+                        <Separator Opacity="0" Width="37"/>
+                        <RadioButton x:Name="radioButton" Content="Debit" HorizontalAlignment="Left"
+                			VerticalAlignment="Top" IsChecked="True" GroupName="EntryType" Margin="0,5,0,0" />
+                        <Separator Opacity="0" Width="10"/>
+                        <RadioButton x:Name="radioButton1" Content="Credit" HorizontalAlignment="Left" Margin="0,5,0,0"
+                			VerticalAlignment="Top" GroupName="EntryType" />
+                        <Separator Opacity="0" Width="37"/>
+                        <ComboBox x:Name="comboBox_Copy" HorizontalAlignment="Left" VerticalAlignment="Top"
+                			Width="150" IsEditable="True" />
+                        <Separator Opacity="0" Width="37"/>
+                        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="90"/>
+                        <Separator Opacity="0" Width="37"/>
+                        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="180"/>
+                    </StackPanel>
+                    <Button x:Name="button" Grid.Row="0" Content="Add" HorizontalAlignment="Left" Margin="1008,19,0,0" VerticalAlignment="Top" Width="46" Height="46"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Expenditure" Height="146">
-                <DatePicker Height="100" Width="100"/>
+                <Grid Background="#FFE5E5E5" />
             </TabItem>
             <TabItem Header="Income" Height="146">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" />
             </TabItem>
             <TabItem Header="Balance" Height="146">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" />
             </TabItem>
         </TabControl>
     </DockPanel>
