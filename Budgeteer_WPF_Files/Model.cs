@@ -1,31 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Budgeteer_WPF_Files
 {
     internal abstract class Transaction
     {
-        public static List<string> People = new List<string> {"Aleks Angelov", "Boris Ruskov, Mariya Stancheva"};
+        public static ObservableCollection<string> People = new ObservableCollection<string>
+        {
+            "Aleks Angelov",
+            "Boris Ruskov",
+            "Mariya Stancheva"
+        };
 
-        protected DateTime Date;
-        protected string Person;
-        protected string Category;
-        protected float Amount;
-        protected string Note;
-
-        protected Transaction(DateTime d, string p, string c, float a, string n = "")
+        protected Transaction(DateTime d, string p, string t, string c, float a, string n = "")
         {
             Date = d;
             Person = p;
+            Type = t;
             Category = c;
             Amount = a;
             Note = n;
         }
+
+        public DateTime Date { get; set; }
+        public string Person { get; set; }
+        public string Type { get; set; }
+        public string Category { get; set; }
+        public float Amount { get; set; }
+        public string Note { get; set; }
     }
 
     internal class Debit : Transaction
     {
-        public static List<string> DebitCategories = new List<string>
+        public static ObservableCollection<string> DebitCategories = new ObservableCollection<string>
         {
             "Groceries",
             "Personal Care",
@@ -43,17 +50,23 @@ namespace Budgeteer_WPF_Files
         };
 
         public Debit(DateTime d, string p, string c, float a, string n = "")
-            : base(d, p, c, a, n)
+            : base(d, p, "Debit", c, a, n)
         {
         }
     }
 
     internal class Credit : Transaction
     {
-        public static List<string> CreditCategories = new List<string> {"Salary", "Bonuses", "Dividends", "Other"};
+        public static ObservableCollection<string> CreditCategories = new ObservableCollection<string>
+        {
+            "Salary",
+            "Bonuses",
+            "Dividends",
+            "Other"
+        };
 
         public Credit(DateTime d, string p, string c, float a, string n = "")
-            : base(d, p, c, a, n)
+            : base(d, p, "Credit", c, a, n)
         {
         }
     }
