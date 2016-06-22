@@ -5,7 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Budgeteer_WPF_Files"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:properties="clr-namespace:Budgeteer_WPF_Files.Properties" x:Name="mainWindow"
+    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    x:Name="mainWindow"
     x:Class="Budgeteer_WPF_Files.MainWindow"
     mc:Ignorable="d"
     Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen"
@@ -80,7 +81,7 @@
                     <Button x:Name="ButtonAdd" Grid.Row="0" Content="Add" HorizontalAlignment="Left"
                             Margin="989,62,0,0"
                             VerticalAlignment="Top" Width="46" Height="46" Click="ButtonAdd_Click" />
-                    <DataGrid x:Name="DataGridAdd" HorizontalAlignment="Left" Margin="30,13,0,0" Grid.Row="1"
+                    <DataGrid x:Name="DataGridOverview" HorizontalAlignment="Left" Margin="30,13,0,0" Grid.Row="1"
                               VerticalAlignment="Top" Height="270" Width="1005" ItemsSource="{Binding Source=records}"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -93,10 +94,22 @@
                             <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="283" Margin="30,10,0,0" Grid.Row="2"
-                                      VerticalAlignment="Top" Width="487" />
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="283" Margin="548,10,0,0" Grid.Row="2"
-                                      VerticalAlignment="Top" Width="487" />
+                    <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0" Grid.Row="2"
+                                           Title="Chart Title" VerticalAlignment="Top" Height="272" Width="486">
+                        <chartingToolkit:Chart.DataContext>
+                            <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
+                        </chartingToolkit:Chart.DataContext>
+                        <chartingToolkit:ColumnSeries DependentValuePath="X" IndependentValuePath="Y"
+                                                      ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0" Grid.Row="2"
+                                           Title="Chart Title" VerticalAlignment="Top" Height="272" Width="486">
+                        <chartingToolkit:Chart.DataContext>
+                            <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
+                        </chartingToolkit:Chart.DataContext>
+                        <chartingToolkit:ColumnSeries DependentValuePath="X" IndependentValuePath="Y"
+                                                      ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
             <TabItem Header="Expenditure" Height="146">

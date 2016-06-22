@@ -26,7 +26,8 @@ namespace Budgeteer_WPF_Files
             ComboBoxAddPerson.ItemsSource = Transaction.People;
             ComboBoxAddCategory.ItemsSource = Debit.DebitCategories;
 
-            DataGridAdd.ItemsSource = records;
+            DataGridOverview.ItemsSource = records;
+
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
