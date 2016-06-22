@@ -5,7 +5,7 @@ namespace Budgeteer_WPF_Files
 {
     internal abstract class Transaction
     {
-        public static List<string> People = new List<string>();
+        public static List<string> People = new List<string> {"Aleks Angelov", "Boris Ruskov, Mariya Stancheva"};
 
         protected DateTime Date;
         protected string Person;
