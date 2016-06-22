@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budgeteer_WPF_Files"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen"
         Background="#FFE5E5E5" ResizeMode="CanMinimize">
@@ -43,13 +44,13 @@
                                VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="90"
                                HorizontalContentAlignment="Center" />
                         <Separator Opacity="0" Width="32" />
-                        <Label x:Name="label_Copy4" Content="Notes (optional):" HorizontalAlignment="Left"
+                        <Label x:Name="label_Copy4" Content="Note (optional):" HorizontalAlignment="Left"
                                VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="180"
                                HorizontalContentAlignment="Center" />
                     </StackPanel>
                     <StackPanel Grid.Row="0" Margin="30,85,106,3" Orientation="Horizontal">
                         <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" FirstDayOfWeek="Monday"
-                                    Width="105" />
+                                    Width="105" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         <Separator Opacity="0" Width="31" />
                         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top"
                                   Width="150" IsEditable="True" />
@@ -74,9 +75,9 @@
                     <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="30,13,0,0" Grid.Row="1"
                               VerticalAlignment="Top" Height="270" Width="1005" />
                     <WindowsFormsHost HorizontalAlignment="Left" Height="283" Margin="30,10,0,0" Grid.Row="2"
-                                      VerticalAlignment="Top" Width="480" />
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="283" Margin="557,10,0,0" Grid.Row="2"
-                                      VerticalAlignment="Top" Width="478" />
+                                      VerticalAlignment="Top" Width="487" />
+                    <WindowsFormsHost HorizontalAlignment="Left" Height="283" Margin="548,10,0,0" Grid.Row="2"
+                                      VerticalAlignment="Top" Width="487" />
                 </Grid>
             </TabItem>
             <TabItem Header="Expenditure" Height="146">
