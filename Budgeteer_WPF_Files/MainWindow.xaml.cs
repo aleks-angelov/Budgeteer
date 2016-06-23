@@ -68,7 +68,7 @@ namespace Budgeteer_WPF_Files
         {
             ReloadOverviewData();
             ReloadSpendingData();
-            // ReloadIncomeData();
+            ReloadIncomeData();
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)

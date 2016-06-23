@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IncomeTab.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="SpendingTab.cs" />
     <Page Include="MainWindow.xaml">
