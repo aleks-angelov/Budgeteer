@@ -93,7 +93,7 @@
                     </DataGrid>
                     <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0"
                                            Grid.Row="2"
-                                           Title="Budget Balance" VerticalAlignment="Top" Height="290" Width="486"
+                                           Title="Budget Balance (last 6 months)" VerticalAlignment="Top" Height="290" Width="486"
                                            SnapsToDevicePixels="True">
                         <chartingToolkit:LineSeries DependentValuePath="Value"
                                                     IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
@@ -102,7 +102,7 @@
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0"
                                            Grid.Row="2"
-                                           Title="Spending Distribution" VerticalAlignment="Top" Height="290"
+                                           Title="Spending Distribution (last 6 months)" VerticalAlignment="Top" Height="290"
                                            Width="486">
                         <chartingToolkit:PieSeries Name="SpendingDistribution" DependentValuePath="Value"
                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
