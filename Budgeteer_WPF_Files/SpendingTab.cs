@@ -10,10 +10,10 @@ namespace Budgeteer_WPF_Files
         private void SetupSpendingTab()
         {
             ComboBoxSpendingPerson.ItemsSource = Transaction.People;
-            DatePickerSpendingFrom.SelectedDate = DateTime.Today.AddMonths(-6);
-            DatePickerSpendingFrom.SelectedDateChanged += FilterChanged;
+            DatePickerSpendingFrom.SelectedDate = DateTime.Today.AddMonths(-12);
+            DatePickerSpendingFrom.SelectedDateChanged += SpendingFilterChanged;
             DatePickerSpendingUntil.SelectedDate = DateTime.Today;
-            DatePickerSpendingUntil.SelectedDateChanged += FilterChanged;
+            DatePickerSpendingUntil.SelectedDateChanged += SpendingFilterChanged;
             ComboBoxSpendingCategory.ItemsSource = Debit.DebitCategories;
 
             ReloadSpendingData();
@@ -28,7 +28,7 @@ namespace Budgeteer_WPF_Files
             LoadSpendingDistributionForData();
         }
 
-        private void FilterChanged(object sender, EventArgs e)
+        private void SpendingFilterChanged(object sender, EventArgs e)
         {
             ReloadSpendingData();
         }
@@ -50,7 +50,7 @@ namespace Budgeteer_WPF_Files
             foreach (IGrouping<string, double> period in spendingRecordsByMonth)
                 spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
-            ChartSpendingTopLeft.Title = $"Spending by {ComboBoxSpendingPerson.Text}";
+            ChartSpendingTopLeft.Title = $"Spending of {ComboBoxSpendingPerson.Text}";
             ((ColumnSeries) ChartSpendingTopLeft.Series[0]).ItemsSource = spendingData;
         }
 

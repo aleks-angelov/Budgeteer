@@ -75,7 +75,7 @@ namespace Budgeteer_WPF_Files
         {
             SetupOverviewTab();
             SetupSpendingTab();
-            //SetupIncomeTab();
+            SetupIncomeTab();
             //SetupSettingsTab();
         }
 
