@@ -13,9 +13,6 @@
     Background="#FFE5E5E5" ResizeMode="CanMinimize">
 
     <DockPanel LastChildFill="True">
-        <Menu x:Name="Menu" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
-            <MenuItem Header="MenuItem" Height="28" />
-        </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="30" />
         <TabControl x:Name="TabControl" TabStripPlacement="Left" SelectedIndex="1">
             <TabItem Width="192" Height="173" Focusable="False">
@@ -23,7 +20,7 @@
                     <Calendar FirstDayOfWeek="Monday" />
                 </TabItem.Header>
             </TabItem>
-            <TabItem Header="Overview" Height="146">
+            <TabItem Header="Overview" Height="146" Margin="0,1,-2,-1">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="172*" />
@@ -95,7 +92,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0" Grid.Row="2"
-                                           Title="Chart Title" VerticalAlignment="Top" Height="272" Width="486">
+                                           Title="Budget Balance" VerticalAlignment="Top" Height="272" Width="486">
                         <chartingToolkit:Chart.DataContext>
                             <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
                         </chartingToolkit:Chart.DataContext>
@@ -103,7 +100,7 @@
                                                       ItemsSource="{Binding}" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0" Grid.Row="2"
-                                           Title="Chart Title" VerticalAlignment="Top" Height="272" Width="486">
+                                           Title="Spending Distribution" VerticalAlignment="Top" Height="272" Width="486">
                         <chartingToolkit:Chart.DataContext>
                             <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
                         </chartingToolkit:Chart.DataContext>
@@ -118,7 +115,7 @@
             <TabItem Header="Income" Height="146">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
-            <TabItem Header="Balance" Height="146">
+            <TabItem Header="Settings" Height="176">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
         </TabControl>
