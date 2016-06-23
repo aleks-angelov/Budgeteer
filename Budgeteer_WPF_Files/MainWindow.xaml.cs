@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls.DataVisualization.Charting;
 
 namespace Budgeteer_WPF_Files
 {
@@ -44,6 +43,12 @@ namespace Budgeteer_WPF_Files
             new Credit(DateTime.Today, "Aleks Angelov", "Salary", 60.05, "Lunch and dinner")
         };
 
+        private void RecordsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            LoadBudgetBalanceData();
+            LoadSpendingDistributionData();
+        }
+
         private static readonly IEnumerable<Debit> debitQuery = from record in records
                                                                 where record.Type == "Debit"
                                                                 select record as Debit;
@@ -57,83 +62,26 @@ namespace Budgeteer_WPF_Files
             InitializeComponent();
 
             records.CollectionChanged += RecordsOnCollectionChanged;
-            SetupOverviewTab();
-        }
-
-        private void RecordsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
-        {
-            LoadBudgetBalanceData();
-            LoadSpendingDistributionData();
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadBudgetBalanceData();
-            LoadSpendingDistributionData();
+            SetupOverviewTab();
+            //SetupSpendingTab();
+            //SetupIncomeTab();
+            //SetupSettingsTab();
         }
 
-        private void SetupOverviewTab()
+        private void RadioButtonCredit_Checked(object sender, RoutedEventArgs e)
         {
-            ComboBoxAddPerson.ItemsSource = Transaction.People;
+            ComboBoxAddCategory.ItemsSource = Credit.CreditCategories;
+            ComboBoxAddCategory.SelectedIndex = 0;
+        }
+
+        private void RadioButtonCredit_Unchecked(object sender, RoutedEventArgs e)
+        {
             ComboBoxAddCategory.ItemsSource = Debit.DebitCategories;
-            DataGridOverview.ItemsSource = records;
-        }
-
-        private void LoadBudgetBalanceData()
-        {
-            LoadIncomeData();
-            LoadSpendingData();
-        }
-
-        private void LoadIncomeData()
-        {
-            List<Credit> incomeRecords = creditQuery.ToList();
-
-            IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
-                                                                                 where record.Date.AddMonths(7) > DateTime.Today
-                                                                                 group record.Amount by record.Date.ToString("yyyy/MM") into monthlyRecords
-                                                                                 orderby monthlyRecords.Key
-                                                                                 select monthlyRecords;
-
-            List<KeyValuePair<string, double>> incomeData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in incomeRecordsByMonth)
-                incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
-
-            ((LineSeries)ChartOverviewLeft.Series[0]).ItemsSource = incomeData;
-        }
-
-        private void LoadSpendingData()
-        {
-            List<Debit> spendingRecords = debitQuery.ToList();
-
-            IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
-                                                                                   where record.Date.AddMonths(7) > DateTime.Today
-                                                                                   group record.Amount by record.Date.ToString("yyyy/MM") into monthlyRecords
-                                                                                   orderby monthlyRecords.Key
-                                                                                   select monthlyRecords;
-
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in spendingRecordsByMonth)
-                spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
-
-            ((LineSeries)ChartOverviewLeft.Series[1]).ItemsSource = spendingData;
-        }
-
-        private void LoadSpendingDistributionData()
-        {
-            List<Debit> spendingRecords = debitQuery.ToList();
-
-            List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string spendingCategory in Debit.DebitCategories)
-            {
-                double categoryTotal = (from record in spendingRecords
-                                        where record.Category == spendingCategory && record.Date.AddMonths(7) > DateTime.Today
-                                        select record.Amount).Sum();
-
-                if (categoryTotal > 0)
-                    spendingDistributionData.Add(new KeyValuePair<string, double>(spendingCategory, categoryTotal));
-            }
-            ((PieSeries)ChartOverviewRight.Series[0]).ItemsSource = spendingDistributionData;
+            ComboBoxAddCategory.SelectedIndex = 0;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -148,18 +96,6 @@ namespace Budgeteer_WPF_Files
                     double.Parse(TextBoxAddAmount.Text), TextBoxAddNote.Text);
 
             records.Add(newTransaction);
-        }
-
-        private void RadioButtonCredit_Checked(object sender, RoutedEventArgs e)
-        {
-            ComboBoxAddCategory.ItemsSource = Credit.CreditCategories;
-            ComboBoxAddCategory.SelectedIndex = 0;
-        }
-
-        private void RadioButtonCredit_Unchecked(object sender, RoutedEventArgs e)
-        {
-            ComboBoxAddCategory.ItemsSource = Debit.DebitCategories;
-            ComboBoxAddCategory.SelectedIndex = 0;
         }
     }
 }

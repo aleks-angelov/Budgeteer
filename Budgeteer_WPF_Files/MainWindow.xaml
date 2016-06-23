@@ -21,13 +21,14 @@
                 </TabItem.Header>
             </TabItem>
             <TabItem Header="Overview" Height="146" Margin="0,1,-2,-1">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="#FFE5E5E5" d:IsLocked="True">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="172*" />
-                        <RowDefinition Height="290*" />
-                        <RowDefinition Height="333*" />
+                        <RowDefinition Height="84" />
+                        <RowDefinition Height="307" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="30,53,106,35" Orientation="Horizontal">
+                    <StackPanel Grid.Row="0" Margin="30,10,106,0" Orientation="Horizontal" Height="30"
+                                VerticalAlignment="Top">
                         <Label Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
                         <Separator Opacity="0" Width="31" />
@@ -49,7 +50,8 @@
                                VerticalAlignment="Top" RenderTransformOrigin="0.132,-0.385" Width="180"
                                HorizontalContentAlignment="Center" />
                     </StackPanel>
-                    <StackPanel Grid.Row="0" Margin="30,85,106,3" Orientation="Horizontal">
+                    <StackPanel Grid.Row="0" Margin="30,42,106,0" Orientation="Horizontal" Height="25"
+                                VerticalAlignment="Top">
                         <DatePicker x:Name="DatePickerAdd" HorizontalAlignment="Left" VerticalAlignment="Top"
                                     FirstDayOfWeek="Monday"
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
@@ -76,9 +78,9 @@
                                  Width="180" />
                     </StackPanel>
                     <Button x:Name="ButtonAdd" Grid.Row="0" Content="Add" HorizontalAlignment="Left"
-                            Margin="989,62,0,0"
+                            Margin="989,19,0,0"
                             VerticalAlignment="Top" Width="46" Height="46" Click="ButtonAdd_Click" />
-                    <DataGrid x:Name="DataGridOverview" HorizontalAlignment="Left" Margin="30,13,0,0" Grid.Row="1"
+                    <DataGrid x:Name="DataGridOverview" HorizontalAlignment="Left" Margin="30,19,0,0" Grid.Row="1"
                               VerticalAlignment="Top" Height="270" Width="1005" ItemsSource="{Binding Source=records}"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -93,16 +95,19 @@
                     </DataGrid>
                     <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0"
                                            Grid.Row="2"
-                                           Title="Budget Balance (last 6 months)" VerticalAlignment="Top" Height="290" Width="486"
+                                           Title="Budget Balance (last 6 months)" VerticalAlignment="Top" Height="356"
+                                           Width="486"
                                            SnapsToDevicePixels="True">
-                        <chartingToolkit:LineSeries DependentValuePath="Value"
-                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
-                        <chartingToolkit:LineSeries DependentValuePath="Value"
-                                                    IndependentValuePath="Key" Title="Spending" ItemsSource="{Binding}" />
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value"
+                                                      IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value"
+                                                      IndependentValuePath="Key" Title="Spending"
+                                                      ItemsSource="{Binding}" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0"
                                            Grid.Row="2"
-                                           Title="Spending Distribution (last 6 months)" VerticalAlignment="Top" Height="290"
+                                           Title="Spending Distribution (last 6 months)" VerticalAlignment="Top"
+                                           Height="356"
                                            Width="486">
                         <chartingToolkit:PieSeries Name="SpendingDistribution" DependentValuePath="Value"
                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
@@ -110,7 +115,73 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Spending" Height="146">
-                <Grid Background="#FFE5E5E5" />
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="84" />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,0,0" Orientation="Horizontal" Height="30"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
+                        <Label Content="Person:" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
+                        <Separator Opacity="0" Width="258" />
+                        <Label Content="From:" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,49,0,0" Orientation="Horizontal" Height="25"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
+                        <ComboBox x:Name="ComboBoxAddPerson1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                  Width="150" IsEditable="True" SelectedIndex="0" />
+                        <Separator Opacity="0" Width="258" />
+                        <DatePicker x:Name="DatePickerAdd1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    FirstDayOfWeek="Monday"
+                                    Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,10,0,0" Orientation="Horizontal" Height="30"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
+                        <Label Content="Until:" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
+                        <Separator Opacity="0" Width="261" />
+                        <Label Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="10,49,0,0" Orientation="Horizontal" Height="25"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
+                        <DatePicker x:Name="DatePickerAdd2" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    FirstDayOfWeek="Monday"
+                                    Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Opacity="0" Width="261" />
+                        <ComboBox x:Name="ComboBoxAddPerson2" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                  Width="150" IsEditable="True" SelectedIndex="0" />
+                    </StackPanel>
+                    <chartingToolkit:Chart HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="1"
+                                           Title="Spending by " VerticalAlignment="Top" Height="336" Width="517">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value"
+                                                      IndependentValuePath="Key" Title="Spending"
+                                                      ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="1" Grid.Row="1"
+                                           Title="Spending for " VerticalAlignment="Top" Height="336" Width="517">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value"
+                                                      IndependentValuePath="Key" Title="Spending"
+                                                      ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="0" Grid.Row="2"
+                                           Title="Spending Distribution of " VerticalAlignment="Top" Height="335" Width="517">
+                        <chartingToolkit:PieSeries DependentValuePath="Value"
+                                                   IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Column="1" Grid.Row="2"
+                                           Title="Spending Distribution for " VerticalAlignment="Top" Height="335" Width="517">
+                        <chartingToolkit:PieSeries DependentValuePath="Value"
+                                                   IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
+                    </chartingToolkit:Chart>
+                </Grid>
             </TabItem>
             <TabItem Header="Income" Height="146">
                 <Grid Background="#FFE5E5E5" />
