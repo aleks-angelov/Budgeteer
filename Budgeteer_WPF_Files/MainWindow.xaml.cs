@@ -15,7 +15,33 @@ namespace Budgeteer_WPF_Files
     {
         private static readonly ObservableCollection<Transaction> records = new ObservableCollection<Transaction>
         {
-            new Debit(DateTime.Today, "Aleks Angelov", "Groceries", 10.05, "Lunch and dinner")
+            new Debit(DateTime.Today.AddMonths(-12), "Aleks Angelov", "Groceries", 100.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-11), "Aleks Angelov", "Groceries", 50.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-10), "Aleks Angelov", "Groceries", 40.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-9), "Aleks Angelov", "Groceries", 10.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-8), "Aleks Angelov", "Groceries", 20.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-7), "Aleks Angelov", "Groceries", 30.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-6), "Aleks Angelov", "Groceries", 160.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-5), "Aleks Angelov", "Groceries", 150.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-4), "Aleks Angelov", "Groceries", 140.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-3), "Aleks Angelov", "Groceries", 110.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-2), "Aleks Angelov", "Groceries", 120.05, "Lunch and dinner"),
+            new Debit(DateTime.Today.AddMonths(-1), "Aleks Angelov", "Groceries", 130.05, "Lunch and dinner"),
+            new Debit(DateTime.Today, "Aleks Angelov", "Groceries", 60.05, "Lunch and dinner"),
+
+            new Credit(DateTime.Today.AddMonths(-12), "Aleks Angelov", "Salary", 109.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-11), "Aleks Angelov", "Salary", 58.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-10), "Aleks Angelov", "Salary", 47.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-9), "Aleks Angelov", "Salary", 16.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-8), "Aleks Angelov", "Salary", 25.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-7), "Aleks Angelov", "Salary", 34.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-6), "Aleks Angelov", "Salary", 164.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-5), "Aleks Angelov", "Salary", 155.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-4), "Aleks Angelov", "Salary", 146.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-3), "Aleks Angelov", "Salary", 117.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-2), "Aleks Angelov", "Salary", 128.05, "Lunch and dinner"),
+            new Credit(DateTime.Today.AddMonths(-1), "Aleks Angelov", "Salary", 139.05, "Lunch and dinner"),
+            new Credit(DateTime.Today, "Aleks Angelov", "Salary", 60.05, "Lunch and dinner")
         };
 
         private static readonly IEnumerable<Debit> debitQuery = from record in records
@@ -36,12 +62,13 @@ namespace Budgeteer_WPF_Files
 
         private void RecordsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
+            LoadBudgetBalanceData();
             LoadSpendingDistributionData();
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //LoadBudgetBalanceData();
+            LoadBudgetBalanceData();
             LoadSpendingDistributionData();
         }
 
@@ -55,36 +82,48 @@ namespace Budgeteer_WPF_Files
         private void LoadBudgetBalanceData()
         {
             LoadIncomeData();
-
             LoadSpendingData();
         }
 
         private void LoadIncomeData()
         {
+            List<Credit> incomeRecords = creditQuery.ToList();
+
+            IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
+                group record.Amount by record.Date.ToString("yyyy/MM")
+                into monthlyRecords
+                orderby monthlyRecords.Key
+                select monthlyRecords;
+
+            List<KeyValuePair<string, double>> incomeData = new List<KeyValuePair<string, double>>();
+            foreach (IGrouping<string, double> period in incomeRecordsByMonth)
+                incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
+
+            ((LineSeries) ChartOverviewLeft.Series[0]).ItemsSource = incomeData;
         }
 
         private void LoadSpendingData()
         {
             List<Debit> spendingRecords = debitQuery.ToList();
 
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
-            foreach (string spendingCategory in Debit.DebitCategories)
-            {
-                double categoryTotal = (from record in spendingRecords
-                    where record.Category == spendingCategory
-                    select record.Amount).Sum();
+            IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
+                group record.Amount by record.Date.ToString("yyyy/MM")
+                into monthlyRecords
+                orderby monthlyRecords.Key
+                select monthlyRecords;
 
-                if (categoryTotal > 0)
-                    spendingData.Add(new KeyValuePair<string, double>(spendingCategory, categoryTotal));
-            }
-            ((PieSeries) ChartOverviewRight.Series[0]).ItemsSource = spendingData;
+            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
+            foreach (IGrouping<string, double> period in spendingRecordsByMonth)
+                spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
+
+            ((LineSeries) ChartOverviewLeft.Series[1]).ItemsSource = spendingData;
         }
 
         private void LoadSpendingDistributionData()
         {
             List<Debit> spendingRecords = debitQuery.ToList();
 
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
+            List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
             foreach (string spendingCategory in Debit.DebitCategories)
             {
                 double categoryTotal = (from record in spendingRecords
@@ -92,9 +131,9 @@ namespace Budgeteer_WPF_Files
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)
-                    spendingData.Add(new KeyValuePair<string, double>(spendingCategory, categoryTotal));
+                    spendingDistributionData.Add(new KeyValuePair<string, double>(spendingCategory, categoryTotal));
             }
-            ((PieSeries) ChartOverviewRight.Series[0]).ItemsSource = spendingData;
+            ((PieSeries) ChartOverviewRight.Series[0]).ItemsSource = spendingDistributionData;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)

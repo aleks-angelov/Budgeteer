@@ -25,7 +25,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="172*" />
                         <RowDefinition Height="290*" />
-                        <RowDefinition Height="303*" />
+                        <RowDefinition Height="333*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="30,53,106,35" Orientation="Horizontal">
                         <Label Content="Date:" HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -93,22 +93,19 @@
                     </DataGrid>
                     <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0"
                                            Grid.Row="2"
-                                           Title="Budget Balance" VerticalAlignment="Top" Height="272" Width="486"
+                                           Title="Budget Balance" VerticalAlignment="Top" Height="290" Width="486"
                                            SnapsToDevicePixels="True">
                         <chartingToolkit:LineSeries DependentValuePath="Value"
-                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}"
-                                                    IsSelectionEnabled="True" />
+                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
                         <chartingToolkit:LineSeries DependentValuePath="Value"
-                                                    IndependentValuePath="Key" Title="Spending" ItemsSource="{Binding}"
-                                                    IsSelectionEnabled="True" />
+                                                    IndependentValuePath="Key" Title="Spending" ItemsSource="{Binding}" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0"
                                            Grid.Row="2"
-                                           Title="Spending Distribution" VerticalAlignment="Top" Height="272"
+                                           Title="Spending Distribution" VerticalAlignment="Top" Height="290"
                                            Width="486">
                         <chartingToolkit:PieSeries Name="SpendingDistribution" DependentValuePath="Value"
-                                                   IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}"
-                                                   IsSelectionEnabled="True" />
+                                                   IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}" />
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
