@@ -12,13 +12,13 @@ namespace Budgeteer_WPF_Files
             "Mariya Stancheva"
         };
 
-        protected Transaction(DateTime d, string p, string t, string c, float a, string n = "")
+        protected Transaction(DateTime d, string p, string t, string c, double a, string n = "")
         {
             Date = d;
             Person = p;
             Type = t;
             Category = c;
-            Amount = a;
+            Amount = Math.Round(a, 2);
             Note = n;
         }
 
@@ -26,7 +26,7 @@ namespace Budgeteer_WPF_Files
         public string Person { get; set; }
         public string Type { get; set; }
         public string Category { get; set; }
-        public float Amount { get; set; }
+        public double Amount { get; set; }
         public string Note { get; set; }
     }
 
@@ -49,7 +49,7 @@ namespace Budgeteer_WPF_Files
             "Miscellaneous"
         };
 
-        public Debit(DateTime d, string p, string c, float a, string n = "")
+        public Debit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Debit", c, a, n)
         {
         }
@@ -65,7 +65,7 @@ namespace Budgeteer_WPF_Files
             "Other"
         };
 
-        public Credit(DateTime d, string p, string c, float a, string n = "")
+        public Credit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Credit", c, a, n)
         {
         }

@@ -10,7 +10,7 @@
     x:Class="Budgeteer_WPF_Files.MainWindow"
     mc:Ignorable="d"
     Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen"
-    Background="#FFE5E5E5" ResizeMode="CanMinimize">
+    Background="#FFE5E5E5" ResizeMode="CanMinimize" Loaded="mainWindow_Loaded">
 
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom" Height="30" />
@@ -91,25 +91,28 @@
                             <DataGridTextColumn Header="Note" Binding="{Binding Note}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0" Grid.Row="2"
-                                           Title="Budget Balance" VerticalAlignment="Top" Height="272" Width="486">
-                        <chartingToolkit:Chart.DataContext>
-                            <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
-                        </chartingToolkit:Chart.DataContext>
-                        <chartingToolkit:ColumnSeries DependentValuePath="X" IndependentValuePath="Y"
-                                                      ItemsSource="{Binding}" />
+                    <chartingToolkit:Chart x:Name="ChartOverviewLeft" HorizontalAlignment="Left" Margin="30,19,0,0"
+                                           Grid.Row="2"
+                                           Title="Budget Balance" VerticalAlignment="Top" Height="272" Width="486"
+                                           SnapsToDevicePixels="True">
+                        <chartingToolkit:LineSeries DependentValuePath="Value"
+                                                    IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}"
+                                                    IsSelectionEnabled="True" />
+                        <chartingToolkit:LineSeries DependentValuePath="Value"
+                                                    IndependentValuePath="Key" Title="Spending" ItemsSource="{Binding}"
+                                                    IsSelectionEnabled="True" />
                     </chartingToolkit:Chart>
-                    <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0" Grid.Row="2"
-                                           Title="Spending Distribution" VerticalAlignment="Top" Height="272" Width="486">
-                        <chartingToolkit:Chart.DataContext>
-                            <PointCollection>1,10 2,20 3,30 4,40</PointCollection>
-                        </chartingToolkit:Chart.DataContext>
-                        <chartingToolkit:ColumnSeries DependentValuePath="X" IndependentValuePath="Y"
-                                                      ItemsSource="{Binding}" />
+                    <chartingToolkit:Chart x:Name="ChartOverviewRight" HorizontalAlignment="Left" Margin="549,19,0,0"
+                                           Grid.Row="2"
+                                           Title="Spending Distribution" VerticalAlignment="Top" Height="272"
+                                           Width="486">
+                        <chartingToolkit:PieSeries Name="SpendingDistribution" DependentValuePath="Value"
+                                                   IndependentValuePath="Key" Title="Income" ItemsSource="{Binding}"
+                                                   IsSelectionEnabled="True" />
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Header="Expenditure" Height="146">
+            <TabItem Header="Spending" Height="146">
                 <Grid Background="#FFE5E5E5" />
             </TabItem>
             <TabItem Header="Income" Height="146">
