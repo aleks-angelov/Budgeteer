@@ -14,10 +14,9 @@ namespace Budgeteer_WPF_Files
     /// </summary>
     public partial class MainWindow
     {
-        private static ObservableCollection<Transaction> _records = new ObservableCollection<Transaction>();
+        private static ObservableCollection<Transaction> _records;
 
         private static IEnumerable<Debit> _debitQuery;
-
         private static IEnumerable<Credit> _creditQuery;
 
         private static readonly BinaryFormatter BinFormat = new BinaryFormatter();
@@ -25,8 +24,6 @@ namespace Budgeteer_WPF_Files
         public MainWindow()
         {
             InitializeComponent();
-
-            _records.CollectionChanged += RecordsOnCollectionChanged;
         }
 
         private void RecordsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -44,26 +41,49 @@ namespace Budgeteer_WPF_Files
         private void HomeWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadDataFromBinary();
-            MessageBox.Show($"People: {Transaction.People.Count}\nRecords: {_records.Count}");
+            _records.CollectionChanged += RecordsOnCollectionChanged;
             SetupOverviewTab();
             SetupSpendingTab();
             SetupIncomeTab();
-            //SetupSettingsTab();
         }
 
         private static void LoadDataFromBinary()
         {
-            using (Stream fStream = File.OpenRead("People.bin"))
-                Transaction.People = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+            using (Stream fStream = new FileStream("People.bin",
+                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            {
+                if (fStream.Length > 0)
+                    Transaction.People = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                else
+                    Transaction.People = new ObservableCollection<string>();
+            }
 
-            using (Stream fStream = File.OpenRead("DebitCategories.bin"))
-                Debit.DebitCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+            using (Stream fStream = new FileStream("DebitCategories.bin",
+                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            {
+                if (fStream.Length > 0)
+                    Debit.DebitCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                else
+                    Debit.DebitCategories = new ObservableCollection<string>();
+            }
 
-            using (Stream fStream = File.OpenRead("CreditCategories.bin"))
-                Credit.CreditCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+            using (Stream fStream = new FileStream("CreditCategories.bin",
+                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            {
+                if (fStream.Length > 0)
+                    Credit.CreditCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                else
+                    Credit.CreditCategories = new ObservableCollection<string>();
+            }
 
-            using (Stream fStream = File.OpenRead("Records.bin"))
-                _records = (ObservableCollection<Transaction>) BinFormat.Deserialize(fStream);
+            using (Stream fStream = new FileStream("Records.bin",
+                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            {
+                if (fStream.Length > 0)
+                    _records = (ObservableCollection<Transaction>) BinFormat.Deserialize(fStream);
+                else
+                    _records = new ObservableCollection<Transaction>();
+            }
 
             _debitQuery = from record in _records
                 where record.Type == "Debit"
@@ -120,15 +140,30 @@ namespace Budgeteer_WPF_Files
                 return;
             }
 
+            string person = ComboBoxAddPerson.Text;
+            if (!Transaction.People.Contains(person))
+                Transaction.People.Add(person);
+
             Transaction newTransaction;
             if (RadioButtonDebit.IsChecked == true)
-                newTransaction = new Debit(DatePickerAdd.DisplayDate, ComboBoxAddPerson.Text,
-                    ComboBoxAddCategory.Text,
-                    amount, TextBoxAddNote.Text);
-            else
-                newTransaction = new Credit(DatePickerAdd.DisplayDate, ComboBoxAddPerson.Text, ComboBoxAddCategory.Text,
-                    amount, TextBoxAddNote.Text);
+            {
+                string debitCategory = ComboBoxAddCategory.Text;
+                if (!Debit.DebitCategories.Contains(debitCategory))
+                    Debit.DebitCategories.Add(debitCategory);
 
+                newTransaction = new Debit(DatePickerAdd.DisplayDate, person,
+                    debitCategory,
+                    amount, TextBoxAddNote.Text);
+            }
+            else
+            {
+                string creditCategory = ComboBoxAddCategory.Text;
+                if (!Credit.CreditCategories.Contains(creditCategory))
+                    Credit.CreditCategories.Add(creditCategory);
+
+                newTransaction = new Credit(DatePickerAdd.DisplayDate, person, creditCategory,
+                    amount, TextBoxAddNote.Text);
+            }
             _records.Add(newTransaction);
         }
     }

@@ -20,16 +20,16 @@
             <Setter Property="IsReadOnly" Value="True" />
         </Style>
     </Window.Resources>
-    <DockPanel LastChildFill="True" d:IsLocked="True">
-        <StatusBar Height="30" DockPanel.Dock="Bottom" d:IsLocked="True" />
-        <TabControl x:Name="TabControl" SelectedIndex="1" TabStripPlacement="Left" d:IsLocked="True">
-            <TabItem Width="192" Height="173" Focusable="False" d:IsLocked="True">
+    <DockPanel LastChildFill="True">
+        <StatusBar Height="30" DockPanel.Dock="Bottom" />
+        <TabControl x:Name="TabControl" SelectedIndex="1" TabStripPlacement="Left">
+            <TabItem Width="192" Height="173" Focusable="False">
                 <TabItem.Header>
-                    <Calendar FirstDayOfWeek="Monday" d:IsLocked="True" />
+                    <Calendar FirstDayOfWeek="Monday" />
                 </TabItem.Header>
             </TabItem>
-            <TabItem Height="146" Margin="0,1,-2,-1" Header="Overview" d:IsLocked="True">
-                <Grid Background="#FFE5E5E5" d:IsLocked="True">
+            <TabItem Height="146" Margin="0,1,-2,-1" Header="Overview">
+                <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
                         <RowDefinition Height="307" />
@@ -40,76 +40,76 @@
                         Grid.Row="0"
                         Margin="30,10,106,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Date:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="31" Opacity="0" />
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Person:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="34" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="34" Opacity="0" />
                         <Label
                             Width="104"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Type:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="33" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="33" Opacity="0" />
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Category:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="31" Opacity="0" />
                         <Label
                             Width="90"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Amount:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="25" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="25" Opacity="0" />
                         <Label
                             Width="180"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Note (optional):"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
                     </StackPanel>
                     <StackPanel
                         Height="25"
                         Grid.Row="0"
                         Margin="30,42,106,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <DatePicker
                             x:Name="DatePickerAdd"
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FirstDayOfWeek="Monday"
-                            SelectedDate="{x:Static sys:DateTime.Today}" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="31" Opacity="0" />
                         <ComboBox
                             x:Name="ComboBoxAddPerson"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            SelectedIndex="0" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            SelectedIndex="0" IsEditable="True" />
+                        <Separator Width="31" Opacity="0" />
                         <RadioButton
                             x:Name="RadioButtonDebit"
                             HorizontalAlignment="Left"
@@ -117,8 +117,8 @@
                             VerticalAlignment="Top"
                             Content="Debit"
                             GroupName="EntryType"
-                            IsChecked="True" d:IsLocked="True" />
-                        <Separator Width="10" Opacity="0" d:IsLocked="True" />
+                            IsChecked="True" />
+                        <Separator Width="10" Opacity="0" />
                         <RadioButton
                             x:Name="RadioButtonCredit"
                             HorizontalAlignment="Left"
@@ -127,29 +127,29 @@
                             Checked="RadioButtonCredit_Checked"
                             Content="Credit"
                             GroupName="EntryType"
-                            Unchecked="RadioButtonCredit_Unchecked" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            Unchecked="RadioButtonCredit_Unchecked" />
+                        <Separator Width="31" Opacity="0" />
                         <ComboBox
                             x:Name="ComboBoxAddCategory"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            SelectedIndex="0" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            SelectedIndex="0" IsEditable="True" />
+                        <Separator Width="31" Opacity="0" />
                         <TextBox
                             x:Name="TextBoxAddAmount"
                             Width="90"
                             Height="23"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Top" d:IsLocked="True" />
-                        <Separator Width="31" Opacity="0" d:IsLocked="True" />
+                            VerticalAlignment="Top" />
+                        <Separator Width="31" Opacity="0" />
                         <TextBox
                             x:Name="TextBoxAddNote"
                             Width="180"
                             Height="23"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            SpellCheck.IsEnabled="True" d:IsLocked="True" />
+                            SpellCheck.IsEnabled="True" />
                     </StackPanel>
                     <Button
                         x:Name="ButtonAdd"
@@ -160,7 +160,7 @@
                         Margin="989,19,0,0"
                         VerticalAlignment="Top"
                         Click="ButtonAdd_Click"
-                        Content="Add" d:IsLocked="True" />
+                        Content="Add" />
                     <DataGrid
                         x:Name="DataGridOverview"
                         Width="1005"
@@ -170,18 +170,15 @@
                         Margin="30,19,0,0"
                         VerticalAlignment="Top"
                         AutoGenerateColumns="False"
-                        ItemsSource="{Binding Source=records}" d:IsLocked="True">
+                        ItemsSource="{Binding Source=records}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="0.3*" Binding="{Binding Date, StringFormat=dd/MM/yyyy}"
-                                                Header="Date" d:IsLocked="True" />
-                            <DataGridTextColumn Width="0.8*" Binding="{Binding Person}" Header="Person"
-                                                d:IsLocked="True" />
-                            <DataGridTextColumn Width="0.2*" Binding="{Binding Type}" Header="Type" d:IsLocked="True" />
-                            <DataGridTextColumn Width="0.6*" Binding="{Binding Category}" Header="Category"
-                                                d:IsLocked="True" />
-                            <DataGridTextColumn Width="0.3*" Binding="{Binding Amount}" Header="Amount"
-                                                d:IsLocked="True" />
-                            <DataGridTextColumn Width="*" Binding="{Binding Note}" Header="Note" d:IsLocked="True" />
+                                                Header="Date" />
+                            <DataGridTextColumn Width="0.8*" Binding="{Binding Person}" Header="Person" />
+                            <DataGridTextColumn Width="0.2*" Binding="{Binding Type}" Header="Type" />
+                            <DataGridTextColumn Width="0.6*" Binding="{Binding Category}" Header="Category" />
+                            <DataGridTextColumn Width="0.3*" Binding="{Binding Amount}" Header="Amount" />
+                            <DataGridTextColumn Width="*" Binding="{Binding Note}" Header="Note" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <chartingToolkit:Chart
@@ -193,11 +190,11 @@
                         Margin="30,19,0,0"
                         VerticalAlignment="Top"
                         SnapsToDevicePixels="True"
-                        Title="Budget Balance (last 6 months)" d:IsLocked="True">
+                        Title="Budget Balance (last 6 months)">
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Income" />
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Spending" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Spending" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart
                         x:Name="ChartOverviewRight"
@@ -207,14 +204,14 @@
                         HorizontalAlignment="Left"
                         Margin="549,19,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending Distribution (last 6 months)" d:IsLocked="True">
+                        Title="Spending Distribution (last 6 months)">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                   ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                   ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Height="146" Header="Spending" d:IsLocked="True">
-                <Grid Background="#FFE5E5E5" d:IsLocked="True">
+            <TabItem Height="146" Header="Spending">
+                <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
                         <RowDefinition />
@@ -232,22 +229,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Person:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="From:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -257,22 +254,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,49,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <ComboBox
                             x:Name="ComboBoxSpendingPerson"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             DropDownClosed="ComboBoxSpendingPerson_DropDownClosed"
-                            SelectedIndex="0" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            SelectedIndex="0" />
+                        <Separator Width="262" Opacity="0" />
                         <DatePicker
                             x:Name="DatePickerSpendingFrom"
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FirstDayOfWeek="Monday"
-                            SelectedDate="{x:Static sys:DateTime.Today}" d:IsLocked="True" />
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -282,22 +279,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Until:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Category:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -307,22 +304,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,49,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <DatePicker
                             x:Name="DatePickerSpendingUntil"
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FirstDayOfWeek="Monday"
-                            SelectedDate="{x:Static sys:DateTime.Today}" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="262" Opacity="0" />
                         <ComboBox
                             x:Name="ComboBoxSpendingCategory"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             DropDownClosed="ComboBoxSpendingCategory_DropDownClosed"
-                            SelectedIndex="0" d:IsLocked="True" />
+                            SelectedIndex="0" />
                     </StackPanel>
                     <chartingToolkit:Chart
                         x:Name="ChartSpendingTopLeft"
@@ -333,9 +330,9 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending of " d:IsLocked="True">
+                        Title="Spending of ">
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Spending" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Spending" />
                         <chartingToolkit:Chart.LegendStyle>
                             <Style TargetType="Control">
                                 <Setter Property="Width" Value="0" />
@@ -352,9 +349,9 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending for " d:IsLocked="True">
+                        Title="Spending for ">
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Spending" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Spending" />
                         <chartingToolkit:Chart.LegendStyle>
                             <Style TargetType="Control">
                                 <Setter Property="Width" Value="0" />
@@ -371,9 +368,9 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending Distribution of " d:IsLocked="True">
+                        Title="Spending Distribution of ">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                   ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                   ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart
                         x:Name="ChartSpendingBottomRight"
@@ -384,14 +381,14 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending Distribution for " d:IsLocked="True">
+                        Title="Spending Distribution for ">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                   ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                   ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Height="146" Header="Income" d:IsLocked="True">
-                <Grid Background="#FFE5E5E5" d:IsLocked="True">
+            <TabItem Height="146" Header="Income">
+                <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
                         <RowDefinition />
@@ -409,22 +406,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Person:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="From:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -434,22 +431,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,49,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <ComboBox
                             x:Name="ComboBoxIncomePerson"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             DropDownClosed="ComboBoxIncomePerson_DropDownClosed"
-                            SelectedIndex="0" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            SelectedIndex="0" />
+                        <Separator Width="262" Opacity="0" />
                         <DatePicker
                             x:Name="DatePickerIncomeFrom"
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FirstDayOfWeek="Monday"
-                            SelectedDate="{x:Static sys:DateTime.Today}" d:IsLocked="True" />
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -459,22 +456,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Until:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
                         <Label
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Content="Category:"
                             HorizontalContentAlignment="Center"
-                            RenderTransformOrigin="0.132,-0.385" d:IsLocked="True" />
+                            RenderTransformOrigin="0.132,-0.385" />
                     </StackPanel>
                     <StackPanel
                         Width="517"
@@ -484,22 +481,22 @@
                         HorizontalAlignment="Left"
                         Margin="10,49,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal" d:IsLocked="True">
+                        Orientation="Horizontal">
                         <DatePicker
                             x:Name="DatePickerIncomeUntil"
                             Width="105"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             FirstDayOfWeek="Monday"
-                            SelectedDate="{x:Static sys:DateTime.Today}" d:IsLocked="True" />
-                        <Separator Width="262" Opacity="0" d:IsLocked="True" />
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="262" Opacity="0" />
                         <ComboBox
                             x:Name="ComboBoxIncomeCategory"
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             DropDownClosed="ComboBoxIncomeCategory_DropDownClosed"
-                            SelectedIndex="0" d:IsLocked="True" />
+                            SelectedIndex="0" />
                     </StackPanel>
                     <chartingToolkit:Chart
                         x:Name="ChartIncomeTopLeft"
@@ -510,7 +507,7 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Income of " d:IsLocked="True">
+                        Title="Income of ">
                         <chartingToolkit:Chart.LegendStyle>
                             <Style TargetType="{x:Type Control}">
                                 <Setter Property="Width" Value="0" />
@@ -518,7 +515,7 @@
                             </Style>
                         </chartingToolkit:Chart.LegendStyle>
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Spending" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Spending" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart
                         x:Name="ChartIncomeTopRight"
@@ -529,7 +526,7 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Income from " d:IsLocked="True">
+                        Title="Income from ">
                         <chartingToolkit:Chart.LegendStyle>
                             <Style TargetType="{x:Type Control}">
                                 <Setter Property="Width" Value="0" />
@@ -537,7 +534,7 @@
                             </Style>
                         </chartingToolkit:Chart.LegendStyle>
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                      ItemsSource="{Binding}" Title="Spending" d:IsLocked="True" />
+                                                      ItemsSource="{Binding}" Title="Spending" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart
                         x:Name="ChartIncomeBottomLeft"
@@ -548,9 +545,9 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Income Distribution of " d:IsLocked="True">
+                        Title="Income Distribution of ">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                   ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                   ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                     <chartingToolkit:Chart
                         x:Name="ChartIncomeBottomRight"
@@ -561,14 +558,14 @@
                         HorizontalAlignment="Left"
                         Margin="10,10,0,0"
                         VerticalAlignment="Top"
-                        Title="Income Distribution from " d:IsLocked="True">
+                        Title="Income Distribution from ">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
-                                                   ItemsSource="{Binding}" Title="Income" d:IsLocked="True" />
+                                                   ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Height="176" Header="Settings" d:IsLocked="True">
-                <Grid Background="#FFE5E5E5" d:IsLocked="True" />
+            <TabItem Height="176" Header="Settings">
+                <Grid Background="#FFE5E5E5" />
             </TabItem>
         </TabControl>
     </DockPanel>
