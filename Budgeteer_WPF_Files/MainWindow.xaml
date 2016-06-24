@@ -28,7 +28,7 @@
                     <Calendar FirstDayOfWeek="Monday" />
                 </TabItem.Header>
             </TabItem>
-            <TabItem Height="146" Margin="0,1,-2,-1" Header="Overview">
+            <TabItem Height="205" Header="Overview">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
@@ -210,7 +210,7 @@
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Height="146" Header="Spending">
+            <TabItem Height="204" Header="Spending">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
@@ -387,7 +387,7 @@
                     </chartingToolkit:Chart>
                 </Grid>
             </TabItem>
-            <TabItem Height="146" Header="Income">
+            <TabItem Height="205" Header="Income">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="84" />
@@ -563,9 +563,6 @@
                                                    ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>
                 </Grid>
-            </TabItem>
-            <TabItem Height="176" Header="Settings">
-                <Grid Background="#FFE5E5E5" />
             </TabItem>
         </TabControl>
     </DockPanel>
