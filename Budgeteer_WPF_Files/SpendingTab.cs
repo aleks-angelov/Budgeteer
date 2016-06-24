@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 
 namespace Budgeteer_WPF_Files
@@ -11,9 +12,9 @@ namespace Budgeteer_WPF_Files
         {
             ComboBoxSpendingPerson.ItemsSource = Transaction.People;
             DatePickerSpendingFrom.SelectedDate = DateTime.Today.AddMonths(-12);
-            DatePickerSpendingFrom.SelectedDateChanged += SpendingFilterChanged;
+            DatePickerSpendingFrom.SelectedDateChanged += SpendingDateChanged;
             DatePickerSpendingUntil.SelectedDate = DateTime.Today;
-            DatePickerSpendingUntil.SelectedDateChanged += SpendingFilterChanged;
+            DatePickerSpendingUntil.SelectedDateChanged += SpendingDateChanged;
             ComboBoxSpendingCategory.ItemsSource = Debit.DebitCategories;
 
             ReloadSpendingData();
@@ -21,16 +22,35 @@ namespace Budgeteer_WPF_Files
 
         private void ReloadSpendingData()
         {
+            ReloadPersonSpendingData();
+            ReloadCategorySpendingData();
+        }
+
+        private void ReloadPersonSpendingData()
+        {
             LoadSpendingByData();
             LoadSpendingDistributionOfData();
+        }
 
+        private void ReloadCategorySpendingData()
+        {
             LoadSpendingForData();
             LoadSpendingDistributionForData();
         }
 
-        private void SpendingFilterChanged(object sender, EventArgs e)
+        private void ComboBoxSpendingPerson_DropDownClosed(object sender, EventArgs e)
+        {
+            ReloadPersonSpendingData();
+        }
+
+        private void SpendingDateChanged(object sender, SelectionChangedEventArgs e)
         {
             ReloadSpendingData();
+        }
+
+        private void ComboBoxSpendingCategory_DropDownClosed(object sender, EventArgs e)
+        {
+            ReloadCategorySpendingData();
         }
 
         private void LoadSpendingByData()

@@ -256,7 +256,7 @@
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            DropDownClosed="SpendingFilterChanged"
+                            DropDownClosed="ComboBoxSpendingPerson_DropDownClosed"
                             SelectedIndex="0"/>
                         <Separator Width="262" Opacity="0"/>
                         <DatePicker
@@ -314,7 +314,7 @@
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            DropDownClosed="SpendingFilterChanged"
+                            DropDownClosed="ComboBoxSpendingCategory_DropDownClosed"
                             SelectedIndex="0"/>
                     </StackPanel>
                     <chartingToolkit:Chart
@@ -429,7 +429,7 @@
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            DropDownClosed="IncomeFilterChanged"
+                            DropDownClosed="ComboBoxIncomePerson_DropDownClosed"
                             SelectedIndex="0"/>
                         <Separator Width="262" Opacity="0"/>
                         <DatePicker
@@ -487,7 +487,7 @@
                             Width="150"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            DropDownClosed="IncomeFilterChanged"
+                            DropDownClosed="ComboBoxIncomeCategory_DropDownClosed"
                             SelectedIndex="0"/>
                     </StackPanel>
                     <chartingToolkit:Chart

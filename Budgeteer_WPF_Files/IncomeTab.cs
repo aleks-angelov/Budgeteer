@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 
 namespace Budgeteer_WPF_Files
@@ -11,9 +12,9 @@ namespace Budgeteer_WPF_Files
         {
             ComboBoxIncomePerson.ItemsSource = Transaction.People;
             DatePickerIncomeFrom.SelectedDate = DateTime.Today.AddMonths(-12);
-            DatePickerIncomeFrom.SelectedDateChanged += IncomeFilterChanged;
+            DatePickerIncomeFrom.SelectedDateChanged += IncomeDateChanged;
             DatePickerIncomeUntil.SelectedDate = DateTime.Today;
-            DatePickerIncomeUntil.SelectedDateChanged += IncomeFilterChanged;
+            DatePickerIncomeUntil.SelectedDateChanged += IncomeDateChanged;
             ComboBoxIncomeCategory.ItemsSource = Credit.CreditCategories;
 
             ReloadIncomeData();
@@ -21,16 +22,35 @@ namespace Budgeteer_WPF_Files
 
         private void ReloadIncomeData()
         {
+            ReloadPersonIncomeData();
+            ReloadCategoryIncomeData();
+        }
+
+        private void ReloadPersonIncomeData()
+        {
             LoadIncomeByData();
             LoadIncomeDistributionOfData();
+        }
 
+        private void ReloadCategoryIncomeData()
+        {
             LoadIncomeForData();
             LoadIncomeDistributionForData();
         }
 
-        private void IncomeFilterChanged(object sender, EventArgs e)
+        private void ComboBoxIncomePerson_DropDownClosed(object sender, EventArgs e)
+        {
+            ReloadPersonIncomeData();
+        }
+
+        private void IncomeDateChanged(object sender, SelectionChangedEventArgs e)
         {
             ReloadIncomeData();
+        }
+
+        private void ComboBoxIncomeCategory_DropDownClosed(object sender, EventArgs e)
+        {
+            ReloadCategoryIncomeData();
         }
 
         private void LoadIncomeByData()
