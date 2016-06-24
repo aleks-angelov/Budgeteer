@@ -3,14 +3,10 @@ using System.Collections.ObjectModel;
 
 namespace Budgeteer_WPF_Files
 {
+    [Serializable]
     internal abstract class Transaction
     {
-        public static ObservableCollection<string> People = new ObservableCollection<string>
-        {
-            "Aleks Angelov",
-            "Boris Ruskov",
-            "Mariya Stancheva"
-        };
+        public static ObservableCollection<string> People;
 
         protected Transaction(DateTime d, string p, string t, string c, double a, string n = "")
         {
@@ -30,24 +26,10 @@ namespace Budgeteer_WPF_Files
         public string Note { get; set; }
     }
 
+    [Serializable]
     internal class Debit : Transaction
     {
-        public static ObservableCollection<string> DebitCategories = new ObservableCollection<string>
-        {
-            "Groceries",
-            "Personal Care",
-            "Transportation",
-            "Entertainment",
-            "Restaurants",
-            "Utilities",
-            "Loans",
-            "Rent",
-            "Clothing",
-            "Healthcare",
-            "Travel",
-            "Equipment",
-            "Miscellaneous"
-        };
+        public static ObservableCollection<string> DebitCategories;
 
         public Debit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Debit", c, a, n)
@@ -55,15 +37,10 @@ namespace Budgeteer_WPF_Files
         }
     }
 
+    [Serializable]
     internal class Credit : Transaction
     {
-        public static ObservableCollection<string> CreditCategories = new ObservableCollection<string>
-        {
-            "Salary",
-            "Bonuses",
-            "Dividends",
-            "Other"
-        };
+        public static ObservableCollection<string> CreditCategories;
 
         public Credit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Credit", c, a, n)
