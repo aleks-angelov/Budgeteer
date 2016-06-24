@@ -31,14 +31,14 @@
             <TabItem Height="205" Header="Overview">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="84" />
-                        <RowDefinition Height="307" />
+                        <RowDefinition Height="85" />
+                        <RowDefinition Height="291" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <StackPanel
                         Height="30"
                         Grid.Row="0"
-                        Margin="30,10,106,0"
+                        Margin="30,9,106,0"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
                         <Label
@@ -154,10 +154,10 @@
                     <Button
                         x:Name="ButtonAdd"
                         Width="46"
-                        Height="46"
+                        Height="47"
                         Grid.Row="0"
                         HorizontalAlignment="Left"
-                        Margin="989,19,0,0"
+                        Margin="989,18,0,0"
                         VerticalAlignment="Top"
                         Click="ButtonAdd_Click"
                         Content="Add" />
@@ -167,7 +167,7 @@
                         Height="270"
                         Grid.Row="1"
                         HorizontalAlignment="Left"
-                        Margin="30,19,0,0"
+                        Margin="30,1,0,0"
                         VerticalAlignment="Top"
                         AutoGenerateColumns="False"
                         ItemsSource="{Binding Source=records}">
@@ -184,10 +184,10 @@
                     <chartingToolkit:Chart
                         x:Name="ChartOverviewLeft"
                         Width="486"
-                        Height="356"
+                        Height="369"
                         Grid.Row="2"
                         HorizontalAlignment="Left"
-                        Margin="30,19,0,0"
+                        Margin="30,22,0,0"
                         VerticalAlignment="Top"
                         SnapsToDevicePixels="True"
                         Title="Budget Balance (last 6 months)">
@@ -199,10 +199,10 @@
                     <chartingToolkit:Chart
                         x:Name="ChartOverviewRight"
                         Width="486"
-                        Height="356"
+                        Height="369"
                         Grid.Row="2"
                         HorizontalAlignment="Left"
-                        Margin="549,19,0,0"
+                        Margin="549,22,0,0"
                         VerticalAlignment="Top"
                         Title="Spending Distribution (last 6 months)">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
