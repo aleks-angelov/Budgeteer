@@ -10,9 +10,9 @@ namespace Budgeteer_WPF_Files
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private static readonly ObservableCollection<Transaction> records = new ObservableCollection<Transaction>
+        private static readonly ObservableCollection<Transaction> Records = new ObservableCollection<Transaction>
         {
             new Debit(DateTime.Today.AddMonths(-12), "Aleks Angelov", "Groceries", 100.05, "A"),
             new Debit(DateTime.Today.AddMonths(-11), "Boris Ruskov", "Personal Care", 50.05, "B"),
@@ -42,11 +42,11 @@ namespace Budgeteer_WPF_Files
             new Credit(DateTime.Today, "Boris Ruskov", "Salary", 60.05, "l")
         };
 
-        private static readonly IEnumerable<Debit> debitQuery = from record in records
+        private static readonly IEnumerable<Debit> DebitQuery = from record in Records
             where record.Type == "Debit"
             select record as Debit;
 
-        private static readonly IEnumerable<Credit> creditQuery = from record in records
+        private static readonly IEnumerable<Credit> CreditQuery = from record in Records
             where record.Type == "Credit"
             select record as Credit;
 
@@ -55,7 +55,7 @@ namespace Budgeteer_WPF_Files
         {
             InitializeComponent();
 
-            records.CollectionChanged += RecordsOnCollectionChanged;
+            Records.CollectionChanged += RecordsOnCollectionChanged;
         }
 
         private void RecordsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -93,16 +93,24 @@ namespace Budgeteer_WPF_Files
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
+            double amount;
+            if (!double.TryParse(TextBoxAddAmount.Text, out amount))
+            {
+                MessageBox.Show("Please enter a valid number for the amount.", "Invalid Amount", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
             Transaction newTransaction;
             if (RadioButtonDebit.IsChecked == true)
                 newTransaction = new Debit(DatePickerAdd.DisplayDate, ComboBoxAddPerson.Text,
                     ComboBoxAddCategory.Text,
-                    double.Parse(TextBoxAddAmount.Text), TextBoxAddNote.Text);
+                    amount, TextBoxAddNote.Text);
             else
                 newTransaction = new Credit(DatePickerAdd.DisplayDate, ComboBoxAddPerson.Text, ComboBoxAddCategory.Text,
-                    double.Parse(TextBoxAddAmount.Text), TextBoxAddNote.Text);
+                    amount, TextBoxAddNote.Text);
 
-            records.Add(newTransaction);
+            Records.Add(newTransaction);
         }
     }
 }

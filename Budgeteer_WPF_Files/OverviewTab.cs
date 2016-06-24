@@ -11,7 +11,7 @@ namespace Budgeteer_WPF_Files
         {
             ComboBoxAddPerson.ItemsSource = Transaction.People;
             ComboBoxAddCategory.ItemsSource = Debit.DebitCategories;
-            DataGridOverview.ItemsSource = records;
+            DataGridOverview.ItemsSource = Records;
 
             ReloadOverviewData();
         }
@@ -25,7 +25,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadIncomeData()
         {
-            List<Credit> incomeRecords = creditQuery.ToList();
+            List<Credit> incomeRecords = CreditQuery.ToList();
 
             IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
                 where record.Date.AddMonths(7) > DateTime.Today
@@ -43,7 +43,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
                 where record.Date.AddMonths(7) > DateTime.Today
@@ -61,7 +61,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingDistributionData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
             foreach (string spendingCategory in Debit.DebitCategories)

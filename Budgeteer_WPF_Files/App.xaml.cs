@@ -1,11 +1,9 @@
-﻿using System.Windows;
-
-namespace Budgeteer_WPF_Files
+﻿namespace Budgeteer_WPF_Files
 {
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
     }
 }

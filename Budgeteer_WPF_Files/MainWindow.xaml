@@ -3,14 +3,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Budgeteer_WPF_Files"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-    x:Name="mainWindow"
+    x:Name="HomeWindow"
     x:Class="Budgeteer_WPF_Files.MainWindow"
     mc:Ignorable="d"
     Title="Budgeteer - Your Family Budget Tracker" Height="860" Width="1280" WindowStartupLocation="CenterScreen"
     Background="#FFE5E5E5" ResizeMode="CanMinimize" Loaded="mainWindow_Loaded">
+
+    <Window.Resources>
+        <Style TargetType="DatePickerTextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+    </Window.Resources>
 
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom" Height="30" />
@@ -57,7 +62,7 @@
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
                         <Separator Opacity="0" Width="31" />
                         <ComboBox x:Name="ComboBoxAddPerson" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0" />
+                                  Width="150" SelectedIndex="0" />
                         <Separator Opacity="0" Width="31" />
                         <RadioButton x:Name="RadioButtonDebit" Content="Debit" HorizontalAlignment="Left"
                                      VerticalAlignment="Top" IsChecked="True" GroupName="EntryType" Margin="0,5,0,0" />
@@ -68,14 +73,14 @@
                                      Unchecked="RadioButtonCredit_Unchecked" />
                         <Separator Opacity="0" Width="31" />
                         <ComboBox x:Name="ComboBoxAddCategory" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0" />
+                                  Width="150" SelectedIndex="0" />
                         <Separator Opacity="0" Width="31" />
                         <TextBox x:Name="TextBoxAddAmount" HorizontalAlignment="Left" Height="23"
                                  VerticalAlignment="Top"
                                  Width="90" />
                         <Separator Opacity="0" Width="31" />
                         <TextBox x:Name="TextBoxAddNote" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top"
-                                 Width="180" />
+                                 Width="180" SpellCheck.IsEnabled="True" />
                     </StackPanel>
                     <Button x:Name="ButtonAdd" Grid.Row="0" Content="Add" HorizontalAlignment="Left"
                             Margin="989,19,0,0"
@@ -129,16 +134,16 @@
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <Label Content="Person:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
-                        <Separator Opacity="0" Width="258" />
+                        <Separator Opacity="0" Width="262" />
                         <Label Content="From:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
                     </StackPanel>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,49,0,0" Orientation="Horizontal" Height="25"
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <ComboBox x:Name="ComboBoxSpendingPerson" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0"
+                                  Width="150" SelectedIndex="0"
                                   DropDownClosed="SpendingFilterChanged" />
-                        <Separator Opacity="0" Width="258" />
+                        <Separator Opacity="0" Width="262" />
                         <DatePicker x:Name="DatePickerSpendingFrom" HorizontalAlignment="Left" VerticalAlignment="Top"
                                     FirstDayOfWeek="Monday"
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
@@ -147,7 +152,7 @@
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <Label Content="Until:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
-                        <Separator Opacity="0" Width="261" />
+                        <Separator Opacity="0" Width="262" />
                         <Label Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
                     </StackPanel>
@@ -156,9 +161,9 @@
                         <DatePicker x:Name="DatePickerSpendingUntil" HorizontalAlignment="Left" VerticalAlignment="Top"
                                     FirstDayOfWeek="Monday"
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
-                        <Separator Opacity="0" Width="261" />
+                        <Separator Opacity="0" Width="262" />
                         <ComboBox x:Name="ComboBoxSpendingCategory" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0"
+                                  Width="150" SelectedIndex="0"
                                   DropDownClosed="SpendingFilterChanged" />
                     </StackPanel>
                     <chartingToolkit:Chart x:Name="ChartSpendingTopLeft" HorizontalAlignment="Left" Margin="10,10,0,0"
@@ -218,15 +223,15 @@
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <Label Content="Person:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
-                        <Separator Opacity="0" Width="258" />
+                        <Separator Opacity="0" Width="262" />
                         <Label Content="From:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
                     </StackPanel>
                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,49,0,0" Orientation="Horizontal" Height="25"
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <ComboBox x:Name="ComboBoxIncomePerson" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0" DropDownClosed="IncomeFilterChanged" />
-                        <Separator Opacity="0" Width="258" />
+                                  Width="150" SelectedIndex="0" DropDownClosed="IncomeFilterChanged" />
+                        <Separator Opacity="0" Width="262" />
                         <DatePicker x:Name="DatePickerIncomeFrom" HorizontalAlignment="Left" VerticalAlignment="Top"
                                     FirstDayOfWeek="Monday"
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
@@ -235,7 +240,7 @@
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="517">
                         <Label Content="Until:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="105" HorizontalContentAlignment="Center" />
-                        <Separator Opacity="0" Width="261" />
+                        <Separator Opacity="0" Width="262" />
                         <Label Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top"
                                RenderTransformOrigin="0.132,-0.385" Width="150" HorizontalContentAlignment="Center" />
                     </StackPanel>
@@ -244,9 +249,9 @@
                         <DatePicker x:Name="DatePickerIncomeUntil" HorizontalAlignment="Left" VerticalAlignment="Top"
                                     FirstDayOfWeek="Monday"
                                     Width="105" SelectedDate="{x:Static sys:DateTime.Today}" />
-                        <Separator Opacity="0" Width="261" />
+                        <Separator Opacity="0" Width="262" />
                         <ComboBox x:Name="ComboBoxIncomeCategory" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Width="150" IsEditable="True" SelectedIndex="0" DropDownClosed="IncomeFilterChanged" />
+                                  Width="150" SelectedIndex="0" DropDownClosed="IncomeFilterChanged" />
                     </StackPanel>
                     <chartingToolkit:Chart x:Name="ChartIncomeTopLeft" HorizontalAlignment="Left" Margin="10,10,0,0"
                                            Grid.Column="0" Grid.Row="1"

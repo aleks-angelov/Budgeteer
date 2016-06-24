@@ -35,7 +35,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingByData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
                 where
@@ -56,7 +56,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingDistributionOfData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
             foreach (string spendingCategory in Debit.DebitCategories)
@@ -77,7 +77,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingForData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
                 where
@@ -99,7 +99,7 @@ namespace Budgeteer_WPF_Files
 
         private void LoadSpendingDistributionForData()
         {
-            List<Debit> spendingRecords = debitQuery.ToList();
+            List<Debit> spendingRecords = DebitQuery.ToList();
 
             List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
             foreach (string spendingPerson in Transaction.People)
