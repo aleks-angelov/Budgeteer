@@ -7,9 +7,9 @@ using System.Windows;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Budgeteer_WPF_Files")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Your Family Budget Tracker")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Aleks Angelov")]
 [assembly: AssemblyProduct("Budgeteer_WPF_Files")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

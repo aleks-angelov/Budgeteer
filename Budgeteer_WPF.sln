@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budgeteer_WPF_Files", "Budgeteer_WPF_Files\Budgeteer_WPF_Files.csproj", "{38A7CBD9-FCA1-4771-B251-68B39F39565E}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Budgeteer_WPF_Files_Setup", "Budgeteer_WPF_Files_Setup\Budgeteer_WPF_Files_Setup.vdproj", "{2D88B6BC-A5EC-4A70-AD01-59F30B90287A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{38A7CBD9-FCA1-4771-B251-68B39F39565E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38A7CBD9-FCA1-4771-B251-68B39F39565E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38A7CBD9-FCA1-4771-B251-68B39F39565E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D88B6BC-A5EC-4A70-AD01-59F30B90287A}.Debug|Any CPU.ActiveCfg = Debug
+		{2D88B6BC-A5EC-4A70-AD01-59F30B90287A}.Debug|Any CPU.Build.0 = Debug
+		{2D88B6BC-A5EC-4A70-AD01-59F30B90287A}.Release|Any CPU.ActiveCfg = Release
+		{2D88B6BC-A5EC-4A70-AD01-59F30B90287A}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
