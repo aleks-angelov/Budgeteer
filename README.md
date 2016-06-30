@@ -1,4 +1,4 @@
-# Budgeteer 1.0 - Your Family Budget Tracker (WPF/Files)
+# Budgeteer 1.0 - Your Family Budget Tracker - WPF / Files
 
 ### Overview:
 ![Overview](http://i.imgur.com/nwNYyCL.png)
