@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 
-namespace Budgeteer_WPF_Files
+namespace Budgeteer
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -142,14 +142,44 @@ namespace Budgeteer_WPF_Files
 
             string person = ComboBoxAddPerson.Text;
             if (!Transaction.People.Contains(person))
-                Transaction.People.Add(person);
+            {
+                bool wasInserted = false;
+                for (int i = 0; i < Transaction.People.Count; i++)
+                {
+                    if (string.Compare(person, Transaction.People[i], StringComparison.OrdinalIgnoreCase) <= 0)
+                    {
+                        Transaction.People.Insert(i, person);
+                        wasInserted = true;
+                        break;
+                    }
+                }
+
+                if (!wasInserted)
+                    Transaction.People.Add(person);
+            }
 
             Transaction newTransaction;
             if (RadioButtonDebit.IsChecked == true)
             {
                 string debitCategory = ComboBoxAddCategory.Text;
                 if (!Debit.DebitCategories.Contains(debitCategory))
-                    Debit.DebitCategories.Add(debitCategory);
+                {
+                    bool wasInserted = false;
+                    for (int i = 0; i < Debit.DebitCategories.Count; i++)
+                    {
+                        if (
+                            string.Compare(debitCategory, Debit.DebitCategories[i], StringComparison.OrdinalIgnoreCase) <=
+                            0)
+                        {
+                            Debit.DebitCategories.Insert(i, debitCategory);
+                            wasInserted = true;
+                            break;
+                        }
+                    }
+
+                    if (!wasInserted)
+                        Debit.DebitCategories.Add(debitCategory);
+                }
 
                 newTransaction = new Debit(DatePickerAdd.SelectedDate.Value, person,
                     debitCategory,
@@ -159,7 +189,22 @@ namespace Budgeteer_WPF_Files
             {
                 string creditCategory = ComboBoxAddCategory.Text;
                 if (!Credit.CreditCategories.Contains(creditCategory))
-                    Credit.CreditCategories.Add(creditCategory);
+                {
+                    bool wasInserted = false;
+                    for (int i = 0; i < Credit.CreditCategories.Count; i++)
+                    {
+                        if (string.Compare(creditCategory, Credit.CreditCategories[i],
+                            StringComparison.OrdinalIgnoreCase) <= 0)
+                        {
+                            Credit.CreditCategories.Insert(i, creditCategory);
+                            wasInserted = true;
+                            break;
+                        }
+                    }
+
+                    if (!wasInserted)
+                        Credit.CreditCategories.Add(creditCategory);
+                }
 
                 newTransaction = new Credit(DatePickerAdd.SelectedDate.Value, person, creditCategory,
                     amount, TextBoxAddNote.Text);

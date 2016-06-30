@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Budgeteer_WPF_Files
+namespace Budgeteer
 {
     [Serializable]
     internal abstract class Transaction

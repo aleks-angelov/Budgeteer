@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls.DataVisualization.Charting;
 
-namespace Budgeteer_WPF_Files
+namespace Budgeteer
 {
     public partial class MainWindow
     {

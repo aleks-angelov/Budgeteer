@@ -1,4 +1,4 @@
-﻿namespace Budgeteer_WPF_Files
+﻿namespace Budgeteer
 {
     /// <summary>
     ///     Interaction logic for App.xaml

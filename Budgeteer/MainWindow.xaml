@@ -1,6 +1,6 @@
 ﻿<Window
     x:Name="HomeWindow"
-    x:Class="Budgeteer_WPF_Files.MainWindow"
+    x:Class="Budgeteer.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -168,7 +168,7 @@
                         Margin="30,1,0,0"
                         VerticalAlignment="Top"
                         AutoGenerateColumns="False"
-                        ItemsSource="{Binding Source=records}">
+                        ItemsSource="{Binding Source=records}" IsReadOnly="True" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="0.3*" Binding="{Binding Date, StringFormat=dd/MM/yyyy}"
                                                 Header="Date" />
