@@ -151,7 +151,7 @@ namespace Budgeteer_WPF_Files
                 if (!Debit.DebitCategories.Contains(debitCategory))
                     Debit.DebitCategories.Add(debitCategory);
 
-                newTransaction = new Debit(DatePickerAdd.DisplayDate, person,
+                newTransaction = new Debit(DatePickerAdd.SelectedDate.Value, person,
                     debitCategory,
                     amount, TextBoxAddNote.Text);
             }
@@ -161,7 +161,7 @@ namespace Budgeteer_WPF_Files
                 if (!Credit.CreditCategories.Contains(creditCategory))
                     Credit.CreditCategories.Add(creditCategory);
 
-                newTransaction = new Credit(DatePickerAdd.DisplayDate, person, creditCategory,
+                newTransaction = new Credit(DatePickerAdd.SelectedDate.Value, person, creditCategory,
                     amount, TextBoxAddNote.Text);
             }
             _records.Add(newTransaction);

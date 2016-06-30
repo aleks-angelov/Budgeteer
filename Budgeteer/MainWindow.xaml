@@ -11,9 +11,8 @@
     Height="830"
     Background="#FFE5E5E5"
     Loaded="HomeWindow_Loaded"
-    ResizeMode="CanMinimize"
     Title="Budgeteer - Your Family Budget Tracker"
-    WindowStartupLocation="CenterScreen"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d" Closed="HomeWindow_Closed">
     <Window.Resources>
         <Style TargetType="DatePickerTextBox">
@@ -37,9 +36,9 @@
                     <StackPanel
                         Height="30"
                         Grid.Row="0"
-                        Margin="30,9,106,0"
+                        Margin="30,9,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal" HorizontalAlignment="Left" Width="937">
                         <Label
                             Width="105"
                             HorizontalAlignment="Left"
@@ -91,9 +90,9 @@
                     <StackPanel
                         Height="25"
                         Grid.Row="0"
-                        Margin="30,42,106,0"
+                        Margin="30,42,0,0"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal" HorizontalAlignment="Left" Width="937">
                         <DatePicker
                             x:Name="DatePickerAdd"
                             Width="105"
@@ -144,7 +143,7 @@
                         <Separator Width="31" Opacity="0" />
                         <TextBox
                             x:Name="TextBoxAddNote"
-                            Width="180"
+                            Width="169"
                             Height="23"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"

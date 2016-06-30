@@ -6,11 +6,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Budgeteer_WPF_Files")]
+[assembly: AssemblyTitle("Budgeteer")]
 [assembly: AssemblyDescription("Your Family Budget Tracker")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aleks Angelov")]
-[assembly: AssemblyProduct("Budgeteer_WPF_Files")]
+[assembly: AssemblyProduct("Budgeteer")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
