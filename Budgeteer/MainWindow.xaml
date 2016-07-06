@@ -12,7 +12,7 @@
     Background="#FFE5E5E5"
     Loaded="HomeWindow_Loaded"
     Title="Budgeteer - Your Family Budget Tracker"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d" Closed="HomeWindow_Closed">
     <Window.Resources>
         <Style TargetType="DatePickerTextBox">
