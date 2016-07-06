@@ -144,14 +144,16 @@ namespace Budgeteer
             if (!Transaction.People.Contains(person))
             {
                 bool wasInserted = false;
-                for (int i = 0; i < Transaction.People.Count; i++)
+                int pos = 0;
+                while (pos < Transaction.People.Count)
                 {
-                    if (string.Compare(person, Transaction.People[i], StringComparison.OrdinalIgnoreCase) <= 0)
+                    if (string.Compare(person, Transaction.People[pos], StringComparison.OrdinalIgnoreCase) <= 0)
                     {
-                        Transaction.People.Insert(i, person);
+                        Transaction.People.Insert(pos, person);
                         wasInserted = true;
                         break;
                     }
+                    pos++;
                 }
 
                 if (!wasInserted)
@@ -165,16 +167,18 @@ namespace Budgeteer
                 if (!Debit.DebitCategories.Contains(debitCategory))
                 {
                     bool wasInserted = false;
-                    for (int i = 0; i < Debit.DebitCategories.Count; i++)
+                    int pos = 0;
+                    while (pos < Debit.DebitCategories.Count)
                     {
                         if (
-                            string.Compare(debitCategory, Debit.DebitCategories[i], StringComparison.OrdinalIgnoreCase) <=
+                            string.Compare(debitCategory, Debit.DebitCategories[pos], StringComparison.OrdinalIgnoreCase) <=
                             0)
                         {
-                            Debit.DebitCategories.Insert(i, debitCategory);
+                            Debit.DebitCategories.Insert(pos, debitCategory);
                             wasInserted = true;
                             break;
                         }
+                        pos++;
                     }
 
                     if (!wasInserted)
@@ -191,15 +195,17 @@ namespace Budgeteer
                 if (!Credit.CreditCategories.Contains(creditCategory))
                 {
                     bool wasInserted = false;
-                    for (int i = 0; i < Credit.CreditCategories.Count; i++)
+                    int pos = 0;
+                    while (pos < Credit.CreditCategories.Count)
                     {
-                        if (string.Compare(creditCategory, Credit.CreditCategories[i],
+                        if (string.Compare(creditCategory, Credit.CreditCategories[pos],
                             StringComparison.OrdinalIgnoreCase) <= 0)
                         {
-                            Credit.CreditCategories.Insert(i, creditCategory);
+                            Credit.CreditCategories.Insert(pos, creditCategory);
                             wasInserted = true;
                             break;
                         }
+                        pos++;
                     }
 
                     if (!wasInserted)
@@ -210,6 +216,8 @@ namespace Budgeteer
                     amount, TextBoxAddNote.Text);
             }
             _records.Add(newTransaction);
+            TextBoxAddAmount.Clear();
+            TextBoxAddNote.Clear();
         }
     }
 }

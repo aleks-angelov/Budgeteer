@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls.DataVisualization.Charting;
+using System.Windows.Data;
 
 namespace Budgeteer
 {
@@ -14,6 +16,7 @@ namespace Budgeteer
             DataGridOverview.ItemsSource = _records;
 
             ReloadOverviewData();
+            SortDataGridByDate();
         }
 
         private void ReloadOverviewData()
@@ -74,6 +77,14 @@ namespace Budgeteer
                     spendingDistributionData.Add(new KeyValuePair<string, double>(spendingCategory, categoryTotal));
             }
             ((PieSeries) ChartOverviewRight.Series[0]).ItemsSource = spendingDistributionData;
+        }
+
+        private void SortDataGridByDate()
+        {
+            ICollectionView gridData = CollectionViewSource.GetDefaultView(DataGridOverview.ItemsSource);
+            gridData.SortDescriptions.Clear();
+            gridData.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+            DataGridOverview.Columns[0].SortDirection = ListSortDirection.Descending;
         }
     }
 }
