@@ -2,7 +2,7 @@
 {
     public class Type
     {
-        public int TypeID;
-        public string Name;
+        public int TypeID { get; set; }
+        public string Name { get; set; }
     }
 }
