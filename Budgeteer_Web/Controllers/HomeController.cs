@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Budgeteer_Web.Models;
 
 namespace Budgeteer_Web.Controllers
 {
@@ -10,6 +11,12 @@ namespace Budgeteer_Web.Controllers
     {
         public ActionResult Index()
         {
+            //ApplicationDbContext ctx = new ApplicationDbContext();
+
+            //TransType t = new TransType() {Name="debit"};
+            //ctx.TransTypes.Add(t);
+            //ctx.SaveChanges();
+
             return View();
         }
 

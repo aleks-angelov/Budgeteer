@@ -66,7 +66,7 @@ namespace Budgeteer_Web.Models
     {
         [Required]
         [Display(Name = "Name")]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
