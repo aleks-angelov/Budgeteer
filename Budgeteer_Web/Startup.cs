@@ -1,9 +1,7 @@
-﻿using Budgeteer_Web;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(Startup))]
-
+[assembly: OwinStartupAttribute(typeof(Budgeteer_Web.Startup))]
 namespace Budgeteer_Web
 {
     public partial class Startup

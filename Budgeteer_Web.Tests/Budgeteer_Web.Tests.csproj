@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0B7240F3-9D4E-4A41-830C-A25730E88E37}</ProjectGuid>
+    <ProjectGuid>{9AD7F8B6-E41E-44BA-8B2B-99E78C73B05E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Budgeteer_Web.Tests</RootNamespace>
@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Budgeteer_Web\Budgeteer_Web.csproj">
-      <Project>{62C1935D-B407-42CD-9740-3B87B50AE932}</Project>
+      <Project>{D4AD3EF3-73C3-4992-ACDD-15503BABDDA2}</Project>
       <Name>Budgeteer_Web</Name>
     </ProjectReference>
   </ItemGroup>
