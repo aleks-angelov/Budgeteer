@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Budgeteer_Web.Models
 {
-    public abstract class Transaction
+    public class Transaction
     {
         public int TransactionID { get; set; }
 
@@ -12,8 +12,8 @@ namespace Budgeteer_Web.Models
         public string Note { get; set; }
 
         [ForeignKey("Person")]
-        public int UserID { get; set; }
-        
+        public string UserID { get; set; }
+
         public virtual ApplicationUser Person { get; set; }
 
         public int TypeID { get; set; }
