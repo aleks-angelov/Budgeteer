@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Budgeteer_Web.Models;
 
@@ -9,6 +7,8 @@ namespace Budgeteer_Web.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ApplicationDbContext _context = ApplicationDbContext.Create();
+
         public ActionResult Index()
         {
             return View();
@@ -17,24 +17,18 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            ApplicationDbContext ctx = ApplicationDbContext.Create();
-
-            return View(ctx.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
+            return View(_context.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
         }
 
         [Authorize]
         public ActionResult Spending()
         {
-            
-
             return View();
         }
 
         [Authorize]
         public ActionResult Income()
         {
-
-
             return View();
         }
 
@@ -42,17 +36,32 @@ namespace Budgeteer_Web.Controllers
         [ChildActionOnly]
         public ActionResult AddTransaction()
         {
-            return PartialView(new TransactionViewModel());
+            return PartialView();
         }
 
         [Authorize]
         [ChildActionOnly]
         [HttpPost]
-        public ActionResult AddTransaction(TransactionViewModel trans)
+        public ActionResult AddTransaction(FormCollection formCol)
         {
+            string personName = formCol["person"];
+            string typeName = formCol["transtype"];
+            string categoryName = formCol["category"];
 
+            Transaction newTransaction = new Transaction
+            {
+                Date = DateTime.Parse(formCol["date"]),
+                Amount = double.Parse(formCol["amount"]),
+                Note = formCol["note"],
+                Person = _context.Users.First(u => u.Name == personName),
+                Type = _context.TransTypes.First(t => t.Name == typeName),
+                Category = _context.Categories.First(c => c.Name == categoryName)
+            };
+            
+            _context.Transactions.Add(newTransaction);
+            _context.SaveChanges();
 
-            return PartialView(trans);
+            return RedirectToAction("Overview");
         }
     }
 }
