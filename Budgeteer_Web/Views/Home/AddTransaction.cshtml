@@ -1,0 +1,50 @@
+﻿@model Budgeteer_Web.Models.TransactionViewModel
+
+<form class="form-inline" role="form">
+    <div class="form-group margin-right-10" style="width: 154px">
+        <label for="date">Date:</label>
+        <input type="date" class="form-control" id="date">
+    </div>
+
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="person">Person:</label>
+        <select class="form-control" id="person">
+            <option>Aleks Angelov</option>
+            <option>Boris Ruskov</option>
+            <option>Mariya Stancheva</option>
+        </select>
+    </div>
+
+    <div class="form-group margin-right-10" style="width: 151px">
+        <label for="transtypes">Type:</label>
+        <div class="form-control" id="transtypes">
+            <label class="radio-inline">
+                <input type="radio" name="transtype" id="type1" checked>Debit
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="transtype">Credit
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="category">Category:</label>
+        <select class="form-control" id="category">
+            <option>Food</option>
+            <option>Personal Care</option>
+            <option>Utilities</option>
+        </select>
+    </div>
+
+    <div class="form-group margin-right-10" style="width: 137px">
+        <label for="amount">Amount:</label>
+        <input type="text" class="form-control" id="amount">
+    </div>
+
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="note">Note:</label>
+        <input type="text" class="form-control" id="note">
+    </div>
+
+    <button type="submit" class="btn btn-default" style="height: 59px; width: 59px">Add</button>
+</form>

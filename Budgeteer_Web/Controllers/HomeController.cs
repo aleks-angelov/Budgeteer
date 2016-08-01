@@ -11,27 +11,48 @@ namespace Budgeteer_Web.Controllers
     {
         public ActionResult Index()
         {
-            //ApplicationDbContext ctx = new ApplicationDbContext();
+            return View();
+        }
 
-            //TransType t = new TransType() {Name="debit"};
-            //ctx.TransTypes.Add(t);
-            //ctx.SaveChanges();
+        [Authorize]
+        public ActionResult Overview()
+        {
+            ApplicationDbContext ctx = ApplicationDbContext.Create();
+
+            return View(ctx.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
+        }
+
+        [Authorize]
+        public ActionResult Spending()
+        {
+            
 
             return View();
         }
 
-        public ActionResult About()
+        [Authorize]
+        public ActionResult Income()
         {
-            ViewBag.Message = "Your application description page.";
+
 
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize]
+        [ChildActionOnly]
+        public ActionResult AddTransaction()
         {
-            ViewBag.Message = "Your contact page.";
+            return PartialView(new TransactionViewModel());
+        }
 
-            return View();
+        [Authorize]
+        [ChildActionOnly]
+        [HttpPost]
+        public ActionResult AddTransaction(TransactionViewModel trans)
+        {
+
+
+            return PartialView(trans);
         }
     }
 }
