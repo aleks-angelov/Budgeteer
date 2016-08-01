@@ -1,51 +1,43 @@
-﻿@using (Html.BeginForm())
+﻿@model Budgeteer_Web.Models.TransactionViewModel
+
+@using (Html.BeginForm("AddTransaction", "Home", FormMethod.Post, new { @class = "form-inline", role = "form" }))
 {
-    <form class="form-inline" role="form">
-        <div class="form-group margin-right-10" style="width: 154px">
-            <label for="date">Date:</label>
-            <input type="date" class="form-control" id="date" name="date">
-        </div>
+    <div class="form-group margin-right-10" style="width: 154px">
+        <label for="date">Date:</label>
+        @Html.TextBoxFor(tvm => tvm.Date, new { type = "date", @class = "form-control", id = "date" })
+    </div>
 
-        <div class="form-group margin-right-10" style="width: 185px">
-            <label for="person">Person:</label>
-            <select class="form-control" id="person" name="person">
-                <option>Aleks Angelov</option>
-                <option>Boris Ruskov</option>
-                <option>Mariya Stancheva</option>
-            </select>
-        </div>
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="person">Person:</label>
+        @Html.DropDownListFor(tvm => tvm.PersonName, Model.Users, new { @class = "form-control", id = "person" })
+    </div>
 
-        <div class="form-group margin-right-10" style="width: 151px">
-            <label for="transtypes">Type:</label>
-            <div class="form-control" id="transtypes">
-                <label class="radio-inline">
-                    <input type="radio" name="transtype" value="Debit" checked>Debit
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="transtype" value="Credit">Credit
-                </label>
-            </div>
+    <div class="form-group margin-right-10" style="width: 151px">
+        <label for="transtypes">Type:</label>
+        <div class="form-control" id="transtypes">
+            <label class="radio-inline">
+                <input type="radio" name="transtype" value="Debit" checked>Debit
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="transtype" value="Credit">Credit
+            </label>
         </div>
+    </div>
 
-        <div class="form-group margin-right-10" style="width: 185px">
-            <label for="category">Category:</label>
-            <select class="form-control" id="category" name="category">
-                <option>Food</option>
-                <option>Personal Care</option>
-                <option>Utilities</option>
-            </select>
-        </div>
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="category">Category:</label>
+        @Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "category" })
+    </div>
 
-        <div class="form-group margin-right-10" style="width: 137px">
-            <label for="amount">Amount:</label>
-            <input type="text" class="form-control" id="amount" name="amount">
-        </div>
+    <div class="form-group margin-right-10" style="width: 137px">
+        <label for="amount">Amount:</label>
+        @Html.TextBoxFor(tvm => tvm.Amount, new { type = "text", @class = "form-control", id = "amount" })
+    </div>
 
-        <div class="form-group margin-right-10" style="width: 185px">
-            <label for="note">Note:</label>
-            <input type="text" class="form-control" id="note" name="note">
-        </div>
+    <div class="form-group margin-right-10" style="width: 185px">
+        <label for="note">Note:</label>
+        @Html.TextBoxFor(tvm => tvm.Note, new {type = "text", @class = "form-control", id = "note"})
+    </div>
 
-        <button type="submit" class="btn btn-default" style="height: 59px; width: 59px">Add</button>
-    </form>
+    <button type="submit" class="btn btn-default" style="height: 59px; width: 59px">Add</button>
 }

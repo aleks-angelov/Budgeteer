@@ -7,7 +7,7 @@ namespace Budgeteer_Web.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly ApplicationDbContext _context = ApplicationDbContext.Create();
+        private static readonly ApplicationDbContext Context = ApplicationDbContext.Create();
 
         public ActionResult Index()
         {
@@ -17,7 +17,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            return View(_context.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
+            return View(Context.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
         }
 
         [Authorize]
@@ -36,7 +36,7 @@ namespace Budgeteer_Web.Controllers
         [ChildActionOnly]
         public ActionResult AddTransaction()
         {
-            return PartialView();
+            return PartialView(new TransactionViewModel());
         }
 
         [Authorize]
@@ -53,15 +53,15 @@ namespace Budgeteer_Web.Controllers
                 Date = DateTime.Parse(formCol["date"]),
                 Amount = double.Parse(formCol["amount"]),
                 Note = formCol["note"],
-                Person = _context.Users.First(u => u.Name == personName),
-                Type = _context.TransTypes.First(t => t.Name == typeName),
-                Category = _context.Categories.First(c => c.Name == categoryName)
+                Person = Context.Users.First(u => u.Name == personName),
+                Type = Context.TransTypes.First(t => t.Name == typeName),
+                Category = Context.Categories.First(c => c.Name == categoryName)
             };
             
-            _context.Transactions.Add(newTransaction);
-            _context.SaveChanges();
+            Context.Transactions.Add(newTransaction);
+            Context.SaveChanges();
 
-            return RedirectToAction("Overview");
+            return View("Overview");
         }
     }
 }
