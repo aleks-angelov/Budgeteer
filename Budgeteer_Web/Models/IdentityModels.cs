@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Budgeteer_Web.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
+
+        public virtual ICollection<Category> Categories { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

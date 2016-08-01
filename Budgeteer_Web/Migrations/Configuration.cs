@@ -1,18 +1,16 @@
+using System.Data.Entity.Migrations;
+using Budgeteer_Web.Models;
+
 namespace Budgeteer_Web.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<Budgeteer_Web.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Budgeteer_Web.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -26,9 +24,6 @@ namespace Budgeteer_Web.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-
-
         }
     }
 }

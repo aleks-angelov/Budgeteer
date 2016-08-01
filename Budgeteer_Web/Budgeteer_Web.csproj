@@ -189,6 +189,14 @@
     <Compile Include="Migrations\201607291335337_SeedInitialData.Designer.cs">
       <DependentUpon>201607291335337_SeedInitialData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608010733421_ChangedModel.cs" />
+    <Compile Include="Migrations\201608010733421_ChangedModel.Designer.cs">
+      <DependentUpon>201608010733421_ChangedModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608010801571_ImprovedModel.cs" />
+    <Compile Include="Migrations\201608010801571_ImprovedModel.Designer.cs">
+      <DependentUpon>201608010801571_ImprovedModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -278,6 +286,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607291335337_SeedInitialData.resx">
       <DependentUpon>201607291335337_SeedInitialData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608010733421_ChangedModel.resx">
+      <DependentUpon>201608010733421_ChangedModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608010801571_ImprovedModel.resx">
+      <DependentUpon>201608010801571_ImprovedModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

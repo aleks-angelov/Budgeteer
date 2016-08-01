@@ -28,6 +28,6 @@ namespace Budgeteer_Web.Models
 
         public int? CategoryID { get; set; }
 
-        public virtual Category Catergory { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
