@@ -35,7 +35,7 @@ namespace Budgeteer_Web.Controllers
             Context.Transactions.Add(newTransaction);
             Context.SaveChanges();
 
-            return View();
+            return RedirectToAction("ListTransactions");
         }
 
         [Authorize]
@@ -67,7 +67,6 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        [ChildActionOnly]
         public ActionResult ListTransactions()
         {
             return PartialView(Context.Transactions.ToList());

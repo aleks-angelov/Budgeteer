@@ -1,11 +1,6 @@
 ﻿@model Budgeteer_Web.Models.TransactionViewModel
 
 <script type="text/javascript">
-    function clickEvent() {
-        alert("Button clicked!");
-        $("#CategoryName").html("<option value=\"Food\">Food</option>");
-    }
-
     function addCategories(data) {
         var target = $("#CategoryName");
         target.empty();
@@ -40,7 +35,6 @@
     <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.CategoryName, "Category:")
         <select class="form-control valid" data-val="true" data-val-required="The CategoryName field is required." id="CategoryName" name="CategoryName" aria-required="true" aria-describedby="CategoryName-error" aria-invalid="false"></select>
-        @*@Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })*@
     </div>
 
     <div class="form-group margin-right-10">
