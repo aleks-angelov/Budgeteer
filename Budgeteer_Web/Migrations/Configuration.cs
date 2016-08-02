@@ -70,16 +70,6 @@ namespace Budgeteer_Web.Migrations
 
             context.SaveChanges();
 
-            // TransTypes
-
-            context.TransTypes.AddOrUpdate(
-                t => t.Name,
-                new TransType { Name = "Debit" },
-                new TransType { Name = "Credit" }
-                );
-
-            context.SaveChanges();
-
             // Categories
 
             context.Categories.AddOrUpdate(
@@ -87,7 +77,7 @@ namespace Budgeteer_Web.Migrations
                 new Category
                 {
                     Name = "Food",
-                    TransType = context.TransTypes.First(t => t.Name == "Debit"),
+                    IsDebit = true,
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu")
@@ -96,7 +86,7 @@ namespace Budgeteer_Web.Migrations
                 new Category
                 {
                     Name = "Personal Care",
-                    TransType = context.TransTypes.First(t => t.Name == "Debit"),
+                    IsDebit = true,
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu")
@@ -104,8 +94,8 @@ namespace Budgeteer_Web.Migrations
                 },
                 new Category
                 {
-                    Name = "Utilities",
-                    TransType = context.TransTypes.First(t => t.Name == "Debit"),
+                    Name = "Wage",
+                    IsDebit = false,
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu")
@@ -122,17 +112,14 @@ namespace Budgeteer_Web.Migrations
                 {
                     Date = DateTime.Now,
                     Amount = 4.0,
-                    Note = "lunch",
                     Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                    Type = context.TransTypes.First(t => t.Name == "Debit"),
-                    Category = context.Categories.First(c => c.Name == "Food")
+                    Category = context.Categories.First(c => c.Name == "Wage")
                 },
                 new Transaction
                 {
                     Date = DateTime.Now.AddDays(-1),
                     Amount = 2.0,
                     Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                    Type = context.TransTypes.First(t => t.Name == "Debit"),
                     Category = context.Categories.First(c => c.Name == "Food")
                 },
                 new Transaction
@@ -141,7 +128,6 @@ namespace Budgeteer_Web.Migrations
                     Amount = 1.0,
                     Note = "soap",
                     Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                    Type = context.TransTypes.First(t => t.Name == "Debit"),
                     Category = context.Categories.First(c => c.Name == "Personal Care")
                 });
 

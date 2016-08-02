@@ -41,7 +41,7 @@ namespace Budgeteer_Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public RedirectToRouteResult AddTransaction(TransactionViewModel tvm)
+        public ActionResult AddTransaction(TransactionViewModel tvm)
         {
             Transaction newTransaction = new Transaction
             {
@@ -49,10 +49,8 @@ namespace Budgeteer_Web.Controllers
                 Amount = tvm.Amount,
                 Note = tvm.Note,
                 Person = Context.Users.First(u => u.Name == tvm.PersonName),
-                Type = Context.TransTypes.First(t => t.Name == "Debit"),
                 Category = Context.Categories.First(c => c.Name == tvm.CategoryName)
             };
-
             
             Context.Transactions.Add(newTransaction);
             Context.SaveChanges();

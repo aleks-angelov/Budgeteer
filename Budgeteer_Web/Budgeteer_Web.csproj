@@ -197,6 +197,14 @@
     <Compile Include="Migrations\201608010801571_ImprovedModel.Designer.cs">
       <DependentUpon>201608010801571_ImprovedModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608020818480_RemovedTransType.cs" />
+    <Compile Include="Migrations\201608020818480_RemovedTransType.Designer.cs">
+      <DependentUpon>201608020818480_RemovedTransType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608020932126_ModelChange.cs" />
+    <Compile Include="Migrations\201608020932126_ModelChange.Designer.cs">
+      <DependentUpon>201608020932126_ModelChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -204,7 +212,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
-    <Compile Include="Models\TransType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -295,6 +302,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608010801571_ImprovedModel.resx">
       <DependentUpon>201608010801571_ImprovedModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608020818480_RemovedTransType.resx">
+      <DependentUpon>201608020818480_RemovedTransType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608020932126_ModelChange.resx">
+      <DependentUpon>201608020932126_ModelChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

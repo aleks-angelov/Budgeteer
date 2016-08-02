@@ -13,13 +13,13 @@
     </div>
 
     <div class="form-group margin-right-10" style="width: 151px">
-        @Html.LabelFor(tvm => tvm.IsDebit, "Type:")
-        <div class="form-control">
+        <label for="transtype">Type:</label>
+        <div class="form-control" id="transtype">
             <label class="radio-inline">
-                @Html.RadioButtonFor(tvm => tvm.IsDebit, "Debit", new { id = "IsDebit", name = "transtype", @checked = "" })Debit
+                <input type="radio" name="isDebit" value="Debit" checked>Debit
             </label>
             <label class="radio-inline">
-                <input type="radio" name="IsDebit" value="Credit">Credit
+                <input type="radio" name="isDebit" value="Credit">Credit
             </label>
         </div>
     </div>
