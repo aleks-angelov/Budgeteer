@@ -1,43 +1,57 @@
 ﻿@model Budgeteer_Web.Models.TransactionViewModel
 
-@using (Html.BeginForm("AddTransaction", "Home", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+<script type="text/javascript">
+    function clickEvent() {
+        alert("Button clicked!");
+        $("#CategoryName").html("<option value=\"Food\">Food</option>");
+    }
+
+    function addCategories(data) {
+        var target = $("#CategoryName");
+        target.empty();
+        for (var i = 0; i < data.length; i++) {
+            var category = data[i];
+            target.append("<option value=\"" + category.catName + "\">" + category.catName + "</option>");
+        }
+    }
+</script>
+
+@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody" }, new { @class = "form-inline", role = "form" }))
 {
-    <div class="form-group margin-right-10" style="width: 154px">
+    <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Date, "Date:")
         @Html.TextBoxFor(tvm => tvm.Date, new { type = "date", @class = "form-control", id = "Date" })
     </div>
 
-    <div class="form-group margin-right-10" style="width: 185px">
+    <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.PersonName, "Person:")
         @Html.DropDownListFor(tvm => tvm.PersonName, Model.Users, new { @class = "form-control", id = "PersonName" })
     </div>
 
-    <div class="form-group margin-right-10" style="width: 151px">
+    <div class="form-group margin-right-10">
         <label for="transtype">Type:</label>
         <div class="form-control" id="transtype">
-            <label class="radio-inline">
-                <input type="radio" name="isDebit" value="Debit" checked>Debit
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="isDebit" value="Credit">Credit
-            </label>
+            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("AddTransaction", new { debit = true }), OnSuccess = "addCategories" })
+
+            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("AddTransaction", new { debit = false }), OnSuccess = "addCategories" })
         </div>
     </div>
 
-    <div class="form-group margin-right-10" style="width: 185px">
+    <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.CategoryName, "Category:")
-        @Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })
+        <select class="form-control valid" data-val="true" data-val-required="The CategoryName field is required." id="CategoryName" name="CategoryName" aria-required="true" aria-describedby="CategoryName-error" aria-invalid="false"></select>
+        @*@Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })*@
     </div>
 
-    <div class="form-group margin-right-10" style="width: 137px">
+    <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Amount, "Amount:")
         @Html.TextBoxFor(tvm => tvm.Amount, new { type = "text", @class = "form-control", id = "Amount" })
     </div>
 
-    <div class="form-group margin-right-10" style="width: 185px">
+    <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Note, "Note:")
         @Html.TextBoxFor(tvm => tvm.Note, new { type = "text", @class = "form-control", id = "Note" })
     </div>
 
-    <button type="submit" class="btn btn-default" style="height: 59px; width: 59px">Add</button>
+    <button type="submit" class="btn btn-default">Add</button>
 }

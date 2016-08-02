@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Budgeteer_Web.Models;
 
@@ -17,7 +16,26 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            return View(Context.Transactions.ToList());
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Overview(TransactionViewModel tvm)
+        {
+            Transaction newTransaction = new Transaction
+            {
+                Date = tvm.Date,
+                Amount = tvm.Amount,
+                Note = tvm.Note,
+                Person = Context.Users.First(u => u.Name == tvm.PersonName),
+                Category = Context.Categories.First(c => c.Name == tvm.CategoryName)
+            };
+
+            Context.Transactions.Add(newTransaction);
+            Context.SaveChanges();
+
+            return View();
         }
 
         [Authorize]
@@ -33,29 +51,26 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        [ChildActionOnly]
-        public ActionResult AddTransaction()
+        public ActionResult AddTransaction(bool debit = true)
         {
+            if (Request.IsAjaxRequest())
+            {
+                var data =
+                    Context.Categories.Where(c => c.IsDebit == debit).Select(c => new
+                    {
+                        catName = c.Name
+                    });
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
             return PartialView(new TransactionViewModel());
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult AddTransaction(TransactionViewModel tvm)
+        [ChildActionOnly]
+        public ActionResult ListTransactions()
         {
-            Transaction newTransaction = new Transaction
-            {
-                Date = tvm.Date,
-                Amount = tvm.Amount,
-                Note = tvm.Note,
-                Person = Context.Users.First(u => u.Name == tvm.PersonName),
-                Category = Context.Categories.First(c => c.Name == tvm.CategoryName)
-            };
-            
-            Context.Transactions.Add(newTransaction);
-            Context.SaveChanges();
-
-            return RedirectToRoute(new {controller="Home", action="Overview"});
+            return PartialView(Context.Transactions.ToList());
         }
     }
 }
