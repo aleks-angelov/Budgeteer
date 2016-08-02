@@ -17,7 +17,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            return View(Context.Transactions.Where(t => t.Person.Email == "aia131@aubg.edu").ToList());
+            return View(Context.Transactions.ToList());
         }
 
         [Authorize]
@@ -40,28 +40,24 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        [ChildActionOnly]
         [HttpPost]
-        public ActionResult AddTransaction(FormCollection formCol)
+        public RedirectToRouteResult AddTransaction(TransactionViewModel tvm)
         {
-            string personName = formCol["person"];
-            string typeName = formCol["transtype"];
-            string categoryName = formCol["category"];
-
             Transaction newTransaction = new Transaction
             {
-                Date = DateTime.Parse(formCol["date"]),
-                Amount = double.Parse(formCol["amount"]),
-                Note = formCol["note"],
-                Person = Context.Users.First(u => u.Name == personName),
-                Type = Context.TransTypes.First(t => t.Name == typeName),
-                Category = Context.Categories.First(c => c.Name == categoryName)
+                Date = tvm.Date,
+                Amount = tvm.Amount,
+                Note = tvm.Note,
+                Person = Context.Users.First(u => u.Name == tvm.PersonName),
+                Type = Context.TransTypes.First(t => t.Name == "Debit"),
+                Category = Context.Categories.First(c => c.Name == tvm.CategoryName)
             };
+
             
             Context.Transactions.Add(newTransaction);
             Context.SaveChanges();
 
-            return View("Overview");
+            return RedirectToRoute(new {controller="Home", action="Overview"});
         }
     }
 }
