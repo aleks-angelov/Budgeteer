@@ -26,9 +26,9 @@
     <div class="form-group margin-right-10">
         <label for="transtype">Type:</label>
         <div class="form-control" id="transtype">
-            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("AddTransaction", new { debit = true }), OnSuccess = "addCategories" })
+            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = true }), OnSuccess = "addCategories" })
 
-            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("AddTransaction", new { debit = false }), OnSuccess = "addCategories" })
+            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = false }), OnSuccess = "addCategories" })
         </div>
     </div>
 

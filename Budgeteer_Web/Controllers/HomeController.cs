@@ -51,19 +51,17 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        public ActionResult AddTransaction(bool debit = true)
+        public ActionResult AddTransaction()
         {
-            if (Request.IsAjaxRequest())
-            {
-                var data =
-                    Context.Categories.Where(c => c.IsDebit == debit).Select(c => new
-                    {
-                        catName = c.Name
-                    });
-
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
             return PartialView(new TransactionViewModel());
+        }
+
+        [Authorize]
+        public JsonResult GetCategoryNames(bool debit = true)
+        {
+            var data = Context.Categories.Where(c => c.IsDebit == debit).Select(c => new { catName = c.Name });
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
