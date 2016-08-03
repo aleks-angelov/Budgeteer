@@ -9,9 +9,17 @@
             target.append("<option value=\"" + category.catName + "\">" + category.catName + "</option>");
         }
     }
+
+    function updateCharts() {
+        var target1 = $("#OverviewLeftChart");
+        target1.prop("src", "/Home/DisplayChart?ct=Column&tt=Both&f=02%2F03%2F2016%2000%3A00%3A00&u=08%2F03%2F2016%2000%3A00%3A00&br=" + new Date().getTime());
+
+        var target2 = $("#OverviewRightChart");
+        target2.attr("src", "/Home/DisplayChart?ct=Pie&tt=Debit&f=02%2F03%2F2016%2000%3A00%3A00&u=08%2F03%2F2016%2000%3A00%3A00&br=" + new Date().getTime());
+    }
 </script>
 
-@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody" }, new { @class = "form-inline", role = "form" }))
+@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateCharts"}, new { @class = "form-inline", role = "form" }))
 {
     <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Date, "Date:")

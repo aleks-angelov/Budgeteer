@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Budgeteer_Web.Infrastructure;
@@ -8,8 +9,6 @@ namespace Budgeteer_Web.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly ApplicationDbContext Context = ApplicationDbContext.Create();
-
         public ActionResult Index()
         {
             return View();
@@ -25,17 +24,18 @@ namespace Budgeteer_Web.Controllers
         [HttpPost]
         public ActionResult Overview(TransactionViewModel tvm)
         {
+            ApplicationDbContext context = new ApplicationDbContext();
             Transaction newTransaction = new Transaction
             {
                 Date = tvm.Date,
                 Amount = tvm.Amount,
                 Note = tvm.Note,
-                Person = Context.Users.First(u => u.Name == tvm.PersonName),
-                Category = Context.Categories.First(c => c.Name == tvm.CategoryName)
+                Person = context.Users.First(u => u.Name == tvm.PersonName),
+                Category = context.Categories.First(c => c.Name == tvm.CategoryName)
             };
 
-            Context.Transactions.Add(newTransaction);
-            Context.SaveChanges();
+            context.Transactions.Add(newTransaction);
+            context.SaveChanges();
 
             return RedirectToAction("ListTransactions");
         }
@@ -62,7 +62,8 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public JsonResult GetCategoryNames(bool debit = true)
         {
-            var data = Context.Categories.Where(c => c.IsDebit == debit).Select(c => new { catName = c.Name });
+            ApplicationDbContext context = new ApplicationDbContext();
+            var data = context.Categories.Where(c => c.IsDebit == debit).Select(c => new { catName = c.Name });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -70,13 +71,26 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult ListTransactions()
         {
-            return PartialView(Context.Transactions.ToList());
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            return PartialView(context.Transactions.ToList());
         }
 
         [Authorize]
-        public ActionResult DisplayChart(ChartFactoryOptions options)
+        public ActionResult DisplayChart(string ct, string tt, DateTime f, DateTime u, string br, string cn = null,
+            string pn = null)
         {
-            Chart chart = ChartFactory.CreateChart(options, Context);
+            ChartFactoryOptions opts = new ChartFactoryOptions
+            {
+                ChartType = ct,
+                TransactionType = tt,
+                From = f,
+                Until = u,
+                CategoryName = cn,
+                PersonName = pn
+            };
+
+            Chart chart = ChartFactory.CreateChart(opts);
 
             return File(chart.GetBytes(), "image/bytes");
         }

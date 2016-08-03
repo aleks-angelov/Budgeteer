@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Budgeteer_Web.Models
@@ -11,11 +9,12 @@ namespace Budgeteer_Web.Models
     {
         public TransactionViewModel()
         {
-            ApplicationDbContext context = ApplicationDbContext.Create();
-
-            Users = new List<SelectListItem>();
-            foreach (ApplicationUser user in context.Users)
-                Users.Add(new SelectListItem { Text = user.Name, Value = user.Name });
+            using (ApplicationDbContext context = ApplicationDbContext.Create())
+            {
+                Users = new List<SelectListItem>();
+                foreach (ApplicationUser user in context.Users)
+                    Users.Add(new SelectListItem { Text = user.Name, Value = user.Name });
+            }
         }
 
         public int TransactionID { get; set; }
