@@ -1,4 +1,4 @@
-﻿@model Budgeteer_Web.Models.ChartViewModel
+﻿@using Budgeteer_Web.Infrastructure
 
 @{
     ViewBag.Title = "Overview";
@@ -27,5 +27,7 @@
 </div>
 
 <div>
-    <img src="@Url.Action("DisplayCharts")" alt="Chart" />
+    <img src="@Url.Action("DisplayChart", new {options = new ChartFactoryOptions {IsColumn = true, Type = TransactionType.Both, From = DateTime.Today.AddMonths(-6), Until = DateTime.Today, CategoryName = null, PersonName = null}})" alt="Budget Balance (last 6 months)"/>
+
+    <img src="@Url.Action("DisplayChart", new { options = new ChartFactoryOptions { IsColumn = false, Type = TransactionType.Debit, From = DateTime.Today.AddMonths(-6), Until = DateTime.Today, CategoryName = null, PersonName = null } })" alt="Spending Distribution (last 6 months)" />
 </div>

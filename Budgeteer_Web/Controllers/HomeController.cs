@@ -1,7 +1,7 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Budgeteer_Web.Infrastructure;
 using Budgeteer_Web.Models;
 
 namespace Budgeteer_Web.Controllers
@@ -74,23 +74,11 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayCharts()
+        public ActionResult DisplayChart(ChartFactoryOptions options)
         {
-            Chart chart = GetChart();
+            Chart chart = ChartFactory.CreateChart(options, Context);
 
             return File(chart.GetBytes(), "image/bytes");
-        }
-
-        private Chart GetChart()
-        {
-            return new Chart(600, 400, ChartTheme.Blue)
-                .AddTitle("Number of website readers")
-                .AddLegend()
-                .AddSeries(
-                    "WebSite",
-                    "Pie",
-                    xValue: new[] { "Digg", "DZone", "DotNetKicks", "StumbleUpon" },
-                    yValues: new[] { "150000", "180000", "120000", "250000" });
         }
     }
 }
