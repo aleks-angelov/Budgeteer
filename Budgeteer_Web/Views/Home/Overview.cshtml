@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Budgeteer_Web.Models.ChartViewModel
+
+@{
     ViewBag.Title = "Overview";
 }
 
@@ -22,4 +24,8 @@
             @Html.Action("ListTransactions")
         </tbody>
     </table>
+</div>
+
+<div>
+    <img src="@Url.Action("DisplayCharts")" alt="Chart" />
 </div>

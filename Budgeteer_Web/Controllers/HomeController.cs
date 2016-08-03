@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Budgeteer_Web.Models;
 
@@ -51,6 +53,7 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
+        [ChildActionOnly]
         public ActionResult AddTransaction()
         {
             return PartialView(new TransactionViewModel());
@@ -68,6 +71,26 @@ namespace Budgeteer_Web.Controllers
         public ActionResult ListTransactions()
         {
             return PartialView(Context.Transactions.ToList());
+        }
+
+        [Authorize]
+        public ActionResult DisplayCharts()
+        {
+            Chart chart = GetChart();
+
+            return File(chart.GetBytes(), "image/bytes");
+        }
+
+        private Chart GetChart()
+        {
+            return new Chart(600, 400, ChartTheme.Blue)
+                .AddTitle("Number of website readers")
+                .AddLegend()
+                .AddSeries(
+                    "WebSite",
+                    "Pie",
+                    xValue: new[] { "Digg", "DZone", "DotNetKicks", "StumbleUpon" },
+                    yValues: new[] { "150000", "180000", "120000", "250000" });
         }
     }
 }
