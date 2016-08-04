@@ -6,7 +6,7 @@
 
 @Html.Action("AddTransaction")
 
-<div class="table-responsive" style="margin-top: 20px">
+<div class="table-responsive" style="margin-top: 30px">
     <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
             <tr>
@@ -24,7 +24,7 @@
     </table>
 </div>
 
-<div>
+<div style="margin-top: 6px">
     <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {chartName = "OverviewLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today})" alt="Budget Balance (last 6 months)" />
 
     <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {chartName = "OverviewRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today })" alt="Spending Distribution (last 6 months)" />

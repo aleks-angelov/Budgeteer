@@ -35,15 +35,15 @@ namespace Budgeteer_Web.Migrations
             UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
             UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
 
-            if (!context.Users.Any(u => u.Email == "aia131@aubg.edu"))
+            if (!context.Users.Any(u => u.Email == "mariya.stancheva@abv.bg"))
             {
-                ApplicationUser seedUser1 = new ApplicationUser
+                ApplicationUser seedUser3 = new ApplicationUser
                 {
-                    Name = "Aleks Angelov",
-                    Email = "aia131@aubg.edu",
-                    UserName = "aia131@aubg.edu"
+                    Name = "Mariya Stancheva",
+                    Email = "mariya.stancheva@abv.bg",
+                    UserName = "mariya.stancheva@abv.bg"
                 };
-                userManager.Create(seedUser1, "Password1");
+                userManager.Create(seedUser3, "Password3");
             }
 
             if (!context.Users.Any(u => u.Email == "boris_ruskov@gmail.com"))
@@ -57,17 +57,17 @@ namespace Budgeteer_Web.Migrations
                 userManager.Create(seedUser2, "Password2");
             }
 
-            if (!context.Users.Any(u => u.Email == "mariya.stancheva@abv.bg"))
+            if (!context.Users.Any(u => u.Email == "aia131@aubg.edu"))
             {
-                ApplicationUser seedUser3 = new ApplicationUser
+                ApplicationUser seedUser1 = new ApplicationUser
                 {
-                    Name = "Mariya Stancheva",
-                    Email = "mariya.stancheva@abv.bg",
-                    UserName = "mariya.stancheva@abv.bg"
+                    Name = "Aleks Angelov",
+                    Email = "aia131@aubg.edu",
+                    UserName = "aia131@aubg.edu"
                 };
-                userManager.Create(seedUser3, "Password3");
+                userManager.Create(seedUser1, "Password1");
             }
-
+            
             context.SaveChanges();
 
             // Categories
