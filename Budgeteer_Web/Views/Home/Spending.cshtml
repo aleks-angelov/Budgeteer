@@ -41,7 +41,7 @@
 
     <div class="form-group margin-right-10">
         @Html.LabelFor(svm => svm.CategoryName, "Category:")
-        @Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })
+        @Html.DropDownListFor(svm => svm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })
     </div>
 
     <button type="submit" class="btn btn-default">Submit</button>
