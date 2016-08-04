@@ -43,13 +43,27 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Spending()
         {
-            return View();
+            return View(new SpendingAndIncomeViewModel());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Spending(SpendingAndIncomeViewModel svm)
+        {
+            return View(svm);
         }
 
         [Authorize]
         public ActionResult Income()
         {
-            return View();
+            return View(new SpendingAndIncomeViewModel());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Income(SpendingAndIncomeViewModel ivm)
+        {
+            return View(ivm);
         }
 
         [Authorize]
@@ -60,7 +74,7 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        public JsonResult GetCategoryNames(bool debit = true)
+        public JsonResult GetCategoryNames(bool debit)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             var data = context.Categories.Where(c => c.IsDebit == debit).Select(c => new { catName = c.Name });

@@ -10,16 +10,16 @@
         }
     }
 
-    function updateCharts() {
+    function updateOverviewCharts() {
         var target1 = $("#OverviewLeftChart");
         target1.prop("src", "/Home/DisplayChart?name=OverviewLeftChart&br=" + new Date().getTime());
 
         var target2 = $("#OverviewRightChart");
-        target2.attr("src", "/Home/DisplayChart?name=OverviewRightChart&br=" + new Date().getTime());
+        target2.prop("src", "/Home/DisplayChart?name=OverviewRightChart&br=" + new Date().getTime());
     }
 </script>
 
-@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateCharts"}, new { @class = "form-inline", role = "form" }))
+@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts"}, new { @class = "form-inline", role = "form" }))
 {
     <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Date, "Date:")

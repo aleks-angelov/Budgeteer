@@ -1,9 +1,53 @@
-﻿
+﻿@model Budgeteer_Web.Models.SpendingAndIncomeViewModel
+
 @{
     ViewBag.Title = "Spending";
 }
 
+<script type="text/javascript">
+    function updateSpendingCharts() {
+        alert("Form success!");
+
+        var target1 = $("#SpendingTopLeftChart");
+        target1.prop("src", "/Home/DisplayChart?name=SpendingTopLeftChart&br=" + new Date().getTime());
+
+        var target2 = $("#SpendingBottomLeftChart");
+        target2.prop("src", "/Home/DisplayChart?name=SpendingBottomLeftChart&br=" + new Date().getTime());
+
+        var target3 = $("#SpendingTopRightChart");
+        target3.prop("src", "/Home/DisplayChart?name=SpendingTopRightChart&br=" + new Date().getTime());
+
+        var target4 = $("#SpendingBottomRightChart");
+        target4.prop("src", "/Home/DisplayChart?name=SpendingBottomRightChart&br=" + new Date().getTime());
+    }
+</script>
+
 <h2>@ViewBag.Title</h2>
+
+@using (Ajax.BeginForm("Spending", "Home", null, new AjaxOptions { OnSuccess = "updateSpendingCharts" }, new { @class = "form-inline", role = "form" }))
+{
+    <div class="form-group margin-right-10">
+        @Html.LabelFor(svm => svm.PersonName, "Person:")
+        @Html.DropDownListFor(svm => svm.PersonName, Model.Users, new { @class = "form-control", id = "PersonName" })
+    </div>
+
+    <div class="form-group margin-right-10">
+        @Html.LabelFor(svm => svm.DateFrom, "From:")
+        @Html.TextBoxFor(svm => svm.DateFrom, new { type = "date", @class = "form-control", id = "DateFrom" })
+    </div>
+
+    <div class="form-group margin-right-10">
+        @Html.LabelFor(svm => svm.DateUntil, "Until:")
+        @Html.TextBoxFor(svm => svm.DateUntil, new { type = "date", @class = "form-control", id = "DateUntil" })
+    </div>
+
+    <div class="form-group margin-right-10">
+        @Html.LabelFor(svm => svm.CategoryName, "Category:")
+        @Html.DropDownListFor(tvm => tvm.CategoryName, Model.Categories, new { @class = "form-control", id = "CategoryName" })
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+}
 
 <div>
     <img id="SpendingTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Spending of"/>
