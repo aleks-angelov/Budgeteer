@@ -77,22 +77,11 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayChart(string ct, string tt, DateTime f, DateTime u, string br, string cn = null,
-            string pn = null)
+        public ActionResult DisplayChart(string name, string br)
         {
-            ChartFactoryOptions opts = new ChartFactoryOptions
-            {
-                ChartType = ct,
-                TransactionType = tt,
-                From = f,
-                Until = u,
-                CategoryName = cn,
-                PersonName = pn
-            };
+            Chart chart = ChartFactory.CreateChart(name);
 
-            Chart chart = ChartFactory.CreateChart(opts);
-
-            return File(chart.GetBytes(), "image/bytes");
+            return File(chart.GetBytes(), "image/png");
         }
     }
 }
