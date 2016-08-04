@@ -77,9 +77,9 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        public ActionResult DisplayChart(string name, string br)
+        public ActionResult DisplayChart(string chartName, string br, DateTime dateFrom, DateTime dateUntil, string personName = null, string categoryName = null)
         {
-            Chart chart = ChartFactory.CreateChart(name);
+            Chart chart = ChartFactory.CreateChart(chartName, dateFrom, dateUntil, personName, categoryName);
 
             return File(chart.GetBytes(), "image/png");
         }

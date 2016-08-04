@@ -5,14 +5,14 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div style="float: left">
-    <img id="SpendingTopLeftChart" src="@Url.Action("DisplayChart", new {name = "SpendingTopLeftChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending of"/>
+<div>
+    <img id="SpendingTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Spending of"/>
 
-    <img id="SpendingTopRightChart" src="@Url.Action("DisplayChart", new {name = "SpendingTopRightChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending for" />
+    <img id="SpendingTopRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food"})" alt="Spending for" />
 </div>
 
-<div style="float: right">
-    <img id="SpendingBottomLeftChart" src="@Url.Action("DisplayChart", new {name = "SpendingBottomLeftChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution of" />
+<div>
+    <img id="SpendingBottomLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Spending Distribution of" />
 
-    <img id="SpendingBottomRightChart" src="@Url.Action("DisplayChart", new {name = "SpendingBottomRightChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution for" />
+    <img id="SpendingBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food"})" alt="Spending Distribution for" />
 </div>

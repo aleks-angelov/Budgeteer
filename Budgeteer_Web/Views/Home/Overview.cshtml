@@ -25,7 +25,7 @@
 </div>
 
 <div>
-    <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {name = "OverviewLeftChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Budget Balance (last 6 months)" />
+    <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {chartName = "OverviewLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today})" alt="Budget Balance (last 6 months)" />
 
-    <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {name = "OverviewRightChart", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution (last 6 months)" />
+    <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {chartName = "OverviewRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today })" alt="Spending Distribution (last 6 months)" />
 </div>
