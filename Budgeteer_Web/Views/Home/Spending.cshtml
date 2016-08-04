@@ -48,13 +48,13 @@
 }
 
 <div style="margin-top: 26px">
-    <img id="SpendingTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Spending of"/>
+    <img id="SpendingTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending of"/>
 
-    <img id="SpendingTopRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food"})" alt="Spending for" />
+    <img id="SpendingTopRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingTopRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending for" />
 </div>
 
 <div style="margin-top: 26px">
-    <img id="SpendingBottomLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Spending Distribution of" />
+    <img id="SpendingBottomLeftChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution of" />
 
-    <img id="SpendingBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food"})" alt="Spending Distribution for" />
+    <img id="SpendingBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "SpendingBottomRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Food", br = DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution for" />
 </div>

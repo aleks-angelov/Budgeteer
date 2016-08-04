@@ -48,13 +48,13 @@
 }
 
 <div style="margin-top: 26px">
-    <img id="IncomeTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeTopLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Income of" />
+    <img id="IncomeTopLeftChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeTopLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income of" />
 
-    <img id="IncomeTopRightChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeTopRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary"})" alt="Income from" />
+    <img id="IncomeTopRightChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeTopRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income from" />
 </div>
 
 <div style="margin-top: 26px">
-    <img id="IncomeBottomLeftChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeBottomLeftChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov"})" alt="Income Distribution of" />
+    <img id="IncomeBottomLeftChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeBottomLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution of" />
 
-    <img id="IncomeBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeBottomRightChart", br = DateTime.Now.TimeOfDay.ToString(), dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary"})" alt="Income Distribution from" />
+    <img id="IncomeBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeBottomRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution from" />
 </div>
