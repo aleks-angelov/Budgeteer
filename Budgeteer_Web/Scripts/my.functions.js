@@ -39,10 +39,12 @@ function updateOverviewCharts() {
     var dateUntil = new Date();
 
     var target1 = $("#OverviewLeftChart");
-    target1.prop("src", "/Home/DisplayChart?chartName=OverviewLeftChart" + dateString(dateFrom, dateUntil) + brString());
+    target1
+        .prop("src", "/Home/DisplayChart?chartName=OverviewLeftChart" + dateString(dateFrom, dateUntil) + brString());
 
     var target2 = $("#OverviewRightChart");
-    target2.prop("src", "/Home/DisplayChart?chartName=OverviewRightChart" + dateString(dateFrom, dateUntil) + brString());
+    target2.prop("src",
+        "/Home/DisplayChart?chartName=OverviewRightChart" + dateString(dateFrom, dateUntil) + brString());
 }
 
 function updateSpendingLeftCharts() {
@@ -52,10 +54,20 @@ function updateSpendingLeftCharts() {
     var dateUntil = new Date();
 
     var target1 = $("#SpendingTopLeftChart");
-    target1.prop("src", "/Home/DisplayChart?chartName=SpendingTopLeftChart" + dateString(dateFrom, dateUntil) + "&personName=" + $("#SpendingPersonName").val() + brString());
+    target1.prop("src",
+        "/Home/DisplayChart?chartName=SpendingTopLeftChart" +
+        dateString(dateFrom, dateUntil) +
+        "&personName=" +
+        $("#SpendingPersonName").val() +
+        brString());
 
     var target2 = $("#SpendingBottomLeftChart");
-    target2.prop("src", "/Home/DisplayChart?chartName=SpendingBottomLeftChart" + dateString(dateFrom, dateUntil) + "&personName=" + $("#SpendingPersonName").val() + brString());
+    target2.prop("src",
+        "/Home/DisplayChart?chartName=SpendingBottomLeftChart" +
+        dateString(dateFrom, dateUntil) +
+        "&personName=" +
+        $("#SpendingPersonName").val() +
+        brString());
 }
 
 function updateSpendingRightCharts() {
@@ -65,10 +77,20 @@ function updateSpendingRightCharts() {
     var dateUntil = new Date();
 
     var target1 = $("#SpendingTopRightChart");
-    target1.prop("src", "/Home/DisplayChart?chartName=SpendingTopRightChart" + dateString(dateFrom, dateUntil) + "&categoryName=" + $("#SpendingCategoryName").val() + brString());
+    target1.prop("src",
+        "/Home/DisplayChart?chartName=SpendingTopRightChart" +
+        dateString(dateFrom, dateUntil) +
+        "&categoryName=" +
+        $("#SpendingCategoryName").val() +
+        brString());
 
     var target2 = $("#SpendingBottomRightChart");
-    target2.prop("src", "/Home/DisplayChart?chartName=SpendingBottomRightChart" + dateString(dateFrom, dateUntil) + "&categoryName=" + $("#SpendingCategoryName").val() + brString());
+    target2.prop("src",
+        "/Home/DisplayChart?chartName=SpendingBottomRightChart" +
+        dateString(dateFrom, dateUntil) +
+        "&categoryName=" +
+        $("#SpendingCategoryName").val() +
+        brString());
 }
 
 function updateSpendingCharts() {
@@ -92,10 +114,20 @@ function updateIncomeLeftCharts() {
     var dateUntil = new Date();
 
     var target1 = $("#IncomeTopLeftChart");
-    target1.prop("src", "/Home/DisplayChart?chartName=IncomeTopLeftChart" + dateString(dateFrom, dateUntil) + "&personName=" + $("#IncomePersonName").val() + brString());
+    target1.prop("src",
+        "/Home/DisplayChart?chartName=IncomeTopLeftChart" +
+        dateString(dateFrom, dateUntil) +
+        "&personName=" +
+        $("#IncomePersonName").val() +
+        brString());
 
     var target2 = $("#IncomeBottomLeftChart");
-    target2.prop("src", "/Home/DisplayChart?chartName=IncomeBottomLeftChart" + dateString(dateFrom, dateUntil) + "&personName=" + $("#IncomePersonName").val() + brString());
+    target2.prop("src",
+        "/Home/DisplayChart?chartName=IncomeBottomLeftChart" +
+        dateString(dateFrom, dateUntil) +
+        "&personName=" +
+        $("#IncomePersonName").val() +
+        brString());
 }
 
 function updateIncomeRightCharts() {
@@ -105,10 +137,20 @@ function updateIncomeRightCharts() {
     var dateUntil = new Date();
 
     var target1 = $("#IncomeTopRightChart");
-    target1.prop("src", "/Home/DisplayChart?chartName=IncomeTopRightChart" + dateString(dateFrom, dateUntil) + "&categoryName=" + $("#IncomeCategoryName").val() + brString());
+    target1.prop("src",
+        "/Home/DisplayChart?chartName=IncomeTopRightChart" +
+        dateString(dateFrom, dateUntil) +
+        "&categoryName=" +
+        $("#IncomeCategoryName").val() +
+        brString());
 
     var target2 = $("#IncomeBottomRightChart");
-    target2.prop("src", "/Home/DisplayChart?chartName=IncomeBottomRightChart" + dateString(dateFrom, dateUntil) + "&categoryName=" + $("#IncomeCategoryName").val() + brString());
+    target2.prop("src",
+        "/Home/DisplayChart?chartName=IncomeBottomRightChart" +
+        dateString(dateFrom, dateUntil) +
+        "&categoryName=" +
+        $("#IncomeCategoryName").val() +
+        brString());
 }
 
 function updateIncomeCharts() {

@@ -24,6 +24,11 @@ textarea {
 }
 
 /* My styles */
-.margin-right-10 {
+.margin-right-sm {
     margin-right: 10px;
 }
+
+.margin-right-lg {
+    margin-right: 118px;
+}
+

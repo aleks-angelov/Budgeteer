@@ -2,17 +2,17 @@
 
 @using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts" }, new { @class = "form-inline", role = "form" }))
 {
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(tvm => tvm.Date, "Date:")
         @Html.TextBoxFor(tvm => tvm.Date, new { type = "date", @class = "form-control", id = "Date" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(tvm => tvm.PersonName, "Person:")
         @Html.DropDownListFor(tvm => tvm.PersonName, Model.Users, new { @class = "form-control", id = "PersonName" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         <label for="transtype">Type:</label>
         <div class="form-control" id="transtype">
             @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = true }), OnSuccess = "addCategories" })
@@ -21,17 +21,17 @@
         </div>
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(tvm => tvm.CategoryName, "Category:")
         <select class="form-control valid" data-val="true" data-val-required="The CategoryName field is required." id="CategoryName" name="CategoryName" aria-required="true" aria-describedby="CategoryName-error" aria-invalid="false"></select>
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(tvm => tvm.Amount, "Amount:")
         @Html.TextBoxFor(tvm => tvm.Amount, new { type = "text", @class = "form-control", id = "Amount" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(tvm => tvm.Note, "Note:")
         @Html.TextBoxFor(tvm => tvm.Note, new { type = "text", @class = "form-control", id = "Note" })
     </div>

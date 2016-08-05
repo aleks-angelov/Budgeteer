@@ -7,22 +7,22 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="form-inline">
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-lg">
         @Html.LabelFor(ivm => ivm.PersonName, "Person:")
         @Html.DropDownListFor(ivm => ivm.PersonName, Model.Users, new { @class = "form-control", id = "IncomePersonName" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(ivm => ivm.DateFrom, "From:")
         @Html.TextBoxFor(ivm => ivm.DateFrom, new { type = "date", @class = "form-control", id = "IncomeDateFrom" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-lg">
         @Html.LabelFor(ivm => ivm.DateUntil, "Until:")
         @Html.TextBoxFor(ivm => ivm.DateUntil, new { type = "date", @class = "form-control", id = "IncomeDateUntil" })
     </div>
 
-    <div class="form-group margin-right-10">
+    <div class="form-group margin-right-sm">
         @Html.LabelFor(ivm => ivm.CategoryName, "Category:")
         @Html.DropDownListFor(ivm => ivm.CategoryName, Model.Categories, new { @class = "form-control", id = "IncomeCategoryName" })
     </div>
