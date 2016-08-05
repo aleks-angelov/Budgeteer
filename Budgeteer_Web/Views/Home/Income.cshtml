@@ -14,12 +14,12 @@
 
     <div class="form-group margin-right-sm">
         @Html.LabelFor(ivm => ivm.DateFrom, "From:")
-        @Html.TextBoxFor(ivm => ivm.DateFrom, new { type = "date", @class = "form-control", id = "IncomeDateFrom" })
+        @Html.TextBoxFor(ivm => ivm.DateFrom, new { type = "date", @class = "form-control", id = "IncomeDateFrom", style = "width: 175px" })
     </div>
 
     <div class="form-group margin-right-lg">
         @Html.LabelFor(ivm => ivm.DateUntil, "Until:")
-        @Html.TextBoxFor(ivm => ivm.DateUntil, new { type = "date", @class = "form-control", id = "IncomeDateUntil" })
+        @Html.TextBoxFor(ivm => ivm.DateUntil, new { type = "date", @class = "form-control", id = "IncomeDateUntil", style = "width: 175px" })
     </div>
 
     <div class="form-group margin-right-sm">
