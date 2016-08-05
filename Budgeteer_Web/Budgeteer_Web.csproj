@@ -291,7 +291,7 @@
     <Content Include="Views\Home\Income.cshtml" />
     <Content Include="Views\Home\AddTransaction.cshtml" />
     <Content Include="Views\Home\ListTransactions.cshtml" />
-    <Content Include="Scripts\my.functions.js" />
+    <Content Include="Scripts\my.library.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

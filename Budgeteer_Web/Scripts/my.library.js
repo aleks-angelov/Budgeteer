@@ -101,9 +101,9 @@ function updateSpendingCharts() {
 
 $("#SpendingPersonName").change(updateSpendingLeftCharts);
 
-$("#SpendingDateFrom").change(updateSpendingCharts);
+$("#SpendingDateFrom").select(updateSpendingCharts);
 
-$("#SpendingDateUntil").change(updateSpendingCharts);
+$("#SpendingDateUntil").select(updateSpendingCharts);
 
 $("#SpendingCategoryName").change(updateSpendingRightCharts);
 
@@ -161,8 +161,8 @@ function updateIncomeCharts() {
 
 $("#IncomePersonName").change(updateIncomeLeftCharts);
 
-$("#IncomeDateFrom").change(updateIncomeCharts);
+$("#IncomeDateFrom").select(updateIncomeCharts);
 
-$("#IncomeDateUntil").change(updateIncomeCharts);
+$("#IncomeDateUntil").select(updateIncomeCharts);
 
 $("#IncomeCategoryName").change(updateIncomeRightCharts);

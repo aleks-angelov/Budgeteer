@@ -6,10 +6,10 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div class="form-inline">
+<div class="form-inline" style="margin-top: 24px">
     <div class="form-group margin-right-lg">
         @Html.LabelFor(ivm => ivm.PersonName, "Person:")
-        @Html.DropDownListFor(ivm => ivm.PersonName, Model.Users, new { @class = "form-control", id = "IncomePersonName" })
+        @Html.DropDownListFor(ivm => ivm.PersonName, Model.Users, new { @class = "form-control", id = "IncomePersonName", style = "width: 162px" })
     </div>
 
     <div class="form-group margin-right-sm">
@@ -24,7 +24,7 @@
 
     <div class="form-group margin-right-sm">
         @Html.LabelFor(ivm => ivm.CategoryName, "Category:")
-        @Html.DropDownListFor(ivm => ivm.CategoryName, Model.Categories, new { @class = "form-control", id = "IncomeCategoryName" })
+        @Html.DropDownListFor(ivm => ivm.CategoryName, Model.Categories, new { @class = "form-control", id = "IncomeCategoryName", style = "width: 145px" })
     </div>
 </div>
 
@@ -39,3 +39,11 @@
 
     <img id="IncomeBottomRightChart" src="@Url.Action("DisplayChart", new {chartName = "IncomeBottomRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution from" />
 </div>
+
+<script type="text/javascript">
+    var date_6M = new Date();
+    date_6M.setMonth(date_6M.getMonth() - 6);
+
+    document.getElementById("IncomeDateFrom").valueAsDate = date_6M;
+    document.getElementById("IncomeDateUntil").valueAsDate = new Date();
+</script>
