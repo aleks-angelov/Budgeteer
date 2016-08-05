@@ -1,5 +1,5 @@
 ﻿
-function addCategories(data) {
+function listCategories(data) {
 
     var target = $("#CategoryName");
     target.empty();

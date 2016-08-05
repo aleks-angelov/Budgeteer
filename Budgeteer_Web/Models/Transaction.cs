@@ -11,7 +11,6 @@ namespace Budgeteer_Web.Models
         [Required]
         public DateTime Date { get; set; }
 
-        [Required]
         public double Amount { get; set; }
         
         public string Note { get; set; }

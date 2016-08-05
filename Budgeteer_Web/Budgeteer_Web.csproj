@@ -210,6 +210,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SpendingAndIncomeViewModel.cs" />
@@ -292,6 +293,7 @@
     <Content Include="Views\Home\AddTransaction.cshtml" />
     <Content Include="Views\Home\ListTransactions.cshtml" />
     <Content Include="Scripts\my.library.js" />
+    <Content Include="Views\Home\AddCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

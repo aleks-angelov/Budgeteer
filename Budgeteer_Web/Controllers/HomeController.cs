@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Budgeteer_Web.Infrastructure;
 using Budgeteer_Web.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Budgeteer_Web.Controllers
 {
@@ -102,6 +106,49 @@ namespace Budgeteer_Web.Controllers
             Chart chart = ChartFactory.CreateChart(chartName, dateFrom, dateUntil, personName, categoryName);
 
             return File(chart.GetBytes(), "image/png");
+        }
+
+        [Authorize]
+        public ActionResult AddCategory(bool isDebit)
+        {
+            CategoryViewModel cvm = new CategoryViewModel
+            {
+                IsDebit = isDebit
+            };
+
+            return PartialView(cvm);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddCategory(CategoryViewModel cvm)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
+            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
+
+            Category existingCategory = context.Categories.FirstOrDefault(c => c.Name == cvm.Name);
+            ApplicationUser currentUser = userManager.FindById(User.Identity.GetUserId());
+
+            if (existingCategory != null)
+                existingCategory.ApplicationUsers.Add(currentUser);
+            else
+            {
+                Category newCategory = new Category
+                {
+                    Name = cvm.Name,
+                    IsDebit = cvm.IsDebit,
+                    ApplicationUsers = new List<ApplicationUser>
+                    {
+                        context.Users.First(u => u.Email == currentUser.Email)
+                    }
+                };
+
+                context.Categories.Add(newCategory);
+                context.SaveChanges();
+            }
+
+            return RedirectToAction(cvm.IsDebit ? "Spending" : "Income");
         }
     }
 }

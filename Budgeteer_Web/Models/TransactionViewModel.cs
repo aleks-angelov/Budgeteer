@@ -18,8 +18,6 @@ namespace Budgeteer_Web.Models
             }
         }
 
-        public int TransactionID { get; set; }
-
         [Required]
         public DateTime Date { get; set; }
 

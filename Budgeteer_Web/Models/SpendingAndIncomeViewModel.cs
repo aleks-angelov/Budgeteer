@@ -34,6 +34,9 @@ namespace Budgeteer_Web.Models
         [Required]
         public string CategoryName { get; set; }
 
+        [Required]
+        public string NewCategoryName { get; set; }
+
         public List<SelectListItem> Users { get; }
         public List<SelectListItem> Categories { get; }
     }

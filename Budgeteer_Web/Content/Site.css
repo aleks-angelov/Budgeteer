@@ -28,7 +28,10 @@ textarea {
     margin-right: 11px;
 }
 
-.margin-right-lg {
-    margin-right: 118px;
+.margin-right-md {
+    margin-right: 34px;
 }
 
+.margin-right-lg {
+    margin-right: 120px;
+}

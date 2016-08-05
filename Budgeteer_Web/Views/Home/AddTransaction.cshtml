@@ -15,11 +15,11 @@
     <div class="form-group margin-right-sm" style = "width: 117px">
         <label for="transtype">Type:</label>
         <div class="form-control" id="transtype">
-            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = true }), OnSuccess = "addCategories" })
+            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = true }), OnSuccess = "listCategories" })
 
             &nbsp;|&nbsp;
              
-            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = false }), OnSuccess = "addCategories" })
+            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = false }), OnSuccess = "listCategories" })
         </div>
     </div>
 
