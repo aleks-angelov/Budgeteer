@@ -49,9 +49,8 @@ function updateOverviewCharts() {
 
 function updateSpendingLeftCharts() {
 
-    var dateFrom = new Date();
-    dateFrom.setMonth(dateFrom.getMonth() - 6);
-    var dateUntil = new Date();
+    var dateFrom = document.getElementById("SpendingDateFrom").valueAsDate;
+    var dateUntil = document.getElementById("SpendingDateUntil").valueAsDate;
 
     var target1 = $("#SpendingTopLeftChart");
     target1.prop("src",
@@ -72,9 +71,8 @@ function updateSpendingLeftCharts() {
 
 function updateSpendingRightCharts() {
 
-    var dateFrom = new Date();
-    dateFrom.setMonth(dateFrom.getMonth() - 6);
-    var dateUntil = new Date();
+    var dateFrom = document.getElementById("SpendingDateFrom").valueAsDate;
+    var dateUntil = document.getElementById("SpendingDateUntil").valueAsDate;
 
     var target1 = $("#SpendingTopRightChart");
     target1.prop("src",
@@ -101,17 +99,16 @@ function updateSpendingCharts() {
 
 $("#SpendingPersonName").change(updateSpendingLeftCharts);
 
-$("#SpendingDateFrom").select(updateSpendingCharts);
+$("#SpendingDateFrom").blur(updateSpendingCharts);
 
-$("#SpendingDateUntil").select(updateSpendingCharts);
+$("#SpendingDateUntil").blur(updateSpendingCharts);
 
 $("#SpendingCategoryName").change(updateSpendingRightCharts);
 
 function updateIncomeLeftCharts() {
 
-    var dateFrom = new Date();
-    dateFrom.setMonth(dateFrom.getMonth() - 6);
-    var dateUntil = new Date();
+    var dateFrom = document.getElementById("IncomeDateFrom").valueAsDate;
+    var dateUntil = document.getElementById("IncomeDateUntil").valueAsDate;
 
     var target1 = $("#IncomeTopLeftChart");
     target1.prop("src",
@@ -132,9 +129,8 @@ function updateIncomeLeftCharts() {
 
 function updateIncomeRightCharts() {
 
-    var dateFrom = new Date();
-    dateFrom.setMonth(dateFrom.getMonth() - 6);
-    var dateUntil = new Date();
+    var dateFrom = document.getElementById("IncomeDateFrom").valueAsDate;
+    var dateUntil = document.getElementById("IncomeDateUntil").valueAsDate;
 
     var target1 = $("#IncomeTopRightChart");
     target1.prop("src",
@@ -161,8 +157,8 @@ function updateIncomeCharts() {
 
 $("#IncomePersonName").change(updateIncomeLeftCharts);
 
-$("#IncomeDateFrom").select(updateIncomeCharts);
+$("#IncomeDateFrom").blur(updateIncomeCharts);
 
-$("#IncomeDateUntil").select(updateIncomeCharts);
+$("#IncomeDateUntil").blur(updateIncomeCharts);
 
 $("#IncomeCategoryName").change(updateIncomeRightCharts);
