@@ -43,7 +43,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Spending()
         {
-            return View(new SpendingAndIncomeViewModel());
+            return View(new SpendingAndIncomeViewModel(true));
         }
 
         [Authorize]
@@ -56,7 +56,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Income()
         {
-            return View(new SpendingAndIncomeViewModel());
+            return View(new SpendingAndIncomeViewModel(false));
         }
 
         [Authorize]
@@ -77,7 +77,7 @@ namespace Budgeteer_Web.Controllers
         public JsonResult GetCategoryNames(bool debit)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            var data = context.Categories.Where(c => c.IsDebit == debit).Select(c => new { catName = c.Name });
+            var data = context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).Select(c => new { catName = c.Name });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -87,11 +87,17 @@ namespace Budgeteer_Web.Controllers
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
-            return PartialView(context.Transactions.ToList());
+            return
+                PartialView(
+                    context.Transactions.OrderByDescending(t => t.Date)
+                        .ThenBy(t => t.Person.Name)
+                        .ThenBy(t => t.Category.Name)
+                        .ToList());
         }
 
         [Authorize]
-        public ActionResult DisplayChart(string chartName, string br, DateTime dateFrom, DateTime dateUntil, string personName = null, string categoryName = null)
+        public ActionResult DisplayChart(string chartName, string br, DateTime dateFrom, DateTime dateUntil,
+            string personName = null, string categoryName = null)
         {
             Chart chart = ChartFactory.CreateChart(chartName, dateFrom, dateUntil, personName, categoryName);
 

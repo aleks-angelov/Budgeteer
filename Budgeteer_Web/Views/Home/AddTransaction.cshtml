@@ -1,25 +1,6 @@
 ﻿@model Budgeteer_Web.Models.TransactionViewModel
 
-<script type="text/javascript">
-    function addCategories(data) {
-        var target = $("#CategoryName");
-        target.empty();
-        for (var i = 0; i < data.length; i++) {
-            var category = data[i];
-            target.append("<option value=\"" + category.catName + "\">" + category.catName + "</option>");
-        }
-    }
-
-    function updateOverviewCharts() {
-        var target1 = $("#OverviewLeftChart");
-        target1.prop("src", "/Home/DisplayChart?name=OverviewLeftChart&br=" + new Date().getTime());
-
-        var target2 = $("#OverviewRightChart");
-        target2.prop("src", "/Home/DisplayChart?name=OverviewRightChart&br=" + new Date().getTime());
-    }
-</script>
-
-@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts"}, new { @class = "form-inline", role = "form" }))
+@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts" }, new { @class = "form-inline", role = "form" }))
 {
     <div class="form-group margin-right-10">
         @Html.LabelFor(tvm => tvm.Date, "Date:")
