@@ -8,17 +8,20 @@ namespace Budgeteer_Web.Models
 {
     public class TransactionViewModel
     {
-        public TransactionViewModel()
+        public TransactionViewModel(string userId)
         {
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
-                Users = new List<SelectListItem>();
-                foreach (ApplicationUser user in context.Users.OrderBy(u => u.Name))
-                    Users.Add(new SelectListItem { Text = user.Name, Value = user.Name });
+                ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
+                Users = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = currentUser.Name, Value = currentUser.Name}
+                };
             }
         }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public double Amount { get; set; }

@@ -9,6 +9,7 @@ namespace Budgeteer_Web.Models
         public int TransactionID { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public double Amount { get; set; }

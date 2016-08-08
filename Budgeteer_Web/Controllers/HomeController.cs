@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Budgeteer_Web.Infrastructure;
 using Budgeteer_Web.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Budgeteer_Web.Controllers
 {
@@ -46,7 +45,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Spending()
         {
-            return View(new SpendingAndIncomeViewModel(true, User.Identity.GetUserId()));
+            return View(new SpendingAndIncomeViewModel(true));
         }
 
         [Authorize]
@@ -59,7 +58,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Income()
         {
-            return View(new SpendingAndIncomeViewModel(false, User.Identity.GetUserId()));
+            return View(new SpendingAndIncomeViewModel(false));
         }
 
         [Authorize]
@@ -73,19 +72,18 @@ namespace Budgeteer_Web.Controllers
         [ChildActionOnly]
         public ActionResult AddTransaction()
         {
-            return PartialView(new TransactionViewModel());
+            return PartialView(new TransactionViewModel(User.Identity.GetUserId()));
         }
 
         [Authorize]
         public JsonResult GetCategoryNames(bool debit)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            ApplicationUser currentUser = context.Users.Single(u => u.Id == User.Identity.GetUserId());
+            List<Category> categories = context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).ToList();
+            string userId = User.Identity.GetUserId();
+            ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
 
-            var data =
-                context.Categories.Where(c => currentUser.Categories.Contains(c) && c.IsDebit == debit)
-                    .OrderBy(c => c.Name)
-                    .Select(c => new { catName = c.Name });
+            var data = categories.Where(c => currentUser.Categories.Contains(c)).Select(c => new { catName = c.Name });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -143,10 +141,7 @@ namespace Budgeteer_Web.Controllers
                 {
                     Name = cvm.Name,
                     IsDebit = cvm.IsDebit,
-                    ApplicationUsers = new List<ApplicationUser>
-                    {
-                        context.Users.First(u => u.Email == currentUser.Email)
-                    }
+                    ApplicationUsers = new List<ApplicationUser> { currentUser }
                 };
                 context.Categories.Add(newCategory);
             }
