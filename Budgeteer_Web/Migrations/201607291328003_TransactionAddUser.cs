@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace Budgeteer_Web.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class TransactionAddUser : DbMigration
     {
         public override void Up()
@@ -11,11 +10,11 @@ namespace Budgeteer_Web.Migrations
             CreateIndex("dbo.Transactions", "UserID");
             AddForeignKey("dbo.Transactions", "UserID", "dbo.AspNetUsers", "Id");
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Transactions", "UserID", "dbo.AspNetUsers");
-            DropIndex("dbo.Transactions", new[] { "UserID" });
+            DropIndex("dbo.Transactions", new[] {"UserID"});
             DropColumn("dbo.Transactions", "UserID");
         }
     }

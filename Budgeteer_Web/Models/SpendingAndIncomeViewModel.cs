@@ -14,11 +14,11 @@ namespace Budgeteer_Web.Models
             {
                 UserItems = new List<SelectListItem>();
                 foreach (ApplicationUser user in context.Users.OrderBy(u => u.Name))
-                    UserItems.Add(new SelectListItem { Text = user.Name, Value = user.Name });
+                    UserItems.Add(new SelectListItem {Text = user.Name, Value = user.Name});
 
                 CategoryItems = new List<SelectListItem>();
                 foreach (Category cat in context.Categories.Where(c => c.IsDebit == isSpending).OrderBy(c => c.Name))
-                    CategoryItems.Add(new SelectListItem { Text = cat.Name, Value = cat.Name });
+                    CategoryItems.Add(new SelectListItem {Text = cat.Name, Value = cat.Name});
             }
         }
 

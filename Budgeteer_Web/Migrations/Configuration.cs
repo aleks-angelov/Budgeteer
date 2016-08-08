@@ -67,7 +67,7 @@ namespace Budgeteer_Web.Migrations
                 };
                 userManager.Create(seedUser3, "Password3");
             }
-            
+
             context.SaveChanges();
 
             // Categories

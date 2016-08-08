@@ -56,11 +56,11 @@ namespace Budgeteer_Web.Infrastructure
             {
                 // Spending data
                 List<Transaction> spendingRecords = (from record in context.Transactions
-                                                     where
-                                                         record.Category.IsDebit &&
-                                                         record.Date >= dateFrom &&
-                                                         record.Date <= dateUntil
-                                                     select record).ToList();
+                    where
+                        record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
                     from record in spendingRecords
@@ -79,17 +79,17 @@ namespace Budgeteer_Web.Infrastructure
 
                 // Income data
                 List<Transaction> incomeRecords = (from record in context.Transactions
-                                                   where
-                                                       !record.Category.IsDebit &&
-                                                       record.Date >= dateFrom &&
-                                                       record.Date <= dateUntil
-                                                   select record).ToList();
+                    where
+                        !record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
-                                                                                     group record.Amount by record.Date.ToString("yyyy/MM")
-                                                                                     into monthlyRecords
-                                                                                     orderby monthlyRecords.Key
-                                                                                     select monthlyRecords;
+                    group record.Amount by record.Date.ToString("yyyy/MM")
+                    into monthlyRecords
+                    orderby monthlyRecords.Key
+                    select monthlyRecords;
 
                 List<string> incomeXData = new List<string>();
                 List<double> incomeYData = new List<double>();
@@ -117,11 +117,11 @@ namespace Budgeteer_Web.Infrastructure
                 foreach (Category spendingCategory in context.Categories.Where(c => c.IsDebit).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
-                                                    where
-                                                        record.Category.CategoryID == spendingCategory.CategoryID &&
-                                                        record.Date >= dateFrom &&
-                                                        record.Date <= dateUntil
-                                                    select record.Amount).ToList();
+                        where
+                            record.Category.CategoryID == spendingCategory.CategoryID &&
+                            record.Date >= dateFrom &&
+                            record.Date <= dateUntil
+                        select record.Amount).ToList();
 
                     if (categoryAmounts.Count > 0)
                     {
@@ -144,12 +144,12 @@ namespace Budgeteer_Web.Infrastructure
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 List<Transaction> spendingRecords = (from record in context.Transactions
-                                                     where
-                                                         record.Person.Name == personName &&
-                                                         record.Category.IsDebit &&
-                                                         record.Date >= dateFrom &&
-                                                         record.Date <= dateUntil
-                                                     select record).ToList();
+                    where
+                        record.Person.Name == personName &&
+                        record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
                     from record in spendingRecords
@@ -182,12 +182,12 @@ namespace Budgeteer_Web.Infrastructure
                 foreach (Category spendingCategory in context.Categories.Where(c => c.IsDebit).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
-                                                    where
-                                                        record.Person.Name == personName &&
-                                                        record.Category.CategoryID == spendingCategory.CategoryID &&
-                                                        record.Date >= dateFrom &&
-                                                        record.Date <= dateUntil
-                                                    select record.Amount).ToList();
+                        where
+                            record.Person.Name == personName &&
+                            record.Category.CategoryID == spendingCategory.CategoryID &&
+                            record.Date >= dateFrom &&
+                            record.Date <= dateUntil
+                        select record.Amount).ToList();
 
                     if (categoryAmounts.Count > 0)
                     {
@@ -210,12 +210,12 @@ namespace Budgeteer_Web.Infrastructure
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 List<Transaction> spendingRecords = (from record in context.Transactions
-                                                     where
-                                                         record.Category.Name == categoryName &&
-                                                         record.Category.IsDebit &&
-                                                         record.Date >= dateFrom &&
-                                                         record.Date <= dateUntil
-                                                     select record).ToList();
+                    where
+                        record.Category.Name == categoryName &&
+                        record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
                     from record in spendingRecords
@@ -248,13 +248,13 @@ namespace Budgeteer_Web.Infrastructure
                 foreach (ApplicationUser spendingPerson in context.Users.ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
-                                                    where
-                                                        record.Person.Id == spendingPerson.Id &&
-                                                        record.Category.IsDebit &&
-                                                        record.Category.Name == categoryName &&
-                                                        record.Date >= dateFrom &&
-                                                        record.Date <= dateUntil
-                                                    select record.Amount).ToList();
+                        where
+                            record.Person.Id == spendingPerson.Id &&
+                            record.Category.IsDebit &&
+                            record.Category.Name == categoryName &&
+                            record.Date >= dateFrom &&
+                            record.Date <= dateUntil
+                        select record.Amount).ToList();
 
                     if (categoryAmounts.Count > 0)
                     {
@@ -277,12 +277,12 @@ namespace Budgeteer_Web.Infrastructure
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 List<Transaction> incomeRecords = (from record in context.Transactions
-                                                   where
-                                                       record.Person.Name == personName &&
-                                                       !record.Category.IsDebit &&
-                                                       record.Date >= dateFrom &&
-                                                       record.Date <= dateUntil
-                                                   select record).ToList();
+                    where
+                        record.Person.Name == personName &&
+                        !record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth =
                     from record in incomeRecords
@@ -315,12 +315,12 @@ namespace Budgeteer_Web.Infrastructure
                 foreach (Category incomeCategory in context.Categories.Where(c => c.IsDebit == false).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
-                                                    where
-                                                        record.Person.Name == personName &&
-                                                        record.Category.CategoryID == incomeCategory.CategoryID &&
-                                                        record.Date >= dateFrom &&
-                                                        record.Date <= dateUntil
-                                                    select record.Amount).ToList();
+                        where
+                            record.Person.Name == personName &&
+                            record.Category.CategoryID == incomeCategory.CategoryID &&
+                            record.Date >= dateFrom &&
+                            record.Date <= dateUntil
+                        select record.Amount).ToList();
 
                     if (categoryAmounts.Count > 0)
                     {
@@ -343,12 +343,12 @@ namespace Budgeteer_Web.Infrastructure
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 List<Transaction> incomeRecords = (from record in context.Transactions
-                                                   where
-                                                       record.Category.Name == categoryName &&
-                                                       !record.Category.IsDebit &&
-                                                       record.Date >= dateFrom &&
-                                                       record.Date <= dateUntil
-                                                   select record).ToList();
+                    where
+                        record.Category.Name == categoryName &&
+                        !record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
 
                 IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth =
                     from record in incomeRecords
@@ -381,13 +381,13 @@ namespace Budgeteer_Web.Infrastructure
                 foreach (ApplicationUser incomePerson in context.Users.ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
-                                                    where
-                                                        record.Person.Id == incomePerson.Id &&
-                                                        !record.Category.IsDebit &&
-                                                        record.Category.Name == categoryName &&
-                                                        record.Date >= dateFrom &&
-                                                        record.Date <= dateUntil
-                                                    select record.Amount).ToList();
+                        where
+                            record.Person.Id == incomePerson.Id &&
+                            !record.Category.IsDebit &&
+                            record.Category.Name == categoryName &&
+                            record.Date >= dateFrom &&
+                            record.Date <= dateUntil
+                        select record.Amount).ToList();
 
                     if (categoryAmounts.Count > 0)
                     {

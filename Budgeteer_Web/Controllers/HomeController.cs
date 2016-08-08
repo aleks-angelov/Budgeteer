@@ -83,7 +83,7 @@ namespace Budgeteer_Web.Controllers
             string userId = User.Identity.GetUserId();
             ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
 
-            var data = categories.Where(c => currentUser.Categories.Contains(c)).Select(c => new { catName = c.Name });
+            var data = categories.Where(c => currentUser.Categories.Contains(c)).Select(c => new {catName = c.Name});
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -141,7 +141,7 @@ namespace Budgeteer_Web.Controllers
                 {
                     Name = cvm.Name,
                     IsDebit = cvm.IsDebit,
-                    ApplicationUsers = new List<ApplicationUser> { currentUser }
+                    ApplicationUsers = new List<ApplicationUser> {currentUser}
                 };
                 context.Categories.Add(newCategory);
             }
