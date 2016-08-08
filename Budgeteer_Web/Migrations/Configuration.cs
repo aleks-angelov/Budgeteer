@@ -96,11 +96,11 @@ namespace Budgeteer_Web.Migrations
                 },
                 new Category
                 {
-                    Name = "Salary",
-                    IsDebit = false,
+                    Name = "Utilities",
+                    IsDebit = true,
                     ApplicationUsers = new List<ApplicationUser>
                     {
-                        context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                         context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
                 },
@@ -113,6 +113,26 @@ namespace Budgeteer_Web.Migrations
                         context.Users.First(u => u.Email == "aia131@aubg.edu"),
                         context.Users.First(u => u.Email == "boris_ruskov@gmail.com")
                     }
+                },
+                new Category
+                {
+                    Name = "Dividends",
+                    IsDebit = false,
+                    ApplicationUsers = new List<ApplicationUser>
+                    {
+                        context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                        context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
+                    }
+                },
+                new Category
+                {
+                    Name = "Salary",
+                    IsDebit = false,
+                    ApplicationUsers = new List<ApplicationUser>
+                    {
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                        context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
+                    }
                 });
 
             context.SaveChanges();
@@ -121,34 +141,95 @@ namespace Budgeteer_Web.Migrations
 
             context.Transactions.AddOrUpdate(
                 t => t.Date,
-                new Transaction
-                {
-                    Date = DateTime.Today.AddMonths(-1),
-                    Amount = 4.0,
-                    Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                    Category = context.Categories.First(c => c.Name == "Food")
-                },
+                // Debit
                 new Transaction
                 {
                     Date = DateTime.Today,
-                    Amount = 2.0,
-                    Note = "soap",
+                    Amount = 16.5,
+                    Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                    Category = context.Categories.First(c => c.Name == "Food"),
+                    Note = "Restaurant lunch"
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-1),
+                    Amount = 16.0,
+                    Person = context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                    Category = context.Categories.First(c => c.Name == "Food"),
+                    Note = "Lunch and dinner"
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-1),
+                    Amount = 8.5,
                     Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
                     Category = context.Categories.First(c => c.Name == "Personal Care")
                 },
                 new Transaction
                 {
-                    Date = DateTime.Today.AddMonths(-1),
+                    Date = DateTime.Today.AddMonths(-2),
                     Amount = 8.0,
+                    Person = context.Users.First(u => u.Email == "mariya.stancheva@abv.bg"),
+                    Category = context.Categories.First(c => c.Name == "Personal Care")
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-2),
+                    Amount = 4.5,
+                    Person = context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                    Category = context.Categories.First(c => c.Name == "Utilities")
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today,
+                    Amount = 4.0,
+                    Person = context.Users.First(u => u.Email == "mariya.stancheva@abv.bg"),
+                    Category = context.Categories.First(c => c.Name == "Utilities")
+                },
+                // Credit
+                new Transaction
+                {
+                    Date = DateTime.Today,
+                    Amount = 4.5,
                     Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                    Category = context.Categories.First(c => c.Name == "Bonus")
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-1),
+                    Amount = 4.0,
+                    Person = context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                    Category = context.Categories.First(c => c.Name == "Bonus")
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-1),
+                    Amount = 8.5,
+                    Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                    Category = context.Categories.First(c => c.Name == "Dividends"),
+                    Note = "12-month deposit"
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-2),
+                    Amount = 8.0,
+                    Person = context.Users.First(u => u.Email == "mariya.stancheva@abv.bg"),
+                    Category = context.Categories.First(c => c.Name == "Dividends"),
+                    Note = "Microsoft stocks"
+                },
+                new Transaction
+                {
+                    Date = DateTime.Today.AddMonths(-2),
+                    Amount = 16.5,
+                    Person = context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                     Category = context.Categories.First(c => c.Name == "Salary")
                 },
                 new Transaction
                 {
                     Date = DateTime.Today,
-                    Amount = 1.0,
-                    Person = context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                    Category = context.Categories.First(c => c.Name == "Bonus")
+                    Amount = 16.0,
+                    Person = context.Users.First(u => u.Email == "mariya.stancheva@abv.bg"),
+                    Category = context.Categories.First(c => c.Name == "Salary")
                 });
 
             context.SaveChanges();

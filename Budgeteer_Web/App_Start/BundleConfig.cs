@@ -29,7 +29,7 @@ namespace Budgeteer_Web
                 "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
+                "~/Content/bootstrap-theme-cerulean.css",
                 "~/Content/site.css"));
         }
     }

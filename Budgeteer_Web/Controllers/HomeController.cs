@@ -94,11 +94,11 @@ namespace Budgeteer_Web.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
 
             return
-                PartialView(
-                    context.Transactions.OrderByDescending(t => t.Date)
-                        .ThenBy(t => t.Person.Name)
-                        .ThenBy(t => t.Category.Name)
-                        .ToList());
+                PartialView(context.Transactions.OrderByDescending(t => t.Date)
+                    .ThenBy(t => t.Person.Name)
+                    .ThenBy(t => t.Category.Name)
+                    .Take(10)
+                    .ToList());
         }
 
         [Authorize]
@@ -132,9 +132,11 @@ namespace Budgeteer_Web.Controllers
             string userId = User.Identity.GetUserId();
             ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
 
-            if (existingCategory != null && !currentUser.Categories.Contains(existingCategory))
-                existingCategory.ApplicationUsers.Add(currentUser);
-
+            if (existingCategory != null)
+            {
+                if (!currentUser.Categories.Contains(existingCategory))
+                    existingCategory.ApplicationUsers.Add(currentUser);
+            }
             else
             {
                 Category newCategory = new Category

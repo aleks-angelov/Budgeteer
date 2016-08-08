@@ -54,6 +54,28 @@ namespace Budgeteer_Web.Infrastructure
         {
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
+                // Income data
+                List<Transaction> incomeRecords = (from record in context.Transactions
+                    where
+                        !record.Category.IsDebit &&
+                        record.Date >= dateFrom &&
+                        record.Date <= dateUntil
+                    select record).ToList();
+
+                IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
+                    group record.Amount by record.Date.ToString("yyyy/MM")
+                    into monthlyRecords
+                    orderby monthlyRecords.Key
+                    select monthlyRecords;
+
+                List<string> incomeXData = new List<string>();
+                List<double> incomeYData = new List<double>();
+                foreach (IGrouping<string, double> period in incomeRecordsByMonth)
+                {
+                    incomeXData.Add(period.Key);
+                    incomeYData.Add(period.Sum());
+                }
+
                 // Spending data
                 List<Transaction> spendingRecords = (from record in context.Transactions
                     where
@@ -77,32 +99,10 @@ namespace Budgeteer_Web.Infrastructure
                     spendingYData.Add(period.Sum());
                 }
 
-                // Income data
-                List<Transaction> incomeRecords = (from record in context.Transactions
-                    where
-                        !record.Category.IsDebit &&
-                        record.Date >= dateFrom &&
-                        record.Date <= dateUntil
-                    select record).ToList();
-
-                IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
-                    group record.Amount by record.Date.ToString("yyyy/MM")
-                    into monthlyRecords
-                    orderby monthlyRecords.Key
-                    select monthlyRecords;
-
-                List<string> incomeXData = new List<string>();
-                List<double> incomeYData = new List<double>();
-                foreach (IGrouping<string, double> period in incomeRecordsByMonth)
-                {
-                    incomeXData.Add(period.Key);
-                    incomeYData.Add(period.Sum());
-                }
-
                 return new Chart(568, 426, ChartTheme.Blue)
                     .AddTitle("Budget Balance (last 6 months)")
-                    .AddSeries("Spending", "Column", xValue: spendingXData, yValues: spendingYData)
                     .AddSeries("Income", "Column", xValue: incomeXData, yValues: incomeYData)
+                    .AddSeries("Spending", "Column", xValue: spendingXData, yValues: spendingYData)
                     .AddLegend();
             }
         }
@@ -114,7 +114,8 @@ namespace Budgeteer_Web.Infrastructure
             {
                 List<string> spendingXData = new List<string>();
                 List<double> spendingYData = new List<double>();
-                foreach (Category spendingCategory in context.Categories.Where(c => c.IsDebit).ToList())
+                foreach (
+                    Category spendingCategory in context.Categories.Where(c => c.IsDebit).OrderBy(c => c.Name).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
                         where
@@ -179,7 +180,8 @@ namespace Budgeteer_Web.Infrastructure
             {
                 List<string> spendingXData = new List<string>();
                 List<double> spendingYData = new List<double>();
-                foreach (Category spendingCategory in context.Categories.Where(c => c.IsDebit).ToList())
+                foreach (
+                    Category spendingCategory in context.Categories.Where(c => c.IsDebit).OrderBy(c => c.Name).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
                         where
@@ -245,7 +247,7 @@ namespace Budgeteer_Web.Infrastructure
             {
                 List<string> spendingXData = new List<string>();
                 List<double> spendingYData = new List<double>();
-                foreach (ApplicationUser spendingPerson in context.Users.ToList())
+                foreach (ApplicationUser spendingPerson in context.Users.OrderBy(u => u.Name).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
                         where
@@ -312,7 +314,9 @@ namespace Budgeteer_Web.Infrastructure
             {
                 List<string> incomeXData = new List<string>();
                 List<double> incomeYData = new List<double>();
-                foreach (Category incomeCategory in context.Categories.Where(c => c.IsDebit == false).ToList())
+                foreach (
+                    Category incomeCategory in
+                        context.Categories.Where(c => c.IsDebit == false).OrderBy(c => c.Name).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
                         where
@@ -378,7 +382,7 @@ namespace Budgeteer_Web.Infrastructure
             {
                 List<string> incomeXData = new List<string>();
                 List<double> incomeYData = new List<double>();
-                foreach (ApplicationUser incomePerson in context.Users.ToList())
+                foreach (ApplicationUser incomePerson in context.Users.OrderBy(u => u.Name).ToList())
                 {
                     List<double> categoryAmounts = (from record in context.Transactions
                         where

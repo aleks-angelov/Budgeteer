@@ -8,6 +8,10 @@ namespace Budgeteer_Web.Models
 {
     public class TransactionViewModel
     {
+        public TransactionViewModel()
+        {
+        }
+
         public TransactionViewModel(string userId)
         {
             using (ApplicationDbContext context = ApplicationDbContext.Create())
