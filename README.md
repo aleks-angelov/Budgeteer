@@ -1,12 +1,7 @@
-# Budgeteer 1.0 - Your Family Budget Tracker - WPF / Files
+# Budgeteer 2.0 - Your Family Budget Tracker - ASP.NET MVC / SQL Server
 
-### Overview:
-![Overview](http://i.imgur.com/nwNYyCL.png)
+### Home:
+![Home](http://i64.tinypic.com/15d2oe9.png)
 
-### Spending:
-![Spending](http://i.imgur.com/6GQXfc4.png)
+*To create the Budgeteer_Web project database, execute dbscript.sql, which you can find in the project's main directory.
 
-### Income:
-![Income](http://i.imgur.com/7S5YPo5.png)
-
-*In order to open the Budgeteer_Setup project, you need to download the Microsoft Visual Studio 2015 Installer Projects Extension, which you can find at https://visualstudiogallery.msdn.microsoft.com/f1cc3f3e-c300-40a7-8797-c509fb8933b9
