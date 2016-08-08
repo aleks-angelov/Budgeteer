@@ -9,7 +9,7 @@
 <div class="form-inline" style="margin-top: 24px">
     <div class="form-group margin-right-md" style="width: 162px">
         @Html.LabelFor(ivm => ivm.PersonName, "Person:")
-        @Html.DropDownListFor(ivm => ivm.PersonName, Model.Users, new { @class = "form-control", id = "IncomePersonName", style = "width: 162px" })
+        @Html.DropDownListFor(ivm => ivm.PersonName, Model.UserItems, new { @class = "form-control", id = "IncomePersonName", style = "width: 162px" })
     </div>
 
     <div class="form-group margin-right-md" style="width: 175px">
@@ -24,7 +24,7 @@
 
     <div class="form-group margin-right-lg" style="width: 162px">
         @Html.LabelFor(ivm => ivm.CategoryName, "Category:")
-        @Html.DropDownListFor(ivm => ivm.CategoryName, Model.Categories, new { @class = "form-control", id = "IncomeCategoryName", style = "width: 162px" })
+        @Html.DropDownListFor(ivm => ivm.CategoryName, Model.CategoryItems, new { @class = "form-control", id = "IncomeCategoryName", style = "width: 162px" })
     </div>
 
     @Html.Action("AddCategory", new { isDebit = false })

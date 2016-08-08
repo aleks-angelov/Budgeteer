@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -47,7 +46,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Spending()
         {
-            return View(new SpendingAndIncomeViewModel(true));
+            return View(new SpendingAndIncomeViewModel(true, User.Identity.GetUserId()));
         }
 
         [Authorize]
@@ -60,7 +59,7 @@ namespace Budgeteer_Web.Controllers
         [Authorize]
         public ActionResult Income()
         {
-            return View(new SpendingAndIncomeViewModel(false));
+            return View(new SpendingAndIncomeViewModel(false, User.Identity.GetUserId()));
         }
 
         [Authorize]
@@ -81,7 +80,12 @@ namespace Budgeteer_Web.Controllers
         public JsonResult GetCategoryNames(bool debit)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            var data = context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).Select(c => new { catName = c.Name });
+            ApplicationUser currentUser = context.Users.Single(u => u.Id == User.Identity.GetUserId());
+
+            var data =
+                context.Categories.Where(c => currentUser.Categories.Contains(c) && c.IsDebit == debit)
+                    .OrderBy(c => c.Name)
+                    .Select(c => new { catName = c.Name });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -124,14 +128,15 @@ namespace Budgeteer_Web.Controllers
         public ActionResult AddCategory(CategoryViewModel cvm)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(context);
-            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
 
-            Category existingCategory = context.Categories.FirstOrDefault(c => c.Name == cvm.Name);
-            ApplicationUser currentUser = userManager.FindById(User.Identity.GetUserId());
+            Category existingCategory =
+                context.Categories.FirstOrDefault(c => c.Name.Equals(cvm.Name, StringComparison.OrdinalIgnoreCase));
+            string userId = User.Identity.GetUserId();
+            ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
 
-            if (existingCategory != null)
+            if (existingCategory != null && !currentUser.Categories.Contains(existingCategory))
                 existingCategory.ApplicationUsers.Add(currentUser);
+
             else
             {
                 Category newCategory = new Category
@@ -143,10 +148,10 @@ namespace Budgeteer_Web.Controllers
                         context.Users.First(u => u.Email == currentUser.Email)
                     }
                 };
-
                 context.Categories.Add(newCategory);
-                context.SaveChanges();
             }
+
+            context.SaveChanges();
 
             return RedirectToAction(cvm.IsDebit ? "Spending" : "Income");
         }
