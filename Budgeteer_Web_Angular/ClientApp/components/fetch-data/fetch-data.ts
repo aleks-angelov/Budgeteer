@@ -1,17 +1,18 @@
-import * as ng from '@angular/core';
-import { Http } from '@angular/http';
+import * as ng from "@angular/core";
+import { Http } from "@angular/http";
 
 @ng.Component({
-  selector: 'fetch-data',
-  template: require('./fetch-data.html')
+    selector: "fetch-data",
+    template: require("./fetch-data.html")
 })
 export class FetchData {
-    public forecasts: WeatherForecast[];
+    forecasts: WeatherForecast[];
 
     constructor(http: Http) {
-        http.get('/api/SampleData/WeatherForecasts').subscribe(result => {
-            this.forecasts = result.json();
-        });
+        http.get("/api/SampleData/WeatherForecasts")
+            .subscribe(result => {
+                this.forecasts = result.json();
+            });
     }
 }
 
