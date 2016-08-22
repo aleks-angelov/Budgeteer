@@ -17,22 +17,27 @@ namespace Budgeteer_Web_Angular.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Transactions> Get()
+        public IEnumerable<TransactionViewModel> Get()
         {
             List<Transactions> transactions = _context.Transactions.OrderByDescending(t => t.Date)
                 .ThenBy(t => t.Category.Name)
                 .Take(10)
                 .ToList();
+
+            List<TransactionViewModel> transactionViewModels = new List<TransactionViewModel>();
             foreach (Transactions tr in transactions)
             {
-                if (tr.User == null)
+                transactionViewModels.Add(new TransactionViewModel
                 {
-                    tr.User = _context.AspNetUsers.Single(usr => usr.Id == tr.UserId);
-
-                    tr.Category = _context.Categories.Single(cat => cat.CategoryId == tr.CategoryId);
-                }
+                    Date = tr.Date,
+                    Amount = tr.Amount,
+                    Note = tr.Note,
+                    PersonName = _context.AspNetUsers.Single(usr => usr.Id == tr.UserId).Name,
+                    CategoryName = _context.Categories.Single(cat => cat.CategoryId == tr.CategoryId).Name
+                });
             }
-            return transactions;
+
+            return transactionViewModels;
         }
 
         // POST api/values

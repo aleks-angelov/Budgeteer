@@ -6,7 +6,7 @@ import { TransactionService } from "./transaction.service";
 
 @Component({
     selector: "my-overview",
-    templateUrl: "app/overview.component.html",
+    templateUrl: "app/overview.component.html"
 })
 export class OverviewComponent implements OnInit {
     errorMessage: string;
@@ -18,7 +18,9 @@ export class OverviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        //this.getTransactions(); 
+        this.transactions = new Array<TransactionViewModel>();
+        this.getTransactions();
+        console.log(this.transactions);
     }
 
     getTransactions() {

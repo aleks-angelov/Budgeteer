@@ -12,7 +12,7 @@ export class TransactionService {
     constructor(private http: Http) { }
 
     getTransactions(): Observable<TransactionViewModel[]> {
-        return (this.http.get(this.transactionsUrl).map(this.extractData).catch(this.handleError)) as any;
+        return (this.http.get(this.transactionsUrl).map(this.extractData).catch(this.handleError));
     }
 
     postTransaction(tvm: TransactionViewModel): Observable<TransactionViewModel> {
@@ -22,7 +22,7 @@ export class TransactionService {
 
         return (this.http.post(this.transactionsUrl, body, options)
             .map(this.extractData)
-            .catch(this.handleError)) as any;
+            .catch(this.handleError));
     }
 
     private extractData(res: Response) {
