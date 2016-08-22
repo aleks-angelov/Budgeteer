@@ -21,17 +21,10 @@ namespace Budgeteer_Web_Angular.Controllers
         {
             List<Categories> categories =
                 _context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).ToList();
-            IEnumerable<string> data = categories.Select(c => c.Name);
+            IEnumerable<string> categoryNames = categories.Select(c => c.Name);
 
-            return data;
+            return categoryNames;
         }
-
-        //// GET api/values/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST api/values
         [HttpPost]
@@ -45,17 +38,5 @@ namespace Budgeteer_Web_Angular.Controllers
             _context.Categories.Add(cat);
             _context.SaveChanges();
         }
-
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
