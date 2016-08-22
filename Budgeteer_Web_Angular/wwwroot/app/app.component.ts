@@ -5,10 +5,10 @@ import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: "my-app",
-    template: "<h1>My First Angular 2 App</h1>"
+    templateUrl: "app/app.component.html"
 })
 export class AppComponent implements OnInit {
-    constructor(private http: Http) { }
+    constructor(private http: Http) {}
 
     ngOnInit() {
         //    this.addCategory().subscribe();
@@ -43,16 +43,3 @@ export class AppComponent implements OnInit {
     //    return this.http.post("api/transactions", body, options);
     //}
 }
-
-//class CategoryViewModel {
-//    Name: string;
-//    IsDebit: boolean;
-//}
-
-//class TransactionViewModel {
-//    Date: Date;
-//    Amount: number;
-//    Note: string;
-//    PersonName: string;
-//    CategoryName: string;
-//}
