@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { TransactionViewModel } from "./transaction-view-model";
@@ -8,9 +8,9 @@ import { TransactionService } from "./transaction.service";
     selector: "my-overview",
     templateUrl: "app/overview.component.html"
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent {
     errorMessage: string;
-    transactions: TransactionViewModel[];
+    @Input() transactions: TransactionViewModel[];
 
     constructor(
         private router: Router,
@@ -18,15 +18,13 @@ export class OverviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.transactions = new Array<TransactionViewModel>();
         this.getTransactions();
-        console.log(this.transactions);
     }
 
     getTransactions() {
         this.transactionService.getTransactions()
             .subscribe(
-                transactions => this.transactions = transactions,
+                response => this.transactions = response,
                 error => this.errorMessage = (error as any));
     }
 
@@ -37,3 +35,4 @@ export class OverviewComponent implements OnInit {
                 error => this.errorMessage = (error as any));
     }
 }
+

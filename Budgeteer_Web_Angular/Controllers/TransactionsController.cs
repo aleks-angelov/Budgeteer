@@ -20,13 +20,13 @@ namespace Budgeteer_Web_Angular.Controllers
         public IEnumerable<TransactionViewModel> Get()
         {
             List<Transactions> transactions = _context.Transactions.OrderByDescending(t => t.Date)
+                .ThenBy(t => t.User.Name)
                 .ThenBy(t => t.Category.Name)
                 .Take(10)
                 .ToList();
 
             List<TransactionViewModel> transactionViewModels = new List<TransactionViewModel>();
             foreach (Transactions tr in transactions)
-            {
                 transactionViewModels.Add(new TransactionViewModel
                 {
                     Date = tr.Date,
@@ -35,7 +35,6 @@ namespace Budgeteer_Web_Angular.Controllers
                     PersonName = _context.AspNetUsers.Single(usr => usr.Id == tr.UserId).Name,
                     CategoryName = _context.Categories.Single(cat => cat.CategoryId == tr.CategoryId).Name
                 });
-            }
 
             return transactionViewModels;
         }

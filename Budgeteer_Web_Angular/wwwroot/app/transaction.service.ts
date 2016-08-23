@@ -2,12 +2,15 @@
 import { Headers, Http, Response, RequestOptions } from "@angular/http";
 
 import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
 
 import { TransactionViewModel } from "./transaction-view-model";
 
 @Injectable()
 export class TransactionService {
-    private transactionsUrl = "api/categories"; // URL to web api
+    private transactionsUrl = "api/transactions"; // URL to web api
 
     constructor(private http: Http) { }
 
@@ -27,7 +30,7 @@ export class TransactionService {
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body || [];
     }
 
     private handleError(error: any) {

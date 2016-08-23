@@ -1,4 +1,4 @@
 ﻿export class CategoryViewModel {
-    Name: string;
-    IsDebit: boolean;
+    name: string;
+    isDebit: boolean;
 }

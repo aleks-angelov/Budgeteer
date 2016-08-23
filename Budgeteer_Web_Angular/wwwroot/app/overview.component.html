@@ -65,13 +65,13 @@
         <!--From ListTransactions.cshtml-->
 
         <tbody id="tableBody">
-            <tr *ngFor="let trans of transactions">
-                <td>{{trans.Date}}</td>
-                <td>{{trans.PersonName}}</td>
-                <td>Debit</td>
-                <td>{{trans.CategoryName}}</td>
-                <td>{{trans.Amount}}</td>
-                <td>{{trans.Note}}</td>
+            <tr *ngFor="let trans of transactions | keys">
+                <td>{{trans.value.date}}</td>
+                <td>{{trans.value.personName}}</td>
+                <td>{{trans.value.date}}</td>
+                <td>{{trans.value.categoryName}}</td>
+                <td>{{trans.value.amount}}</td>
+                <td>{{trans.value.note}}</td>
             </tr>
         </tbody>
     </table>
@@ -79,7 +79,7 @@
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
 <!--<div style="margin-top: 6px">
-    <img id="OverviewLeftChart" src="@Url.Action(" DisplayChart", new {chartName="OverviewLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Budget Balance (last 6 months)"/>
+    <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {chartName="OverviewLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Budget Balance (last 6 months)"/>
 
-    <img id="OverviewRightChart" src="@Url.Action(" DisplayChart", new {chartName="OverviewRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution (last 6 months)"/>
+    <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {chartName="OverviewRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution (last 6 months)"/>
 </div>-->
