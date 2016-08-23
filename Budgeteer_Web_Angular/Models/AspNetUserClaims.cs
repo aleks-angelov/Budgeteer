@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Budgeteer_Web_Angular.Models
+﻿namespace Budgeteer_Web_Angular.Models
 {
-    public partial class AspNetUserClaims
+    public class AspNetUserClaims
     {
         public int Id { get; set; }
         public string UserId { get; set; }

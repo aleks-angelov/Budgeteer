@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { TransactionViewModel } from "./transaction-view-model";
@@ -10,7 +10,7 @@ import { TransactionService } from "./transaction.service";
 })
 export class OverviewComponent {
     errorMessage: string;
-    @Input() transactions: TransactionViewModel[];
+    transactions: TransactionViewModel[];
 
     constructor(
         private router: Router,
@@ -35,4 +35,3 @@ export class OverviewComponent {
                 error => this.errorMessage = (error as any));
     }
 }
-

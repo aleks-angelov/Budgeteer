@@ -12,16 +12,16 @@ import { TransactionViewModel } from "./transaction-view-model";
 export class TransactionService {
     private transactionsUrl = "api/transactions"; // URL to web api
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {}
 
     getTransactions(): Observable<TransactionViewModel[]> {
         return (this.http.get(this.transactionsUrl).map(this.extractData).catch(this.handleError));
     }
 
     postTransaction(tvm: TransactionViewModel): Observable<TransactionViewModel> {
-        let body = JSON.stringify({ tvm });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        const body = JSON.stringify({ tvm });
+        const headers = new Headers({ 'Content-Type': "application/json" });
+        const options = new RequestOptions({ headers: headers });
 
         return (this.http.post(this.transactionsUrl, body, options)
             .map(this.extractData)
@@ -29,13 +29,14 @@ export class TransactionService {
     }
 
     private extractData(res: Response) {
-        let body = res.json();
+        const body = res.json();
         return body || [];
     }
 
     private handleError(error: any) {
-        let errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        const errMsg = (error.message)
+            ? error.message
+            : error.status ? `${error.status} - ${error.statusText}` : "Server error";
         console.error(errMsg);
         return Observable.throw(errMsg);
     }

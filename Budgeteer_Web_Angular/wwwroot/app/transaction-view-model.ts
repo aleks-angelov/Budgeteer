@@ -4,4 +4,5 @@
     note: string;
     personName: string;
     categoryName: string;
+    isDebit: boolean;
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Budgeteer_Web_Angular.Models
+﻿namespace Budgeteer_Web_Angular.Models
 {
-    public partial class MigrationHistory
+    public class MigrationHistory
     {
         public string MigrationId { get; set; }
         public string ContextKey { get; set; }

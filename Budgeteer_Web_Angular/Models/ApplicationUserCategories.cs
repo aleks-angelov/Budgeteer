@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Budgeteer_Web_Angular.Models
+﻿namespace Budgeteer_Web_Angular.Models
 {
-    public partial class ApplicationUserCategories
+    public class ApplicationUserCategories
     {
         public string ApplicationUserId { get; set; }
         public int CategoryCategoryId { get; set; }

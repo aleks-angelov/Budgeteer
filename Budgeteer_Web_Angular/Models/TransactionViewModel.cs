@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Budgeteer_Web_Angular.Models
 {
@@ -20,5 +18,7 @@ namespace Budgeteer_Web_Angular.Models
 
         [Required]
         public string CategoryName { get; set; }
+
+        public bool IsDebit { get; set; }
     }
 }

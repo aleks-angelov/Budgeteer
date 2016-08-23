@@ -1,20 +1,29 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Budgeteer_Web_Angular.Models
 {
-    public partial class BudgeteerDbContext : DbContext
+    public class BudgeteerDbContext : DbContext
     {
         public BudgeteerDbContext(DbContextOptions<BudgeteerDbContext> options)
             : base(options)
-        { }
+        {
+        }
+
+        public virtual DbSet<ApplicationUserCategories> ApplicationUserCategories { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
+        public virtual DbSet<Transactions> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUserCategories>(entity =>
             {
-                entity.HasKey(e => new { e.ApplicationUserId, e.CategoryCategoryId })
+                entity.HasKey(e => new {e.ApplicationUserId, e.CategoryCategoryId})
                     .HasName("PK_dbo.ApplicationUserCategories");
 
                 entity.Property(e => e.ApplicationUserId)
@@ -57,7 +66,7 @@ namespace Budgeteer_Web_Angular.Models
 
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey, e.UserId })
+                entity.HasKey(e => new {e.LoginProvider, e.ProviderKey, e.UserId})
                     .HasName("PK_dbo.AspNetUserLogins");
 
                 entity.Property(e => e.LoginProvider).HasMaxLength(128);
@@ -74,7 +83,7 @@ namespace Budgeteer_Web_Angular.Models
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleId })
+                entity.HasKey(e => new {e.UserId, e.RoleId})
                     .HasName("PK_dbo.AspNetUserRoles");
 
                 entity.Property(e => e.UserId).HasMaxLength(128);
@@ -117,7 +126,7 @@ namespace Budgeteer_Web_Angular.Models
 
             modelBuilder.Entity<MigrationHistory>(entity =>
             {
-                entity.HasKey(e => new { e.MigrationId, e.ContextKey })
+                entity.HasKey(e => new {e.MigrationId, e.ContextKey})
                     .HasName("PK_dbo.__MigrationHistory");
 
                 entity.ToTable("__MigrationHistory");
@@ -159,15 +168,5 @@ namespace Budgeteer_Web_Angular.Models
                     .HasConstraintName("FK_dbo.Transactions_dbo.AspNetUsers_UserID");
             });
         }
-
-        public virtual DbSet<ApplicationUserCategories> ApplicationUserCategories { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<MigrationHistory> MigrationHistory { get; set; }
-        public virtual DbSet<Transactions> Transactions { get; set; }
     }
 }

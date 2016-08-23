@@ -14,35 +14,23 @@ body {
    will truncate terms that are too long to fit in the left column 
 */
 
-.dl-horizontal dt {
-    white-space: normal;
-}
+.dl-horizontal dt { white-space: normal; }
 
 /* Set width on the form input elements since they're 100% wide by default */
 
 input,
 select,
-textarea {
-    max-width: 280px;
-}
+textarea { max-width: 280px; }
 
 /* My styles */
 
-.margin-right-sm {
-    margin-right: 11px;
-}
+.margin-right-sm { margin-right: 11px; }
 
-.margin-right-md {
-    margin-right: 34px;
-}
+.margin-right-md { margin-right: 34px; }
 
-.margin-right-lg {
-    margin-right: 120px;
-}
+.margin-right-lg { margin-right: 120px; }
 
-.field-validation-error {
-    color: #f00;
-}
+.field-validation-error { color: #f00; }
 
 .validation-summary-errors {
     color: #f00;
@@ -54,6 +42,4 @@ textarea {
     border: 2px solid #f00;
 }
 
-input[type="checkbox"].input-validation-error {
-    outline: 2px solid #f00;
-}
+input[type="checkbox"].input-validation-error { outline: 2px solid #f00; }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Budgeteer_Web_Angular.Models
 {
-    public partial class Categories
+    public class Categories
     {
         public Categories()
         {

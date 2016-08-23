@@ -27,14 +27,19 @@ namespace Budgeteer_Web_Angular.Controllers
 
             List<TransactionViewModel> transactionViewModels = new List<TransactionViewModel>();
             foreach (Transactions tr in transactions)
+            {
+                Categories trCat = _context.Categories.Single(cat => cat.CategoryId == tr.CategoryId);
+
                 transactionViewModels.Add(new TransactionViewModel
                 {
                     Date = tr.Date,
                     Amount = tr.Amount,
                     Note = tr.Note,
                     PersonName = _context.AspNetUsers.Single(usr => usr.Id == tr.UserId).Name,
-                    CategoryName = _context.Categories.Single(cat => cat.CategoryId == tr.CategoryId).Name
+                    CategoryName = trCat.Name,
+                    IsDebit = trCat.IsDebit
                 });
+            }
 
             return transactionViewModels;
         }

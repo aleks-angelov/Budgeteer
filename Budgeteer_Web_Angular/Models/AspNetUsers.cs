@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Budgeteer_Web_Angular.Models
 {
-    public partial class AspNetUsers
+    public class AspNetUsers
     {
         public AspNetUsers()
         {

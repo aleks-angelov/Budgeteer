@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Budgeteer_Web_Angular.Models
+﻿namespace Budgeteer_Web_Angular.Models
 {
-    public partial class AspNetUserLogins
+    public class AspNetUserLogins
     {
         public string LoginProvider { get; set; }
         public string ProviderKey { get; set; }
