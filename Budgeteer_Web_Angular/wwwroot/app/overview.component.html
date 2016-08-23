@@ -65,14 +65,14 @@
         <!--From ListTransactions.cshtml-->
 
         <tbody id="tableBody">
-            <tr *ngFor="let trans of transactions | keys">
-                <td>{{trans.value.date | date: 'dd/MM/yyyy'}}</td>
-                <td>{{trans.value.personName}}</td>
-                <td *ngIf="trans.value.isDebit">Debit</td>
-                <td *ngIf="!trans.value.isDebit">Credit</td>
-                <td>{{trans.value.categoryName}}</td>
-                <td>{{trans.value.amount}}</td>
-                <td>{{trans.value.note}}</td>
+            <tr *ngFor="let trans of transactions">
+                <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{trans.personName}}</td>
+                <td *ngIf="trans.isDebit">Debit</td>
+                <td *ngIf="!trans.isDebit">Credit</td>
+                <td>{{trans.categoryName}}</td>
+                <td>{{trans.amount}}</td>
+                <td>{{trans.note}}</td>
             </tr>
         </tbody>
     </table>

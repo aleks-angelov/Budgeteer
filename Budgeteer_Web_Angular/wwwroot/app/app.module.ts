@@ -6,7 +6,6 @@ import { HttpModule } from "@angular/http";
 import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
 import { OverviewComponent } from "./overview.component";
-import { KeysPipe } from "./keys.pipe";
 import { TransactionService } from "./transaction.service";
 
 @NgModule({
@@ -18,8 +17,7 @@ import { TransactionService } from "./transaction.service";
     ],
     declarations: [
         AppComponent,
-        OverviewComponent,
-        KeysPipe
+        OverviewComponent
     ],
     providers: [
         TransactionService
