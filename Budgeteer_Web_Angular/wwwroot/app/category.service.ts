@@ -6,30 +6,30 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 
-import { TransactionViewModel } from "./transaction-view-model";
+import { CategoryViewModel } from "./category-view-model";
 import { HelperService } from "./helper.service";
 
 @Injectable()
-export class TransactionService {
-    private transactionsUrl = "api/transactions"; // URL to web api
+export class CategoryService {
+    private categoriesUrl = "api/categories"; // URL to web api
 
     constructor(
         private http: Http,
         private helperService: HelperService) {
     }
 
-    getTransactions(): Observable<TransactionViewModel[]> {
-        return (this.http.get(this.transactionsUrl)
+    getCategories(): Observable<string[]> {
+        return (this.http.get(this.categoriesUrl)
             .map(this.helperService.extractData)
             .catch(this.helperService.handleError));
     }
 
-    postTransaction(tvm: TransactionViewModel): Observable<TransactionViewModel> {
-        const body = JSON.stringify({ tvm });
+    postCategory(cvm: CategoryViewModel): Observable<CategoryViewModel> {
+        const body = JSON.stringify({ cvm });
         const headers = new Headers({ 'Content-Type': "application/json" });
         const options = new RequestOptions({ headers: headers });
 
-        return (this.http.post(this.transactionsUrl, body, options)
+        return (this.http.post(this.categoriesUrl, body, options)
             .map(this.helperService.extractData)
             .catch(this.helperService.handleError));
     }
