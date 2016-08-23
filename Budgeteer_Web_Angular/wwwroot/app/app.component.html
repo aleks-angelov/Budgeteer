@@ -1,4 +1,30 @@
-﻿<div class="container body-content">
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" routerLink="/home"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a routerLink="/overview" routerLinkActive="active">Overview</a>
+                </li>
+                <li>
+                    <a routerLink="/spending" routerLinkActive="active">Spending</a>
+                </li>
+                <li>
+                    <a routerLink="/income" routerLinkActive="active">Income</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
     <router-outlet></router-outlet>
     <hr />
     <footer>
