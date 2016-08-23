@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         //    this.addCategory().subscribe();
-        //    this.addTransaction().subscribe();
     }
 
     //addCategory(): Observable<Response> {
@@ -25,21 +24,5 @@ export class AppComponent implements OnInit {
     //    const options = new RequestOptions({ headers: headers });
 
     //    return this.http.post("api/categories", body, options);
-    //}
-
-    //addTransaction(): Observable<Response> {
-    //    const tvm = new TransactionViewModel();
-    //    tvm.Date = new Date();
-    //    console.log(tvm.Date);
-    //    tvm.Amount = 10.05;
-    //    tvm.Note = "Test";
-    //    tvm.PersonName = "Aleks Angelov";
-    //    tvm.CategoryName = "Food";
-
-    //    const body = JSON.stringify(tvm);
-    //    const headers = new Headers({ 'Content-Type': "application/json" });
-    //    const options = new RequestOptions({ headers: headers });
-
-    //    return this.http.post("api/transactions", body, options);
     //}
 }

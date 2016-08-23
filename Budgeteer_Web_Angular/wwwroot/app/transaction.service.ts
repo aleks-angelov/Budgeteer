@@ -4,7 +4,6 @@ import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
 
 import { TransactionViewModel } from "./transaction-view-model";
 import { HelperService } from "./helper.service";
@@ -25,12 +24,10 @@ export class TransactionService {
     }
 
     postTransaction(tvm: TransactionViewModel): Observable<TransactionViewModel> {
-        const body = JSON.stringify({ tvm });
+        const body = JSON.stringify(tvm);
         const headers = new Headers({ 'Content-Type': "application/json" });
         const options = new RequestOptions({ headers: headers });
 
-        return (this.http.post(this.transactionsUrl, body, options)
-            .map(this.helperService.extractData)
-            .catch(this.helperService.handleError));
+        return (this.http.post(this.transactionsUrl, body, options).catch(this.helperService.handleError));
     }
 }

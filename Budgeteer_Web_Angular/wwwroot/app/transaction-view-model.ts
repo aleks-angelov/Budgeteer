@@ -1,8 +1,10 @@
 ﻿export class TransactionViewModel {
-    date: Date;
-    amount: number;
-    note: string;
-    personName: string;
-    categoryName: string;
-    isDebit: boolean;
+    constructor(
+        public date: Date,
+        public amount: number,
+        public personName: string,
+        public categoryName: string,
+        public isDebit: boolean,
+        public note?: string) {
+    }
 }

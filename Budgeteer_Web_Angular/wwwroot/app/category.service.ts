@@ -4,7 +4,6 @@ import { Headers, Http, Response, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
 
 import { CategoryViewModel } from "./category-view-model";
 import { HelperService } from "./helper.service";
@@ -18,8 +17,8 @@ export class CategoryService {
         private helperService: HelperService) {
     }
 
-    getCategories(): Observable<string[]> {
-        return (this.http.get(this.categoriesUrl)
+    getCategories(isDebit: boolean): Observable<string[]> {
+        return (this.http.get(this.categoriesUrl + (isDebit ? "?debit=true" : "?debit=false"))
             .map(this.helperService.extractData)
             .catch(this.helperService.handleError));
     }
