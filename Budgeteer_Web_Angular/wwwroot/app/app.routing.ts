@@ -3,6 +3,7 @@
 import { HomeComponent } from "./home.component";
 import { OverviewComponent } from "./overview.component";
 import { SpendingComponent } from "./spending.component";
+import { IncomeComponent } from "./income.component";
 
 const appRoutes: Routes = [
     {
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
     {
         path: "spending",
         component: SpendingComponent
+    },
+    {
+        path: "income",
+        component: IncomeComponent
     }
 ];
 

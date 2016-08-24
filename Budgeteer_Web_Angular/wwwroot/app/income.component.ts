@@ -10,17 +10,17 @@ import { UserService } from "./user.service";
 import { SpendingIncomeViewModel } from "./spending-income-view-model";
 
 @Component({
-    selector: "my-spending",
-    templateUrl: "app/spending.component.html"
+    selector: "my-income",
+    templateUrl: "app/income.component.html"
 })
-export class SpendingComponent implements OnInit {
+export class IncomeComponent implements OnInit {
     errorMessage: string;
     transactions: TransactionViewModel[];
 
     people: string[];
     categories: string[];
-    spendingModel = new SpendingIncomeViewModel("Aleks Angelov", null, null, "Food");
-    categoryModel = new CategoryViewModel("", true);
+    incomeModel = new SpendingIncomeViewModel("Aleks Angelov", null, null, "Salary");
+    categoryModel = new CategoryViewModel("", false);
     active = true;
 
     constructor(
@@ -32,7 +32,7 @@ export class SpendingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.titleService.setTitle("Spending - Budgeteer");
+        this.titleService.setTitle("Income - Budgeteer");
         this.getFormData();
         this.getTransactions();
     }
@@ -43,7 +43,7 @@ export class SpendingComponent implements OnInit {
                 response => this.people = response,
                 error => this.errorMessage = (error as any));
 
-        this.categoryService.getCategories(true)
+        this.categoryService.getCategories(false)
             .subscribe(
                 response => this.categories = response,
                 error => this.errorMessage = (error as any));
@@ -79,7 +79,7 @@ export class SpendingComponent implements OnInit {
     }
 
     newCategory() {
-        this.categoryModel = new CategoryViewModel("", true);
+        this.categoryModel = new CategoryViewModel("", false);
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }

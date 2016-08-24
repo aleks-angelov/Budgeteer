@@ -65,3 +65,23 @@
 
     <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!spendingNewCategoryName.valid">Add</button>
 </form>
+
+<!--<div style="margin-top: 26px">
+    <img id="SpendingTopLeftChart" src="@Url.Action(" DisplayChart", new {chartName="SpendingTopLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, personName="Aleks Angelov" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending of" />
+
+    <img id="SpendingTopRightChart" src="@Url.Action(" DisplayChart", new {chartName="SpendingTopRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, categoryName="Food" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending for" />
+</div>
+
+<div style="margin-top: 26px">
+    <img id="SpendingBottomLeftChart" src="@Url.Action(" DisplayChart", new {chartName="SpendingBottomLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, personName="Aleks Angelov" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution of" />
+
+    <img id="SpendingBottomRightChart" src="@Url.Action(" DisplayChart", new {chartName="SpendingBottomRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, categoryName="Food" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution for" />
+</div>
+
+<script type="text/javascript">
+    var date_6M = new Date();
+    date_6M.setMonth(date_6M.getMonth() - 6);
+
+    document.getElementById("spendingDateFrom").valueAsDate = date_6M;
+    document.getElementById("spendingDateUntil").valueAsDate = new Date();
+</script>-->

@@ -99,4 +99,8 @@
     <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {chartName="OverviewLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Budget Balance (last 6 months)"/>
 
     <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {chartName="OverviewRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution (last 6 months)"/>
-</div>-->
+</div>
+
+<script type="text/javascript">
+    document.getElementById("Date").valueAsDate = new Date();
+</script>-->

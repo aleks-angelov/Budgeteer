@@ -1,0 +1,87 @@
+﻿<h2>Income</h2>
+<form *ngIf="active" (ngSubmit)="postCategory(categoryModel)" class="form-inline" role="form" style="margin-top: 13px">
+
+    <div class="form-group margin-right-sm" style="width: 162px">
+        <label for="incomePersonName">Person:</label>
+        <select class="form-control" id="incomePersonName"
+                style="width: 162px" required
+                [(ngModel)]="incomeModel.personName" name="incomePersonName"
+                #incomePersonName="ngModel">
+            <option *ngFor="let person of people" [value]="person">{{person}}</option>
+        </select>
+        <div [hidden]="incomePersonName.valid || incomePersonName.pristine" class="alert alert-danger">
+            The Person field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 175px">
+        <label for="incomeDateFrom">From:</label>
+        <input type="date" class="form-control" id="incomeDateFrom"
+               style="width: 175px"
+               [(ngModel)]="incomeModel.dateFrom" name="incomeDateFrom"
+               #incomeDateFrom="ngModel">
+        <div [hidden]="incomeDateFrom.valid || incomeDateFrom.pristine"
+             class="alert alert-danger">
+            The From field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 175px">
+        <label for="incomeDateUntil">Until:</label>
+        <input type="date" class="form-control" id="incomeDateUntil"
+               style="width: 175px"
+               [(ngModel)]="incomeModel.dateUntil" name="incomeDateUntil"
+               #incomeDateUntil="ngModel">
+        <div [hidden]="incomeDateUntil.valid || incomeDateUntil.pristine"
+             class="alert alert-danger">
+            The Until field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-lg" style="width: 162px">
+        <label for="incomeCategoryName">Category:</label>
+        <select class="form-control" id="incomeCategoryName"
+                style="width: 162px" required
+                [(ngModel)]="incomeModel.categoryName" name="incomeCategoryName"
+                #incomeCategoryName="ngModel">
+            <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+        </select>
+        <div [hidden]="incomeCategoryName.valid || incomeCategoryName.pristine" class="alert alert-danger">
+            The Category field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 162px">
+        <label for="incomeNewCategoryName">New Category:</label>
+        <input type="text" class="form-control" id="incomeNewCategoryName"
+               style="width: 162px" required
+               [(ngModel)]="categoryModel.name" name="incomeNewCategoryName"
+               #incomeNewCategoryName="ngModel">
+        <div [hidden]="incomeNewCategoryName.valid || incomeNewCategoryName.pristine"
+             class="alert alert-danger">
+            The New Category field is required.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!incomeNewCategoryName.valid">Add</button>
+</form>
+
+<!--<div style="margin-top: 26px">
+    <img id="IncomeTopLeftChart" src="@Url.Action(" DisplayChart", new {chartName="IncomeTopLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, personName="Aleks Angelov" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Income of" />
+
+    <img id="IncomeTopRightChart" src="@Url.Action(" DisplayChart", new {chartName="IncomeTopRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, categoryName="Salary" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Income from" />
+</div>
+
+<div style="margin-top: 26px">
+    <img id="IncomeBottomLeftChart" src="@Url.Action(" DisplayChart", new {chartName="IncomeBottomLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, personName="Aleks Angelov" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution of" />
+
+    <img id="IncomeBottomRightChart" src="@Url.Action(" DisplayChart", new {chartName="IncomeBottomRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, categoryName="Salary" , br=DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution from" />
+</div>
+
+<script type="text/javascript">
+    var date_6M = new Date();
+    date_6M.setMonth(date_6M.getMonth() - 6);
+
+    document.getElementById("IncomeDateFrom").valueAsDate = date_6M;
+    document.getElementById("IncomeDateUntil").valueAsDate = new Date();
+</script>-->
