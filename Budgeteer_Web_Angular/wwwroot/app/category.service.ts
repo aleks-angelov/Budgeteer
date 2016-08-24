@@ -24,12 +24,10 @@ export class CategoryService {
     }
 
     postCategory(cvm: CategoryViewModel): Observable<CategoryViewModel> {
-        const body = JSON.stringify({ cvm });
+        const body = JSON.stringify(cvm);
         const headers = new Headers({ 'Content-Type': "application/json" });
         const options = new RequestOptions({ headers: headers });
 
-        return (this.http.post(this.categoriesUrl, body, options)
-            .map(this.helperService.extractData)
-            .catch(this.helperService.handleError));
+        return (this.http.post(this.categoriesUrl, body, options).catch(this.helperService.handleError));
     }
 }

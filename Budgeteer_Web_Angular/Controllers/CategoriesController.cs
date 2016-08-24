@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Budgeteer_Web_Angular.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -30,13 +31,19 @@ namespace Budgeteer_Web_Angular.Controllers
         [HttpPost]
         public void Post([FromBody] CategoryViewModel cvm)
         {
-            Categories cat = new Categories
+            Categories existingCategory =
+                _context.Categories.FirstOrDefault(c => c.Name.Equals(cvm.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (existingCategory == null)
             {
-                Name = cvm.Name,
-                IsDebit = cvm.IsDebit
-            };
-            _context.Categories.Add(cat);
-            _context.SaveChanges();
+                Categories cat = new Categories
+                {
+                    Name = cvm.Name,
+                    IsDebit = cvm.IsDebit
+                };
+                _context.Categories.Add(cat);
+                _context.SaveChanges();
+            }
         }
     }
 }

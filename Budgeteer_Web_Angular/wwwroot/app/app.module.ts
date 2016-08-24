@@ -7,6 +7,7 @@ import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
 import { HomeComponent } from "./home.component";
 import { OverviewComponent } from "./overview.component";
+import { SpendingComponent } from "./spending.component";
 import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
@@ -22,7 +23,8 @@ import { HelperService } from "./helper.service";
     declarations: [
         AppComponent,
         HomeComponent,
-        OverviewComponent
+        OverviewComponent,
+        SpendingComponent
     ],
     providers: [
         Title,

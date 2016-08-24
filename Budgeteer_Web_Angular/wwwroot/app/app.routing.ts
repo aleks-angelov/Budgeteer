@@ -2,6 +2,7 @@
 
 import { HomeComponent } from "./home.component";
 import { OverviewComponent } from "./overview.component";
+import { SpendingComponent } from "./spending.component";
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
     {
         path: "overview",
         component: OverviewComponent
+    },
+    {
+        path: "spending",
+        component: SpendingComponent
     }
 ];
 

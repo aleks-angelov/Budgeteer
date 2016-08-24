@@ -1,0 +1,67 @@
+﻿<h2>Spending</h2>
+<form *ngIf="active" (ngSubmit)="postCategory(categoryModel)" class="form-inline" role="form" style="margin-top: 13px">
+
+    <div class="form-group margin-right-sm" style="width: 162px">
+        <label for="spendingPersonName">Person:</label>
+        <select class="form-control" id="spendingPersonName"
+                style="width: 162px" required
+                [(ngModel)]="spendingModel.personName" name="spendingPersonName"
+                #spendingPersonName="ngModel">
+            <option *ngFor="let person of people" [value]="person">{{person}}</option>
+        </select>
+        <div [hidden]="spendingPersonName.valid || spendingPersonName.pristine" class="alert alert-danger">
+            The Person field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 175px">
+        <label for="spendingDateFrom">From:</label>
+        <input type="date" class="form-control" id="spendingDateFrom"
+               style="width: 175px"
+               [(ngModel)]="spendingModel.dateFrom" name="spendingDateFrom"
+               #spendingDateFrom="ngModel">
+        <div [hidden]="spendingDateFrom.valid || spendingDateFrom.pristine"
+             class="alert alert-danger">
+            The From field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 175px">
+        <label for="spendingDateUntil">Until:</label>
+        <input type="date" class="form-control" id="spendingDateUntil"
+               style="width: 175px"
+               [(ngModel)]="spendingModel.dateUntil" name="spendingDateUntil"
+               #spendingDateUntil="ngModel">
+        <div [hidden]="spendingDateUntil.valid || spendingDateUntil.pristine"
+             class="alert alert-danger">
+            The Until field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-lg" style="width: 162px">
+        <label for="spendingCategoryName">Category:</label>
+        <select class="form-control" id="spendingCategoryName"
+                style="width: 162px" required
+                [(ngModel)]="spendingModel.categoryName" name="spendingCategoryName"
+                #spendingCategoryName="ngModel">
+            <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+        </select>
+        <div [hidden]="spendingCategoryName.valid || spendingCategoryName.pristine" class="alert alert-danger">
+            The Category field is required.
+        </div>
+    </div>
+
+    <div class="form-group margin-right-sm" style="width: 162px">
+        <label for="spendingNewCategoryName">New Category:</label>
+        <input type="text" class="form-control" id="spendingNewCategoryName"
+               style="width: 162px" required
+               [(ngModel)]="categoryModel.name" name="spendingNewCategoryName"
+               #spendingNewCategoryName="ngModel">
+        <div [hidden]="spendingNewCategoryName.valid || spendingNewCategoryName.pristine"
+             class="alert alert-danger">
+            The New Category field is required.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!spendingNewCategoryName.valid">Add</button>
+</form>

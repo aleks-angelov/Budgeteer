@@ -1,43 +1,43 @@
 ﻿@model Budgeteer_Web.Models.TransactionViewModel
 
-@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions {UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts"}, new {@class = "form-inline", role = "form", style = "margin-top:13px"}))
+@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts" }, new { @class = "form-inline", role = "form", style = "margin-top:13px" }))
 {
     @Html.ValidationSummary()
 
     <div class="form-group margin-right-sm" style="width: 175px">
         @Html.LabelFor(tvm => tvm.Date, "Date:")
-        @Html.TextBoxFor(tvm => tvm.Date, new {type = "date", @class = "form-control", id = "Date"})
+        @Html.TextBoxFor(tvm => tvm.Date, new { type = "date", @class = "form-control", id = "Date" })
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
         @Html.LabelFor(tvm => tvm.PersonName, "Person:")
-        @Html.DropDownListFor(tvm => tvm.PersonName, Model.Users, new {@class = "form-control", id = "PersonName", style = "width:162px"})
+        @Html.DropDownListFor(tvm => tvm.PersonName, Model.Users, new { @class = "form-control", id = "PersonName", style = "width:162px" })
     </div>
 
     <div class="form-group margin-right-sm" style="width: 117px">
         <label for="transtype">Type:</label>
         <div class="form-control" id="transtype">
-            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions {Url = Url.Action("GetCategoryNames", new {debit = true}), OnSuccess = "listCategories"})
+            @Ajax.ActionLink("Debit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = true }), OnSuccess = "listCategories" })
 
             &nbsp;|&nbsp;
 
-            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions {Url = Url.Action("GetCategoryNames", new {debit = false}), OnSuccess = "listCategories"})
+            @Ajax.ActionLink("Credit", "Overview", new AjaxOptions { Url = Url.Action("GetCategoryNames", new { debit = false }), OnSuccess = "listCategories" })
         </div>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
         @Html.LabelFor(tvm => tvm.CategoryName, "Category:")
-        <select class="form-control valid" data-val="true" data-val-required="The Category field is required." id="CategoryName" name="CategoryName" aria-required="true" aria-describedby="CategoryName-error" aria-invalid="false" style="width: 162px"></select>
+        <select class="form-control valid" data-val="true" data-val-required="The Category field is required. Choose a type to populate the list." id="CategoryName" name="CategoryName" aria-required="true" aria-describedby="CategoryName-error" aria-invalid="false" style="width: 162px"></select>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
         @Html.LabelFor(tvm => tvm.Amount, "Amount:")
-        @Html.TextBoxFor(tvm => tvm.Amount, new {type = "text", @class = "form-control", id = "Amount", style = "width:162px"})
+        @Html.TextBoxFor(tvm => tvm.Amount, new { type = "text", @class = "form-control", id = "Amount", style = "width:162px" })
     </div>
 
     <div class="form-group margin-right-sm" style="width: 221px">
         @Html.LabelFor(tvm => tvm.Note, "Note:")
-        @Html.TextBoxFor(tvm => tvm.Note, new {type = "text", @class = "form-control", id = "Note", style = "width:221px"})
+        @Html.TextBoxFor(tvm => tvm.Note, new { type = "text", @class = "form-control", id = "Note", style = "width:221px" })
     </div>
 
     <button type="submit" class="btn btn-default" style="margin-top: 25px">Add</button>

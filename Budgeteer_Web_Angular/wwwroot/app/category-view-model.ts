@@ -1,4 +1,6 @@
 ﻿export class CategoryViewModel {
-    name: string;
-    isDebit: boolean;
+    constructor(
+        public name: string,
+        public isDebit: boolean) {
+    }
 }
