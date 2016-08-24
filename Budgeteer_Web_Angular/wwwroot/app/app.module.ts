@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, Title } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
@@ -25,6 +25,7 @@ import { HelperService } from "./helper.service";
         OverviewComponent
     ],
     providers: [
+        Title,
         TransactionService,
         CategoryService,
         UserService,

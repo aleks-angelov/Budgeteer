@@ -1,6 +1,4 @@
-﻿
-
-<h2>Overview</h2>
+﻿<h2>Overview</h2>
 <form *ngIf="active" (ngSubmit)="postTransaction(model)" #transactionForm="ngForm" class="form-inline" role="form" style="margin-top: 13px">
 
     <div class="form-group margin-right-sm" style="width: 175px">
@@ -69,7 +67,6 @@
 
     <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!transactionForm.form.valid">Add</button>
 </form>
-
 
 <div class="table-responsive" style="margin-top: 30px">
     <table class="table table-striped table-bordered table-hover table-condensed" style="font-size: 14px">

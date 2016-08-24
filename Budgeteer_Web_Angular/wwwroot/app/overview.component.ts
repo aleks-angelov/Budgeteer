@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 
 import { TransactionViewModel } from "./transaction-view-model";
 import { TransactionService } from "./transaction.service";
@@ -20,6 +21,7 @@ export class OverviewComponent implements OnInit {
     active = true;
 
     constructor(
+        private titleService: Title,
         private router: Router,
         private transactionService: TransactionService,
         private categoryService: CategoryService,
@@ -27,6 +29,7 @@ export class OverviewComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.titleService.setTitle("Overview - Budgeteer");
         this.getFormData();
         this.getTransactions();
     }
