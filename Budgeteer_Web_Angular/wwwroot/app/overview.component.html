@@ -95,12 +95,14 @@
 </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
-<!--<div style="margin-top: 6px">
-    <img id="OverviewLeftChart" src="@Url.Action("DisplayChart", new {chartName="OverviewLeftChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Budget Balance (last 6 months)"/>
+<div style="margin-top: 6px">
+    <div id="overviewLeftChart" style="width: 568px; height: 426px; float: left"></div>
 
-    <img id="OverviewRightChart" src="@Url.Action("DisplayChart", new {chartName="OverviewRightChart" , dateFrom=DateTime.Today.AddMonths(-6), dateUntil=DateTime.Today, br=DateTime.Now.TimeOfDay.ToString()})" alt="Spending Distribution (last 6 months)"/>
+    <div id="overviewRightChart" style="width: 568px; height: 426px; float: right"></div>
 </div>
 
-<script type="text/javascript">
-    document.getElementById("Date").valueAsDate = new Date();
-</script>-->
+<div style="clear: both"></div>
+
+<!--<script type="text/javascript">
+    document.getElementById("date").valueAsDate = new Date();
+</script>-->-->

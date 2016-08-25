@@ -36,10 +36,10 @@ export class SpendingComponent implements OnInit {
         this.getFormData();
         this.getTransactions();
 
-        const topLeftChart = new Highcharts.Chart({
+        const spendingTopLeftChart = new Highcharts.Chart({
             chart: {
                 type: "column",
-                renderTo: "myTopLeftChart"
+                renderTo: "spendingTopLeftChart"
             },
             title: {
                 text: "Monthly Average Rainfall"
@@ -89,10 +89,10 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const topRightChart = new Highcharts.Chart({
+        const spendingTopRightChart = new Highcharts.Chart({
             chart: {
                 type: "column",
-                renderTo: "myTopRightChart"
+                renderTo: "spendingTopRightChart"
             },
             title: {
                 text: "Monthly Average Rainfall"
@@ -142,10 +142,10 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const bottomLeftChart = new Highcharts.Chart({
+        const spendingBottomLeftChart = new Highcharts.Chart({
             chart: {
                 type: "pie",
-                renderTo: "myBottomLeftChart"
+                renderTo: "spendingBottomLeftChart"
             },
             title: {
                 text: "Browser market shares January, 2015 to May, 2015"
@@ -191,10 +191,10 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const bottomRightChart = new Highcharts.Chart({
+        const spendingBottomRightChart = new Highcharts.Chart({
             chart: {
                 type: "pie",
-                renderTo: "myBottomRightChart"
+                renderTo: "spendingBottomRightChart"
             },
             title: {
                 text: "Browser market shares January, 2015 to May, 2015"
