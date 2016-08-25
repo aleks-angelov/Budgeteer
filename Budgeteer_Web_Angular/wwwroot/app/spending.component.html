@@ -1,7 +1,7 @@
 ﻿<h2>Spending</h2>
 <form *ngIf="active" (ngSubmit)="postCategory(categoryModel)" class="form-inline" role="form" style="margin-top: 13px">
 
-    <div class="form-group margin-right-sm" style="width: 162px">
+    <div class="form-group margin-right-md" style="width: 162px">
         <label for="spendingPersonName">Person:</label>
         <select class="form-control" id="spendingPersonName"
                 style="width: 162px" required
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="form-group margin-right-sm" style="width: 175px">
+    <div class="form-group margin-right-md" style="width: 175px">
         <label for="spendingDateFrom">From:</label>
         <input type="date" class="form-control" id="spendingDateFrom"
                style="width: 175px"
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="form-group margin-right-sm" style="width: 175px">
+    <div class="form-group margin-right-md" style="width: 175px">
         <label for="spendingDateUntil">Until:</label>
         <input type="date" class="form-control" id="spendingDateUntil"
                style="width: 175px"
@@ -66,8 +66,20 @@
     <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!spendingNewCategoryName.valid">Add</button>
 </form>
 
-<div id="myChart" style="width: 568px; height: 426px">
-    
+<div style="margin-top: 26px">
+    <div id="myTopLeftChart" style="width: 568px; height: 426px; float: left"></div>
+
+    <div id="myTopRightChart" style="width: 568px; height: 426px; float: right"></div>
+
+    <div style="clear: both"></div>
+</div>
+
+<div style="margin-top: 26px">
+    <div id="myBottomLeftChart" style="width: 568px; height: 426px; float: left"></div>
+
+    <div id="myBottomRightChart" style="width: 568px; height: 426px; float: right"></div>
+
+    <div style="clear: both"></div>
 </div>
 
 <!--<div style="margin-top: 26px">
