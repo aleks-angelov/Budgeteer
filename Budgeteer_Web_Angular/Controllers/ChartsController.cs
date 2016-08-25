@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using Budgeteer_Web_Angular.Infrastructure;
 using Budgeteer_Web_Angular.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,13 @@ namespace Budgeteer_Web_Angular.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{name}")]
-        public IEnumerable<TransactionViewModel> Get(string name)
+        [HttpGet]
+        public IEnumerable<TransactionViewModel> Get(string chartName, DateTime dateFrom, DateTime dateUntil,
+            string personName = null, string categoryName = null)
         {
-            return TransactionViewModel.Convert(_context.Transactions.ToList(), _context);
+            IEnumerable<Transactions> chartTransactions = ChartFactory.GetChartTransactions(chartName, dateFrom, dateUntil, personName, categoryName, _context);
+
+            return TransactionViewModel.Convert(chartTransactions, _context);
         }
     }
 }
