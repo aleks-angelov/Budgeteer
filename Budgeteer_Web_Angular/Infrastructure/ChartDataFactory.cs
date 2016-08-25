@@ -1,47 +1,48 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using Budgeteer_Web_Angular.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Budgeteer_Web_Angular.Models;
 
-//namespace Budgeteer_Web_Angular.Infrastructure
-//{
-//    public static class ChartFactory
+namespace Budgeteer_Web_Angular.Infrastructure
+{
+//    public static class ChartDataFactory
 //    {
 //        // Delegate
-//        public static IEnumerable<Transactions> GetChartTransactions(string chartName, DateTime dateFrom, DateTime dateUntil, string personName,
+//        public static IEnumerable<Transactions> GetChartTransactions(string chartName, DateTime dateFrom,
+//            DateTime dateUntil, string personName,
 //            string categoryName, BudgeteerDbContext context)
 //        {
 //            switch (chartName)
 //            {
 //                case "OverviewLeftChart":
-//                    return CreateOverviewLeftChart(dateFrom, dateUntil);
+//                    return GetOverviewLeftTransactions(dateFrom, dateUntil);
 
 //                case "OverviewRightChart":
-//                    return CreateOverviewRightChart(dateFrom, dateUntil);
+//                    return GetOverviewRightTransactions(dateFrom, dateUntil);
 
 //                case "SpendingTopLeftChart":
-//                    return CreateSpendingTopLeftChart(dateFrom, dateUntil, personName);
+//                    return GetSpendingTopLeftTransactions(dateFrom, dateUntil, personName);
 
 //                case "SpendingBottomLeftChart":
-//                    return CreateSpendingBottomLeftChart(dateFrom, dateUntil, personName);
+//                    return GetSpendingBottomLeftTransactions(dateFrom, dateUntil, personName);
 
 //                case "SpendingTopRightChart":
-//                    return CreateSpendingTopRightChart(dateFrom, dateUntil, categoryName);
+//                    return GetSpendingTopRightTransactions(dateFrom, dateUntil, categoryName);
 
 //                case "SpendingBottomRightChart":
-//                    return CreateSpendingBottomRightChart(dateFrom, dateUntil, categoryName);
+//                    return GetSpendingBottomRightTransactions(dateFrom, dateUntil, categoryName);
 
 //                case "IncomeTopLeftChart":
-//                    return CreateIncomeTopLeftChart(dateFrom, dateUntil, personName);
+//                    return GetIncomeTopLeftTransactions(dateFrom, dateUntil, personName);
 
 //                case "IncomeBottomLeftChart":
-//                    return CreateIncomeBottomLeftChart(dateFrom, dateUntil, personName);
+//                    return GetIncomeBottomLeftTransactions(dateFrom, dateUntil, personName);
 
 //                case "IncomeTopRightChart":
-//                    return CreateIncomeTopRightChart(dateFrom, dateUntil, categoryName);
+//                    return GetIncomeTopRightTransactions(dateFrom, dateUntil, categoryName);
 
 //                case "IncomeBottomRightChart":
-//                    return CreateIncomeBottomRightChart(dateFrom, dateUntil, categoryName);
+//                    return GetIncomeBottomRightTransactions(dateFrom, dateUntil, categoryName);
 
 //                default:
 //                    return null;
@@ -49,16 +50,16 @@
 //        }
 
 //        // Overview Balance chart
-//        private static Chart CreateOverviewLeftChart(DateTime dateFrom, DateTime dateUntil)
+//        private static IEnumerable<Transactions> GetOverviewLeftTransactions(DateTime dateFrom, DateTime dateUntil)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
 //                // Income data
 //                List<Transaction> incomeRecords = (from record in context.Transactions
 //                                                   where
-//                                                       !record.Category.IsDebit &&
-//                                                       record.Date >= dateFrom &&
-//                                                       record.Date <= dateUntil
+//                                                   !record.Category.IsDebit &&
+//                                                   (record.Date >= dateFrom) &&
+//                                                   (record.Date <= dateUntil)
 //                                                   select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
@@ -78,9 +79,9 @@
 //                // Spending data
 //                List<Transaction> spendingRecords = (from record in context.Transactions
 //                                                     where
-//                                                         record.Category.IsDebit &&
-//                                                         record.Date >= dateFrom &&
-//                                                         record.Date <= dateUntil
+//                                                     record.Category.IsDebit &&
+//                                                     (record.Date >= dateFrom) &&
+//                                                     (record.Date <= dateUntil)
 //                                                     select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
@@ -107,7 +108,7 @@
 //        }
 
 //        // Overview Spending chart
-//        private static Chart CreateOverviewRightChart(DateTime dateFrom, DateTime dateUntil)
+//        private static IEnumerable<Transactions> GetOverviewRightTransactions(DateTime dateFrom, DateTime dateUntil)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
@@ -118,9 +119,9 @@
 //                {
 //                    List<double> categoryAmounts = (from record in context.Transactions
 //                                                    where
-//                                                        record.Category.CategoryID == spendingCategory.CategoryID &&
-//                                                        record.Date >= dateFrom &&
-//                                                        record.Date <= dateUntil
+//                                                    (record.Category.CategoryID == spendingCategory.CategoryID) &&
+//                                                    (record.Date >= dateFrom) &&
+//                                                    (record.Date <= dateUntil)
 //                                                    select record.Amount).ToList();
 
 //                    if (categoryAmounts.Count > 0)
@@ -139,16 +140,16 @@
 //        }
 
 //        // Spending of... chart
-//        private static Chart CreateSpendingTopLeftChart(DateTime dateFrom, DateTime dateUntil, string personName)
+//        private static IEnumerable<Transactions> GetSpendingTopLeftTransactions(DateTime dateFrom, DateTime dateUntil, string personName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
 //                List<Transaction> spendingRecords = (from record in context.Transactions
 //                                                     where
-//                                                         record.Person.Name == personName &&
-//                                                         record.Category.IsDebit &&
-//                                                         record.Date >= dateFrom &&
-//                                                         record.Date <= dateUntil
+//                                                     (record.Person.Name == personName) &&
+//                                                     record.Category.IsDebit &&
+//                                                     (record.Date >= dateFrom) &&
+//                                                     (record.Date <= dateUntil)
 //                                                     select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
@@ -173,7 +174,7 @@
 //        }
 
 //        // Spending Distribution of... chart
-//        private static Chart CreateSpendingBottomLeftChart(DateTime dateFrom, DateTime dateUntil, string personName)
+//        private static IEnumerable<Transactions> GetSpendingBottomLeftTransactions(DateTime dateFrom, DateTime dateUntil, string personName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
@@ -184,10 +185,10 @@
 //                {
 //                    List<double> categoryAmounts = (from record in context.Transactions
 //                                                    where
-//                                                        record.Person.Name == personName &&
-//                                                        record.Category.CategoryID == spendingCategory.CategoryID &&
-//                                                        record.Date >= dateFrom &&
-//                                                        record.Date <= dateUntil
+//                                                    (record.Person.Name == personName) &&
+//                                                    (record.Category.CategoryID == spendingCategory.CategoryID) &&
+//                                                    (record.Date >= dateFrom) &&
+//                                                    (record.Date <= dateUntil)
 //                                                    select record.Amount).ToList();
 
 //                    if (categoryAmounts.Count > 0)
@@ -206,16 +207,16 @@
 //        }
 
 //        // Spending for... chart
-//        private static Chart CreateSpendingTopRightChart(DateTime dateFrom, DateTime dateUntil, string categoryName)
+//        private static IEnumerable<Transactions> GetSpendingTopRightTransactions(DateTime dateFrom, DateTime dateUntil, string categoryName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
 //                List<Transaction> spendingRecords = (from record in context.Transactions
 //                                                     where
-//                                                         record.Category.Name == categoryName &&
-//                                                         record.Category.IsDebit &&
-//                                                         record.Date >= dateFrom &&
-//                                                         record.Date <= dateUntil
+//                                                     (record.Category.Name == categoryName) &&
+//                                                     record.Category.IsDebit &&
+//                                                     (record.Date >= dateFrom) &&
+//                                                     (record.Date <= dateUntil)
 //                                                     select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth =
@@ -240,7 +241,7 @@
 //        }
 
 //        // Spending Distribution for... chart
-//        private static Chart CreateSpendingBottomRightChart(DateTime dateFrom, DateTime dateUntil, string categoryName)
+//        private static IEnumerable<Transactions> GetSpendingBottomRightTransactions(DateTime dateFrom, DateTime dateUntil, string categoryName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
@@ -250,11 +251,11 @@
 //                {
 //                    List<double> categoryAmounts = (from record in context.Transactions
 //                                                    where
-//                                                        record.Person.Id == spendingPerson.Id &&
-//                                                        record.Category.IsDebit &&
-//                                                        record.Category.Name == categoryName &&
-//                                                        record.Date >= dateFrom &&
-//                                                        record.Date <= dateUntil
+//                                                    (record.Person.Id == spendingPerson.Id) &&
+//                                                    record.Category.IsDebit &&
+//                                                    (record.Category.Name == categoryName) &&
+//                                                    (record.Date >= dateFrom) &&
+//                                                    (record.Date <= dateUntil)
 //                                                    select record.Amount).ToList();
 
 //                    if (categoryAmounts.Count > 0)
@@ -273,16 +274,16 @@
 //        }
 
 //        // Income of... chart
-//        private static Chart CreateIncomeTopLeftChart(DateTime dateFrom, DateTime dateUntil, string personName)
+//        private static IEnumerable<Transactions> GetIncomeTopLeftTransactions(DateTime dateFrom, DateTime dateUntil, string personName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
 //                List<Transaction> incomeRecords = (from record in context.Transactions
 //                                                   where
-//                                                       record.Person.Name == personName &&
-//                                                       !record.Category.IsDebit &&
-//                                                       record.Date >= dateFrom &&
-//                                                       record.Date <= dateUntil
+//                                                   (record.Person.Name == personName) &&
+//                                                   !record.Category.IsDebit &&
+//                                                   (record.Date >= dateFrom) &&
+//                                                   (record.Date <= dateUntil)
 //                                                   select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth =
@@ -307,7 +308,7 @@
 //        }
 
 //        // Income Distribution of... chart
-//        private static Chart CreateIncomeBottomLeftChart(DateTime dateFrom, DateTime dateUntil, string personName)
+//        private static IEnumerable<Transactions> GetIncomeBottomLeftTransactions(DateTime dateFrom, DateTime dateUntil, string personName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
@@ -315,14 +316,14 @@
 //                List<double> incomeYData = new List<double>();
 //                foreach (
 //                    Category incomeCategory in
-//                        context.Categories.Where(c => c.IsDebit == false).OrderBy(c => c.Name).ToList())
+//                    context.Categories.Where(c => c.IsDebit == false).OrderBy(c => c.Name).ToList())
 //                {
 //                    List<double> categoryAmounts = (from record in context.Transactions
 //                                                    where
-//                                                        record.Person.Name == personName &&
-//                                                        record.Category.CategoryID == incomeCategory.CategoryID &&
-//                                                        record.Date >= dateFrom &&
-//                                                        record.Date <= dateUntil
+//                                                    (record.Person.Name == personName) &&
+//                                                    (record.Category.CategoryID == incomeCategory.CategoryID) &&
+//                                                    (record.Date >= dateFrom) &&
+//                                                    (record.Date <= dateUntil)
 //                                                    select record.Amount).ToList();
 
 //                    if (categoryAmounts.Count > 0)
@@ -341,16 +342,16 @@
 //        }
 
 //        // Income from... chart
-//        private static Chart CreateIncomeTopRightChart(DateTime dateFrom, DateTime dateUntil, string categoryName)
+//        private static IEnumerable<Transactions> GetIncomeTopRightTransactions(DateTime dateFrom, DateTime dateUntil, string categoryName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
 //                List<Transaction> incomeRecords = (from record in context.Transactions
 //                                                   where
-//                                                       record.Category.Name == categoryName &&
-//                                                       !record.Category.IsDebit &&
-//                                                       record.Date >= dateFrom &&
-//                                                       record.Date <= dateUntil
+//                                                   (record.Category.Name == categoryName) &&
+//                                                   !record.Category.IsDebit &&
+//                                                   (record.Date >= dateFrom) &&
+//                                                   (record.Date <= dateUntil)
 //                                                   select record).ToList();
 
 //                IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth =
@@ -375,7 +376,7 @@
 //        }
 
 //        // Income Distribution from... chart
-//        private static Chart CreateIncomeBottomRightChart(DateTime dateFrom, DateTime dateUntil, string categoryName)
+//        private static IEnumerable<Transactions> GetIncomeBottomRightTransactions(DateTime dateFrom, DateTime dateUntil, string categoryName)
 //        {
 //            using (ApplicationDbContext context = ApplicationDbContext.Create())
 //            {
@@ -385,11 +386,11 @@
 //                {
 //                    List<double> categoryAmounts = (from record in context.Transactions
 //                                                    where
-//                                                        record.Person.Id == incomePerson.Id &&
-//                                                        !record.Category.IsDebit &&
-//                                                        record.Category.Name == categoryName &&
-//                                                        record.Date >= dateFrom &&
-//                                                        record.Date <= dateUntil
+//                                                    (record.Person.Id == incomePerson.Id) &&
+//                                                    !record.Category.IsDebit &&
+//                                                    (record.Category.Name == categoryName) &&
+//                                                    (record.Date >= dateFrom) &&
+//                                                    (record.Date <= dateUntil)
 //                                                    select record.Amount).ToList();
 
 //                    if (categoryAmounts.Count > 0)
@@ -407,4 +408,4 @@
 //            }
 //        }
 //    }
-//}
+}

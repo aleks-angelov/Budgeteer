@@ -33,7 +33,7 @@ export class OverviewComponent implements OnInit {
         this.getFormData();
         this.getTransactions();
 
-        const cats: string[] = [
+        const colCats: string[] = [
             "Jan",
             "Feb",
             "Mar",
@@ -48,6 +48,8 @@ export class OverviewComponent implements OnInit {
             "Dec"
         ];
 
+        const colDat: number[] = [49.8, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4];
+
         const overviewLeftChart = new Highcharts.Chart({
             chart: {
                 type: "column",
@@ -57,7 +59,7 @@ export class OverviewComponent implements OnInit {
                 text: "Monthly Average Rainfall"
             },
             xAxis: {
-                categories: cats,
+                categories: colCats,
                 crosshair: true
             },
             yAxis: {
@@ -67,7 +69,7 @@ export class OverviewComponent implements OnInit {
                 }
             },
             tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.1f} mm</b>"
+                pointFormat: "{series.name}: <b>{point.y:.2f} mm</b>"
             },
             plotOptions: {
                 column: {
@@ -78,7 +80,7 @@ export class OverviewComponent implements OnInit {
             series: [
                 {
                     name: "Tokyo",
-                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                    data: colDat
 
                 }, {
                     name: "New York",
@@ -87,6 +89,15 @@ export class OverviewComponent implements OnInit {
                 }
             ]
         });
+
+        const pieDat = [
+            new PieData("Internet Explorer", 56.33),
+            new PieData("Chrome", 24.03),
+            new PieData("Firefox", 0.2),
+            new PieData("Safari", 4.77),
+            new PieData("Opera", 0.2),
+            new PieData("Proprietary or Undetectable", 0.91)
+        ];
 
         const overviewRightChart = new Highcharts.Chart({
             chart: {
@@ -97,7 +108,8 @@ export class OverviewComponent implements OnInit {
                 text: "Browser market shares January, 2015 to May, 2015"
             },
             tooltip: {
-                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
+                headerFormat: "",
+                pointFormat: "{point.name}: <b>{point.y:.2f}</b> ({point.percentage:.1f}%)"
             },
             plotOptions: {
                 pie: {
@@ -111,28 +123,8 @@ export class OverviewComponent implements OnInit {
             },
             series: [
                 {
-                    name: "Brands",
-                    data: [
-                        {
-                            name: "Microsoft Internet Explorer",
-                            y: 56.33
-                        }, {
-                            name: "Chrome",
-                            y: 24.03
-                        }, {
-                            name: "Firefox",
-                            y: 10.38
-                        }, {
-                            name: "Safari",
-                            y: 4.77
-                        }, {
-                            name: "Opera",
-                            y: 0.91
-                        }, {
-                            name: "Proprietary or Undetectable",
-                            y: 0.2
-                        }
-                    ]
+                    name: "Share",
+                    data: pieDat
                 }
             ]
         });
@@ -183,5 +175,12 @@ export class OverviewComponent implements OnInit {
         this.model = new TransactionViewModel(this.model.date, 0, this.model.personName, "Food", true, "");
         this.active = false;
         setTimeout(() => this.active = true, 0);
+    }
+}
+
+class PieData {
+    constructor(
+        public name: string,
+        public y: number) {
     }
 }
