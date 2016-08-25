@@ -33,6 +33,21 @@ export class OverviewComponent implements OnInit {
         this.getFormData();
         this.getTransactions();
 
+        const cats: string[] = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ];
+
         const overviewLeftChart = new Highcharts.Chart({
             chart: {
                 type: "column",
@@ -42,20 +57,7 @@ export class OverviewComponent implements OnInit {
                 text: "Monthly Average Rainfall"
             },
             xAxis: {
-                categories: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec"
-                ],
+                categories: cats,
                 crosshair: true
             },
             yAxis: {
@@ -139,31 +141,31 @@ export class OverviewComponent implements OnInit {
     getFormData() {
         this.userService.getUsers()
             .subscribe(
-                response => this.people = response,
-                error => this.errorMessage = (error as any));
+            response => this.people = response,
+            error => this.errorMessage = (error as any));
 
         this.categoryService.getCategories(true)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
     }
 
     getTransactions() {
         this.transactionService.getTransactions()
             .subscribe(
-                response => this.transactions = response,
-                error => this.errorMessage = (error as any));
+            response => this.transactions = response,
+            error => this.errorMessage = (error as any));
     }
 
     postTransaction(tvm: TransactionViewModel) {
         this.transactionService.postTransaction(tvm)
             .subscribe(
-                () => {
-                    this.transactions.unshift(tvm);
-                    this.transactions.pop();
-                    this.newTransaction();
-                },
-                error => this.errorMessage = (error as any));
+            () => {
+                this.transactions.unshift(tvm);
+                this.transactions.pop();
+                this.newTransaction();
+            },
+            error => this.errorMessage = (error as any));
     }
 
     setTransactionType(isDebit: boolean) {
@@ -171,8 +173,8 @@ export class OverviewComponent implements OnInit {
 
         this.categoryService.getCategories(isDebit)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
 
         this.model.categoryName = isDebit ? "Food" : "Salary";
     }
