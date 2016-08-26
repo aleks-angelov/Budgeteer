@@ -7,7 +7,7 @@ import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
 import { ChartService } from "./chart.service";
-import { ChartData, ColumnData, PieData } from "./chart-view-model";
+import { ColumnData, PieData } from "./chart-view-model";
 
 @Component({
     selector: "my-overview",
@@ -93,7 +93,8 @@ export class OverviewComponent implements OnInit {
     }
 
     createCharts() {
-        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil).subscribe(
+        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil)
+            .subscribe(
             data => {
                 this.leftChart = new Highcharts.Chart({
                     chart: {
@@ -127,7 +128,8 @@ export class OverviewComponent implements OnInit {
             },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil).subscribe(
+        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil)
+            .subscribe(
             data => {
                 this.rightChart = new Highcharts.Chart({
                     chart: {
@@ -163,14 +165,16 @@ export class OverviewComponent implements OnInit {
     }
 
     updateCharts() {
-        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil).subscribe(
+        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil)
+            .subscribe(
             data => {
                 this.leftChart.series[0].setData(data.series[0].data);
                 this.leftChart.series[1].setData(data.series[1].data);
             },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil).subscribe(
+        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil)
+            .subscribe(
             data => this.rightChart.series[0].setData(data.series.data),
             error => this.errorMessage = (error as any));
     }
