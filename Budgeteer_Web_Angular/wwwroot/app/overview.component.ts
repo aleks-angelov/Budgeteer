@@ -22,8 +22,8 @@ export class OverviewComponent implements OnInit {
     model = new TransactionViewModel(null, 0, "Aleks Angelov", "Food", true, "");
     active = true;
 
-    overviewLeftChart: HighchartsChartObject;
-    overviewRightChart: HighchartsChartObject;
+    leftChart: HighchartsChartObject;
+    rightChart: HighchartsChartObject;
 
     constructor(
         private titleService: Title,
@@ -38,102 +38,7 @@ export class OverviewComponent implements OnInit {
         this.titleService.setTitle("Overview - Budgeteer");
         this.getFormData();
         this.getTransactions();
-
-        const colCats: string[] = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ];
-
-        const colDat: number[] = [49.8, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4];
-
-        this.overviewLeftChart = new Highcharts.Chart({
-            chart: {
-                type: "column",
-                renderTo: "overviewLeftChart"
-            },
-            title: {
-                text: "Monthly Average Rainfall"
-            },
-            xAxis: {
-                categories: colCats,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: "Rainfall (mm)"
-                }
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.2f} mm</b>"
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: "Tokyo",
-                    data: colDat
-
-                }, {
-                    name: "New York",
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-                }
-            ]
-        });
-
-        const pieDat = [
-            new MyPieData("Internet Explorer", 56.33),
-            new MyPieData("Chrome", 24.03),
-            new MyPieData("Firefox", 0.2),
-            new MyPieData("Safari", 4.77),
-            new MyPieData("Opera", 0.2),
-            new MyPieData("Proprietary or Undetectable", 0.91)
-        ];
-
-        this.overviewRightChart = new Highcharts.Chart({
-            chart: {
-                type: "pie",
-                renderTo: "overviewRightChart"
-            },
-            title: {
-                text: "Browser market shares January, 2015 to May, 2015"
-            },
-            tooltip: {
-                headerFormat: "",
-                pointFormat: "{point.name}: <b>{point.y:.2f}</b> ({point.percentage:.1f}%)"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: "pointer",
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [
-                {
-                    name: "Share",
-                    data: pieDat
-                }
-            ]
-        });
+        this.updateCharts();
     }
 
     getFormData() {
@@ -183,19 +88,111 @@ export class OverviewComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    updateOverviewCharts() {
-        //const dateFrom = new Date();
-        //dateFrom.setMonth(dateFrom.getMonth() - 6);
-        //const dateUntil = new Date();
+    updateCharts() {
+        const dateFrom = new Date();
+        dateFrom.setMonth(dateFrom.getMonth() - 6);
+        const dateUntil = new Date();
 
-        //const target1 = $("#OverviewLeftChart");
-        //target1
-        //    .prop("src",
-        //        `/Home/DisplayChart?chartName=OverviewLeftChart${dateString(dateFrom, dateUntil)}${brString()}`);
+        let leftChartData: ColumnData;
+        this.chartService.getColumnChartData("OverviewLeftChart", dateFrom, dateUntil).subscribe(
+            data => leftChartData = data,
+            error => this.errorMessage = (error as any));
 
-        //const target2 = $("#OverviewRightChart");
-        //target2.prop("src",
-        //    `/Home/DisplayChart?chartName=OverviewRightChart${dateString(dateFrom, dateUntil)}${brString()}`);
+        const colCats: string[] = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ];
+
+        const colDat: number[] = [49.8, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4];
+
+        this.leftChart = new Highcharts.Chart({
+            chart: {
+                type: "column",
+                renderTo: "overviewLeftChart"
+            },
+            title: {
+                text: "Monthly Average Rainfall"
+            },
+            xAxis: {
+                categories: colCats,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: "Rainfall (mm)"
+                }
+            },
+            tooltip: {
+                pointFormat: "{series.name}: <b>{point.y:.2f} mm</b>"
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: "Tokyo",
+                    data: colDat
+
+                }, {
+                    name: "New York",
+                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+                }
+            ]
+        });
+
+        const pieDat = [
+            new MyPieData("Internet Explorer", 56.33),
+            new MyPieData("Chrome", 24.03),
+            new MyPieData("Firefox", 0.2),
+            new MyPieData("Safari", 4.77),
+            new MyPieData("Opera", 0.2),
+            new MyPieData("Proprietary or Undetectable", 0.91)
+        ];
+
+        this.rightChart = new Highcharts.Chart({
+            chart: {
+                type: "pie",
+                renderTo: "overviewRightChart"
+            },
+            title: {
+                text: "Browser market shares January, 2015 to May, 2015"
+            },
+            tooltip: {
+                headerFormat: "",
+                pointFormat: "{point.name}: <b>{point.y:.2f}</b> ({point.percentage:.1f}%)"
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: "pointer",
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [
+                {
+                    name: "Share",
+                    data: pieDat
+                }
+            ]
+        });
     }
 }
 
