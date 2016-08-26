@@ -22,6 +22,8 @@ export class OverviewComponent implements OnInit {
     model = new TransactionViewModel(null, 0, "Aleks Angelov", "Food", true, "");
     active = true;
 
+    dateFrom = new Date();
+    dateUntil = new Date();
     leftChart: HighchartsChartObject;
     rightChart: HighchartsChartObject;
 
@@ -38,37 +40,40 @@ export class OverviewComponent implements OnInit {
         this.titleService.setTitle("Overview - Budgeteer");
         this.getFormData();
         this.getTransactions();
-        this.updateCharts();
+
+        this.dateFrom.setMonth(this.dateFrom.getMonth() - 6);
+        this.createCharts();
     }
 
     getFormData() {
         this.userService.getUsers()
             .subscribe(
-                response => this.people = response,
-                error => this.errorMessage = (error as any));
+            response => this.people = response,
+            error => this.errorMessage = (error as any));
 
         this.categoryService.getCategories(true)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
     }
 
     getTransactions() {
         this.transactionService.getTransactions()
             .subscribe(
-                response => this.transactions = response,
-                error => this.errorMessage = (error as any));
+            response => this.transactions = response,
+            error => this.errorMessage = (error as any));
     }
 
     postTransaction(tvm: TransactionViewModel) {
         this.transactionService.postTransaction(tvm)
             .subscribe(
-                () => {
-                    this.transactions.unshift(tvm);
-                    this.transactions.pop();
-                    this.newTransaction();
-                },
-                error => this.errorMessage = (error as any));
+            () => {
+                this.transactions.unshift(tvm);
+                this.transactions.pop();
+                this.newTransaction();
+                this.updateCharts();
+            },
+            error => this.errorMessage = (error as any));
     }
 
     setTransactionType(isDebit: boolean) {
@@ -76,8 +81,8 @@ export class OverviewComponent implements OnInit {
 
         this.categoryService.getCategories(isDebit)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
 
         this.model.categoryName = isDebit ? "Food" : "Salary";
     }
@@ -88,117 +93,86 @@ export class OverviewComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    updateCharts() {
-        const dateFrom = new Date();
-        dateFrom.setMonth(dateFrom.getMonth() - 6);
-        const dateUntil = new Date();
-
-        let leftChartData: ColumnData;
-        this.chartService.getColumnChartData("OverviewLeftChart", dateFrom, dateUntil).subscribe(
-            data => leftChartData = data,
+    createCharts() {
+        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil).subscribe(
+            data => {
+                this.leftChart = new Highcharts.Chart({
+                    chart: {
+                        type: "column",
+                        renderTo: "overviewLeftChart"
+                    },
+                    title: {
+                        text: data.titleText
+                    },
+                    xAxis: {
+                        categories: data.xAxisCategories,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "Total (Bulgarian lev)"
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: "{series.name}: <b>BGN {point.y:.2f}</b>"
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: data.series
+                });
+            },
             error => this.errorMessage = (error as any));
 
-        const colCats: string[] = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ];
-
-        const colDat: number[] = [49.8, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4];
-
-        this.leftChart = new Highcharts.Chart({
-            chart: {
-                type: "column",
-                renderTo: "overviewLeftChart"
-            },
-            title: {
-                text: "Monthly Average Rainfall"
-            },
-            xAxis: {
-                categories: colCats,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: "Rainfall (mm)"
-                }
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.2f} mm</b>"
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: "Tokyo",
-                    data: colDat
-
-                }, {
-                    name: "New York",
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-                }
-            ]
-        });
-
-        const pieDat = [
-            new MyPieData("Internet Explorer", 56.33),
-            new MyPieData("Chrome", 24.03),
-            new MyPieData("Firefox", 0.2),
-            new MyPieData("Safari", 4.77),
-            new MyPieData("Opera", 0.2),
-            new MyPieData("Proprietary or Undetectable", 0.91)
-        ];
-
-        this.rightChart = new Highcharts.Chart({
-            chart: {
-                type: "pie",
-                renderTo: "overviewRightChart"
-            },
-            title: {
-                text: "Browser market shares January, 2015 to May, 2015"
-            },
-            tooltip: {
-                headerFormat: "",
-                pointFormat: "{point.name}: <b>{point.y:.2f}</b> ({point.percentage:.1f}%)"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: "pointer",
-                    dataLabels: {
-                        enabled: false
+        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil).subscribe(
+            data => {
+                this.rightChart = new Highcharts.Chart({
+                    chart: {
+                        type: "pie",
+                        renderTo: "overviewRightChart"
                     },
-                    showInLegend: true
-                }
+                    title: {
+                        text: data.titleText
+                    },
+                    tooltip: {
+                        headerFormat: "",
+                        pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: "pointer",
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [
+                        {
+                            name: data.series.name,
+                            data: data.series.data
+                        }
+                    ]
+                });
             },
-            series: [
-                {
-                    name: "Share",
-                    data: pieDat
-                }
-            ]
-        });
+            error => this.errorMessage = (error as any));
     }
-}
 
-class MyPieData {
-    constructor(
-        public name: string,
-        public y: number) {
+    updateCharts() {
+        this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil).subscribe(
+            data => {
+                this.leftChart.series[0].setData(data.series[0].data);
+                this.leftChart.series[1].setData(data.series[1].data);
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil).subscribe(
+            data => this.rightChart.series[0].setData(data.series.data),
+            error => this.errorMessage = (error as any));
     }
 }
