@@ -1,4 +1,8 @@
-﻿class PiePoint {
+﻿class Title {
+    text: string;
+}
+
+class PiePoint {
     name: string;
     y: number;
 }
@@ -16,7 +20,7 @@ class PieSeries extends Series {
 }
 
 export class ChartData {
-    titleText: string;
+    title: Title;
 }
 
 export class ColumnData extends ChartData {

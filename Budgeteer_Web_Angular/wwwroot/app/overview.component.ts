@@ -101,9 +101,7 @@ export class OverviewComponent implements OnInit {
                         type: "column",
                         renderTo: "overviewLeftChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     xAxis: {
                         categories: data.xAxisCategories,
                         crosshair: true
@@ -136,9 +134,7 @@ export class OverviewComponent implements OnInit {
                         type: "pie",
                         renderTo: "overviewRightChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     tooltip: {
                         headerFormat: "",
                         pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"

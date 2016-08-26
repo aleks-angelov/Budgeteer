@@ -2,6 +2,11 @@
 
 namespace Budgeteer_Web_Angular.Infrastructure
 {
+    public class Title
+    {
+        public string Text { get; set; }
+    }
+
     public class PiePoint
     {
         public string Name { get; set; }
@@ -26,7 +31,7 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
     public class ChartData
     {
-        public string TitleText { get; set; }
+        public Title Title { get; set; }
     }
 
     public class ColumnData : ChartData

@@ -6,7 +6,8 @@
         <select class="form-control" id="spendingPersonName"
                 style="width: 162px" required
                 [(ngModel)]="spendingModel.personName" name="spendingPersonName"
-                #spendingPersonName="ngModel">
+                #spendingPersonName="ngModel"
+                #selectPersonName>
             <option *ngFor="let person of people" [value]="person">{{person}}</option>
         </select>
         <div [hidden]="spendingPersonName.valid || spendingPersonName.pristine" class="alert alert-danger">
@@ -19,7 +20,8 @@
         <input type="date" class="form-control" id="spendingDateFrom"
                style="width: 175px"
                [(ngModel)]="spendingModel.dateFrom" name="spendingDateFrom"
-               #spendingDateFrom="ngModel">
+               #spendingDateFrom="ngModel"
+               #inputDateFrom>
         <div [hidden]="spendingDateFrom.valid || spendingDateFrom.pristine"
              class="alert alert-danger">
             The From field is required.
@@ -31,7 +33,8 @@
         <input type="date" class="form-control" id="spendingDateUntil"
                style="width: 175px"
                [(ngModel)]="spendingModel.dateUntil" name="spendingDateUntil"
-               #spendingDateUntil="ngModel">
+               #spendingDateUntil="ngModel"
+               #inputDateUntil>
         <div [hidden]="spendingDateUntil.valid || spendingDateUntil.pristine"
              class="alert alert-danger">
             The Until field is required.
@@ -43,7 +46,8 @@
         <select class="form-control" id="spendingCategoryName"
                 style="width: 162px" required
                 [(ngModel)]="spendingModel.categoryName" name="spendingCategoryName"
-                #spendingCategoryName="ngModel">
+                #spendingCategoryName="ngModel"
+                #selectCategoryName>
             <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
         </select>
         <div [hidden]="spendingCategoryName.valid || spendingCategoryName.pristine" class="alert alert-danger">

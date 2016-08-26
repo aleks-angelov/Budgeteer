@@ -62,7 +62,7 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
                                                                                  group record.Amount by record.Date.ToString("yyyy/MM")
-                                                                                 into monthlyRecords
+                into monthlyRecords
                                                                                  orderby monthlyRecords.Key
                                                                                  select monthlyRecords;
 
@@ -99,7 +99,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             ColumnData data = new ColumnData
             {
-                TitleText = "Budget Balance (last 6 months)",
+                Title = new Title
+                {
+                    Text = "Budget Balance (last 6 months)"
+                },
                 XAxisCategories = incomeXData.Count > spendingXData.Count ? incomeXData : spendingXData,
                 Series = new List<ColumnSeries>
                 {
@@ -125,13 +128,14 @@ namespace Budgeteer_Web_Angular.Infrastructure
         {
             List<string> spendingXData = new List<string>();
             List<double> spendingYData = new List<double>();
-            foreach (Categories spendingCategory in context.Categories.Where(c => c.IsDebit).OrderBy(c => c.Name).ToList())
+            foreach (
+                Categories spendingCategory in context.Categories.Where(c => c.IsDebit).OrderBy(c => c.Name).ToList())
             {
                 List<double> categoryAmounts = (from record in context.Transactions
                                                 where
-                                                    record.Category.CategoryId == spendingCategory.CategoryId &&
-                                                    record.Date >= dateFrom &&
-                                                    record.Date <= dateUntil
+                                                (record.Category.CategoryId == spendingCategory.CategoryId) &&
+                                                (record.Date >= dateFrom) &&
+                                                (record.Date <= dateUntil)
                                                 select record.Amount).ToList();
 
                 if (categoryAmounts.Count > 0)
@@ -144,7 +148,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             PieData data = new PieData
             {
-                TitleText = "Spending Distribution (last 6 months)",
+                Title = new Title
+                {
+                    Text = "Spending Distribution (last 6 months)"
+                },
                 Series = new PieSeries
                 {
                     Name = "Spending",
@@ -191,7 +198,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             ColumnData data = new ColumnData
             {
-                TitleText = "Spending of " + personName,
+                Title = new Title
+                {
+                    Text = "Spending of " + personName
+                },
                 XAxisCategories = spendingXData,
                 Series = new List<ColumnSeries>
                 {
@@ -235,7 +245,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             PieData data = new PieData
             {
-                TitleText = "Spending Distribution of " + personName,
+                Title = new Title
+                {
+                    Text = "Spending Distribution of " + personName
+                },
                 Series = new PieSeries
                 {
                     Name = "Spending",
@@ -282,7 +295,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             ColumnData data = new ColumnData
             {
-                TitleText = "Spending for " + categoryName,
+                Title = new Title
+                {
+                    Text = "Spending for " + categoryName
+                },
                 XAxisCategories = spendingXData,
                 Series = new List<ColumnSeries>
                 {
@@ -325,7 +341,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             PieData data = new PieData
             {
-                TitleText = "Spending Distribution for " + categoryName,
+                Title = new Title
+                {
+                    Text = "Spending Distribution for " + categoryName
+                },
                 Series = new PieSeries
                 {
                     Name = "Spending",
@@ -372,7 +391,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             ColumnData data = new ColumnData
             {
-                TitleText = "Income of " + personName,
+                Title = new Title
+                {
+                    Text = "Income of " + personName
+                },
                 XAxisCategories = incomeXData,
                 Series = new List<ColumnSeries>
                 {
@@ -416,7 +438,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             PieData data = new PieData
             {
-                TitleText = "Income Distribution of " + personName,
+                Title = new Title
+                {
+                    Text = "Income Distribution of " + personName
+                },
                 Series = new PieSeries
                 {
                     Name = "Income",
@@ -463,7 +488,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             ColumnData data = new ColumnData
             {
-                TitleText = "Income from " + categoryName,
+                Title = new Title
+                {
+                    Text = "Income from " + categoryName
+                },
                 XAxisCategories = incomeXData,
                 Series = new List<ColumnSeries>
                 {
@@ -506,7 +534,10 @@ namespace Budgeteer_Web_Angular.Infrastructure
 
             PieData data = new PieData
             {
-                TitleText = "Income Distribution from " + categoryName,
+                Title = new Title
+                {
+                    Text = "Income Distribution from " + categoryName
+                },
                 Series = new PieSeries
                 {
                     Name = "Income",

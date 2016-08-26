@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 
@@ -13,13 +13,18 @@ import { ColumnData, PieData } from "./chart-view-model";
     selector: "my-spending",
     templateUrl: "app/spending.component.html"
 })
-export class SpendingComponent implements OnInit {
+export class SpendingComponent implements OnInit, AfterViewInit {
     errorMessage: string;
     people: string[];
     categories: string[];
     spendingModel = new SpendingIncomeViewModel("Aleks Angelov", new Date(), new Date(), "Food");
     categoryModel = new CategoryViewModel("", true);
     active = true;
+
+    @ViewChild("selectPersonName") selectPersonName: ElementRef;
+    @ViewChild("inputDateFrom") inputDateFrom: ElementRef;
+    @ViewChild("inputDateUntil") inputDateUntil: ElementRef;
+    @ViewChild("selectCategoryName") selectCategoryName: ElementRef;
 
     topLeftChart: HighchartsChartObject;
     topRightChart: HighchartsChartObject;
@@ -40,6 +45,32 @@ export class SpendingComponent implements OnInit {
 
         this.spendingModel.dateFrom.setMonth(this.spendingModel.dateFrom.getMonth() - 6);
         this.createCharts();
+    }
+
+    ngAfterViewInit() {
+        $(this.selectPersonName.nativeElement)
+            .change(() => {
+                console.log("Updating Left Charts...");
+                this.updateLeftCharts();
+            });
+
+        //$(this.selectPersonName.nativeElement)
+        //    .change(() => {
+        //        console.log("Updating Left Charts...");
+        //        this.updateLeftCharts();
+        //    });
+
+        //$(this.selectPersonName.nativeElement)
+        //    .change(() => {
+        //        console.log("Updating Left Charts...");
+        //        this.updateLeftCharts();
+        //    });
+
+        $(this.selectCategoryName.nativeElement)
+            .change(() => {
+                console.log("Updating Right Charts...");
+                this.updateRightCharts();
+            });
     }
 
     getFormData() {
@@ -83,7 +114,11 @@ export class SpendingComponent implements OnInit {
     }
 
     createCharts() {
-        this.chartService.getColumnChartData("SpendingTopLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+        this.chartService.getColumnChartData("SpendingTopLeftChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            this.spendingModel.personName,
+            null)
             .subscribe(
             data => {
                 this.topLeftChart = new Highcharts.Chart({
@@ -91,9 +126,7 @@ export class SpendingComponent implements OnInit {
                         type: "column",
                         renderTo: "spendingTopLeftChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     xAxis: {
                         categories: data.xAxisCategories,
                         crosshair: true
@@ -118,7 +151,11 @@ export class SpendingComponent implements OnInit {
             },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getColumnChartData("SpendingTopRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+        this.chartService.getColumnChartData("SpendingTopRightChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            null,
+            this.spendingModel.categoryName)
             .subscribe(
             data => {
                 this.topRightChart = new Highcharts.Chart({
@@ -126,9 +163,7 @@ export class SpendingComponent implements OnInit {
                         type: "column",
                         renderTo: "spendingTopRightChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     xAxis: {
                         categories: data.xAxisCategories,
                         crosshair: true
@@ -153,7 +188,11 @@ export class SpendingComponent implements OnInit {
             },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("SpendingBottomLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+        this.chartService.getPieChartData("SpendingBottomLeftChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            this.spendingModel.personName,
+            null)
             .subscribe(
             data => {
                 this.bottomLeftChart = new Highcharts.Chart({
@@ -161,9 +200,7 @@ export class SpendingComponent implements OnInit {
                         type: "pie",
                         renderTo: "spendingBottomLeftChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     tooltip: {
                         headerFormat: "",
                         pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
@@ -188,7 +225,11 @@ export class SpendingComponent implements OnInit {
             },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("SpendingBottomRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+        this.chartService.getPieChartData("SpendingBottomRightChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            null,
+            this.spendingModel.categoryName)
             .subscribe(
             data => {
                 this.bottomRightChart = new Highcharts.Chart({
@@ -196,9 +237,7 @@ export class SpendingComponent implements OnInit {
                         type: "pie",
                         renderTo: "spendingBottomRightChart"
                     },
-                    title: {
-                        text: data.titleText
-                    },
+                    title: data.title,
                     tooltip: {
                         headerFormat: "",
                         pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
@@ -230,26 +269,54 @@ export class SpendingComponent implements OnInit {
     }
 
     updateLeftCharts() {
-        this.chartService.getColumnChartData("SpendingTopLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+        this.chartService.getColumnChartData("SpendingTopLeftChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            this.spendingModel.personName,
+            null)
             .subscribe(
-            data => this.topLeftChart.series[0].setData(data.series[0].data),
+            data => {
+                this.topLeftChart.setTitle(data.title);
+                this.topLeftChart.series[0].setData(data.series[0].data);
+            },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("SpendingBottomLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+        this.chartService.getPieChartData("SpendingBottomLeftChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            this.spendingModel.personName,
+            null)
             .subscribe(
-            data => this.bottomLeftChart.series[0].setData(data.series.data),
+            data => {
+                this.bottomLeftChart.setTitle(data.title);
+                this.bottomLeftChart.series[0].setData(data.series.data);
+            },
             error => this.errorMessage = (error as any));
     }
 
     updateRightCharts() {
-        this.chartService.getColumnChartData("SpendingTopRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+        this.chartService.getColumnChartData("SpendingTopRightChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            null,
+            this.spendingModel.categoryName)
             .subscribe(
-            data => this.topRightChart.series[0].setData(data.series[0].data),
+            data => {
+                this.topRightChart.setTitle(data.title);
+                this.topRightChart.series[0].setData(data.series[0].data);
+            },
             error => this.errorMessage = (error as any));
 
-        this.chartService.getPieChartData("SpendingBottomRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+        this.chartService.getPieChartData("SpendingBottomRightChart",
+            this.spendingModel.dateFrom,
+            this.spendingModel.dateUntil,
+            null,
+            this.spendingModel.categoryName)
             .subscribe(
-            data => this.bottomRightChart.series[0].setData(data.series.data),
+            data => {
+                this.bottomRightChart.setTitle(data.title);
+                this.bottomRightChart.series[0].setData(data.series.data);
+            },
             error => this.errorMessage = (error as any));
     }
 }
