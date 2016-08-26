@@ -224,11 +224,32 @@ export class SpendingComponent implements OnInit {
             error => this.errorMessage = (error as any));
     }
 
-    updateLeftCharts() {
+    updateAllCharts() {
+        this.updateLeftCharts();
+        this.updateRightCharts();
+    }
 
+    updateLeftCharts() {
+        this.chartService.getColumnChartData("SpendingTopLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+            .subscribe(
+            data => this.topLeftChart.series[0].setData(data.series[0].data),
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("SpendingBottomLeftChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, this.spendingModel.personName, null)
+            .subscribe(
+            data => this.bottomLeftChart.series[0].setData(data.series.data),
+            error => this.errorMessage = (error as any));
     }
 
     updateRightCharts() {
+        this.chartService.getColumnChartData("SpendingTopRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+            .subscribe(
+            data => this.topRightChart.series[0].setData(data.series[0].data),
+            error => this.errorMessage = (error as any));
 
+        this.chartService.getPieChartData("SpendingBottomRightChart", this.spendingModel.dateFrom, this.spendingModel.dateUntil, null, this.spendingModel.categoryName)
+            .subscribe(
+            data => this.bottomRightChart.series[0].setData(data.series.data),
+            error => this.errorMessage = (error as any));
     }
 }
