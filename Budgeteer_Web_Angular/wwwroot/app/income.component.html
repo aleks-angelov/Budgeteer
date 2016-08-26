@@ -1,12 +1,13 @@
 ﻿<h2>Income</h2>
 <form *ngIf="active" (ngSubmit)="postCategory(categoryModel)" class="form-inline" role="form" style="margin-top: 24px">
-
+    
     <div class="form-group margin-right-md" style="width: 162px">
         <label for="incomePersonName">Person:</label>
         <select class="form-control" id="incomePersonName"
                 style="width: 162px" required
                 [(ngModel)]="incomeModel.personName" name="incomePersonName"
-                #incomePersonName="ngModel">
+                #incomePersonName="ngModel"
+                #selectPersonName>
             <option *ngFor="let person of people" [value]="person">{{person}}</option>
         </select>
         <div [hidden]="incomePersonName.valid || incomePersonName.pristine" class="alert alert-danger">
@@ -19,7 +20,8 @@
         <input type="date" class="form-control" id="incomeDateFrom"
                style="width: 175px"
                [(ngModel)]="incomeModel.dateFrom" name="incomeDateFrom"
-               #incomeDateFrom="ngModel">
+               #incomeDateFrom="ngModel"
+               #inputDateFrom>
         <div [hidden]="incomeDateFrom.valid || incomeDateFrom.pristine"
              class="alert alert-danger">
             The From field is required.
@@ -31,7 +33,8 @@
         <input type="date" class="form-control" id="incomeDateUntil"
                style="width: 175px"
                [(ngModel)]="incomeModel.dateUntil" name="incomeDateUntil"
-               #incomeDateUntil="ngModel">
+               #incomeDateUntil="ngModel"
+               #inputDateUntil>
         <div [hidden]="incomeDateUntil.valid || incomeDateUntil.pristine"
              class="alert alert-danger">
             The Until field is required.
@@ -43,7 +46,8 @@
         <select class="form-control" id="incomeCategoryName"
                 style="width: 162px" required
                 [(ngModel)]="incomeModel.categoryName" name="incomeCategoryName"
-                #incomeCategoryName="ngModel">
+                #incomeCategoryName="ngModel"
+                #selectCategoryName>
             <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
         </select>
         <div [hidden]="incomeCategoryName.valid || incomeCategoryName.pristine" class="alert alert-danger">

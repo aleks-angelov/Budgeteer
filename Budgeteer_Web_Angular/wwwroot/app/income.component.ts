@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 
@@ -6,257 +6,83 @@ import { CategoryViewModel } from "./category-view-model";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
 import { SpendingIncomeViewModel } from "./spending-income-view-model";
+import { ChartService } from "./chart.service";
+import { ColumnData, PieData } from "./chart-view-model";
 
 @Component({
     selector: "my-income",
     templateUrl: "app/income.component.html"
 })
-export class IncomeComponent implements OnInit {
+export class IncomeComponent implements OnInit, AfterViewInit {
     errorMessage: string;
     people: string[];
     categories: string[];
-    incomeModel = new SpendingIncomeViewModel("Aleks Angelov", null, null, "Salary");
+    incomeModel = new SpendingIncomeViewModel("Aleks Angelov", new Date(), new Date(), "Salary");
     categoryModel = new CategoryViewModel("", false);
     active = true;
+
+    @ViewChild("selectPersonName") selectPersonName: ElementRef;
+    @ViewChild("inputDateFrom") inputDateFrom: ElementRef;
+    @ViewChild("inputDateUntil") inputDateUntil: ElementRef;
+    @ViewChild("selectCategoryName") selectCategoryName: ElementRef;
+
+    topLeftChart: HighchartsChartObject;
+    topRightChart: HighchartsChartObject;
+    bottomLeftChart: HighchartsChartObject;
+    bottomRightChart: HighchartsChartObject;
 
     constructor(
         private titleService: Title,
         private router: Router,
         private categoryService: CategoryService,
-        private userService: UserService) {
+        private userService: UserService,
+        private chartService: ChartService) {
     }
 
     ngOnInit() {
         this.titleService.setTitle("Income - Budgeteer");
         this.getFormData();
 
-        const incomeTopLeftChart = new Highcharts.Chart({
-            chart: {
-                type: "column",
-                renderTo: "incomeTopLeftChart"
-            },
-            title: {
-                text: "Monthly Average Rainfall"
-            },
-            xAxis: {
-                categories: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: "Rainfall (mm)"
-                }
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.1f} mm</b>"
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: "Tokyo",
-                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        this.incomeModel.dateFrom.setMonth(this.incomeModel.dateFrom.getMonth() - 6);
+        this.createCharts();
+    }
 
-                }, {
-                    name: "New York",
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+    ngAfterViewInit() {
+        $(this.selectPersonName.nativeElement)
+            .change(() => this.updateLeftCharts());
 
-                }
-            ]
-        });
+        $(this.inputDateFrom.nativeElement)
+            .change(() => this.updateAllCharts());
 
-        const incomeTopRightChart = new Highcharts.Chart({
-            chart: {
-                type: "column",
-                renderTo: "incomeTopRightChart"
-            },
-            title: {
-                text: "Monthly Average Rainfall"
-            },
-            xAxis: {
-                categories: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec"
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: "Rainfall (mm)"
-                }
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.y:.1f} mm</b>"
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: "Tokyo",
-                    data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        $(this.inputDateUntil.nativeElement)
+            .change(() => this.updateAllCharts());
 
-                }, {
-                    name: "New York",
-                    data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-                }
-            ]
-        });
-
-        const incomeBottomLeftChart = new Highcharts.Chart({
-            chart: {
-                type: "pie",
-                renderTo: "incomeBottomLeftChart"
-            },
-            title: {
-                text: "Browser market shares January, 2015 to May, 2015"
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: "pointer",
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [
-                {
-                    name: "Brands",
-                    data: [
-                        {
-                            name: "Microsoft Internet Explorer",
-                            y: 56.33
-                        }, {
-                            name: "Chrome",
-                            y: 24.03
-                        }, {
-                            name: "Firefox",
-                            y: 10.38
-                        }, {
-                            name: "Safari",
-                            y: 4.77
-                        }, {
-                            name: "Opera",
-                            y: 0.91
-                        }, {
-                            name: "Proprietary or Undetectable",
-                            y: 0.2
-                        }
-                    ]
-                }
-            ]
-        });
-
-        const incomeBottomRightChart = new Highcharts.Chart({
-            chart: {
-                type: "pie",
-                renderTo: "incomeBottomRightChart"
-            },
-            title: {
-                text: "Browser market shares January, 2015 to May, 2015"
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: "pointer",
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [
-                {
-                    name: "Brands",
-                    data: [
-                        {
-                            name: "Microsoft Internet Explorer",
-                            y: 56.33
-                        }, {
-                            name: "Chrome",
-                            y: 24.03
-                        }, {
-                            name: "Firefox",
-                            y: 10.38
-                        }, {
-                            name: "Safari",
-                            y: 4.77
-                        }, {
-                            name: "Opera",
-                            y: 0.91
-                        }, {
-                            name: "Proprietary or Undetectable",
-                            y: 0.2
-                        }
-                    ]
-                }
-            ]
-        });
+        $(this.selectCategoryName.nativeElement)
+            .change(() => this.updateRightCharts());
     }
 
     getFormData() {
         this.userService.getUsers()
             .subscribe(
-                response => this.people = response,
-                error => this.errorMessage = (error as any));
+            response => this.people = response,
+            error => this.errorMessage = (error as any));
 
         this.categoryService.getCategories(false)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
     }
 
     postCategory(cvm: CategoryViewModel) {
         this.categoryService.postCategory(cvm)
             .subscribe(
-                () => {
-                    if (!this.findCategoryName(cvm.name)) {
-                        this.categories.unshift(cvm.name);
-                    }
-                    this.newCategory();
-                },
-                error => this.errorMessage = (error as any));
+            () => {
+                if (!this.findCategoryName(cvm.name)) {
+                    this.categories.unshift(cvm.name);
+                }
+                this.newCategory();
+            },
+            error => this.errorMessage = (error as any));
     }
 
     findCategoryName(newCatName: string) {
@@ -273,5 +99,212 @@ export class IncomeComponent implements OnInit {
         this.categoryModel = new CategoryViewModel("", false);
         this.active = false;
         setTimeout(() => this.active = true, 0);
+    }
+
+    createCharts() {
+        this.chartService.getColumnChartData("IncomeTopLeftChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            this.incomeModel.personName,
+            null)
+            .subscribe(
+            data => {
+                this.topLeftChart = new Highcharts.Chart({
+                    chart: {
+                        type: "column",
+                        renderTo: "incomeTopLeftChart"
+                    },
+                    title: data.title,
+                    xAxis: {
+                        categories: data.xAxisCategories,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "Total (Bulgarian lev)"
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: "{series.name}: <b>BGN {point.y:.2f}</b>"
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: data.series
+                });
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getColumnChartData("IncomeTopRightChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            null,
+            this.incomeModel.categoryName)
+            .subscribe(
+            data => {
+                this.topRightChart = new Highcharts.Chart({
+                    chart: {
+                        type: "column",
+                        renderTo: "incomeTopRightChart"
+                    },
+                    title: data.title,
+                    xAxis: {
+                        categories: data.xAxisCategories,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "Total (Bulgarian lev)"
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: "{series.name}: <b>BGN {point.y:.2f}</b>"
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: data.series
+                });
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("IncomeBottomLeftChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            this.incomeModel.personName,
+            null)
+            .subscribe(
+            data => {
+                this.bottomLeftChart = new Highcharts.Chart({
+                    chart: {
+                        type: "pie",
+                        renderTo: "incomeBottomLeftChart"
+                    },
+                    title: data.title,
+                    tooltip: {
+                        headerFormat: "",
+                        pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: "pointer",
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [
+                        {
+                            name: data.series.name,
+                            data: data.series.data
+                        }
+                    ]
+                });
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("IncomeBottomRightChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            null,
+            this.incomeModel.categoryName)
+            .subscribe(
+            data => {
+                this.bottomRightChart = new Highcharts.Chart({
+                    chart: {
+                        type: "pie",
+                        renderTo: "incomeBottomRightChart"
+                    },
+                    title: data.title,
+                    tooltip: {
+                        headerFormat: "",
+                        pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: "pointer",
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [
+                        {
+                            name: data.series.name,
+                            data: data.series.data
+                        }
+                    ]
+                });
+            },
+            error => this.errorMessage = (error as any));
+    }
+
+    updateAllCharts() {
+        this.updateLeftCharts();
+        this.updateRightCharts();
+    }
+
+    updateLeftCharts() {
+        this.chartService.getColumnChartData("IncomeTopLeftChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            this.incomeModel.personName,
+            null)
+            .subscribe(
+            data => {
+                this.topLeftChart.setTitle(data.title);
+                this.topLeftChart.series[0].setData(data.series[0].data);
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("IncomeBottomLeftChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            this.incomeModel.personName,
+            null)
+            .subscribe(
+            data => {
+                this.bottomLeftChart.setTitle(data.title);
+                this.bottomLeftChart.series[0].setData(data.series.data);
+            },
+            error => this.errorMessage = (error as any));
+    }
+
+    updateRightCharts() {
+        this.chartService.getColumnChartData("IncomeTopRightChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            null,
+            this.incomeModel.categoryName)
+            .subscribe(
+            data => {
+                this.topRightChart.setTitle(data.title);
+                this.topRightChart.series[0].setData(data.series[0].data);
+            },
+            error => this.errorMessage = (error as any));
+
+        this.chartService.getPieChartData("IncomeBottomRightChart",
+            this.incomeModel.dateFrom,
+            this.incomeModel.dateUntil,
+            null,
+            this.incomeModel.categoryName)
+            .subscribe(
+            data => {
+                this.bottomRightChart.setTitle(data.title);
+                this.bottomRightChart.series[0].setData(data.series.data);
+            },
+            error => this.errorMessage = (error as any));
     }
 }
