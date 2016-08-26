@@ -15,7 +15,7 @@ class PieSeries extends Series {
     data: PiePoint[];
 }
 
-class ChartData {
+export class ChartData {
     titleText: string;
 }
 

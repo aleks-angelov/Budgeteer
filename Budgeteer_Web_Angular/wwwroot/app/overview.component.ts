@@ -7,6 +7,7 @@ import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
 import { ChartService } from "./chart.service";
+import { ChartData, ColumnData, PieData } from "./chart-view-model";
 
 @Component({
     selector: "my-overview",
@@ -21,12 +22,16 @@ export class OverviewComponent implements OnInit {
     model = new TransactionViewModel(null, 0, "Aleks Angelov", "Food", true, "");
     active = true;
 
+    overviewLeftChart: HighchartsChartObject;
+    overviewRightChart: HighchartsChartObject;
+
     constructor(
         private titleService: Title,
         private router: Router,
         private transactionService: TransactionService,
         private categoryService: CategoryService,
-        private userService: UserService) {
+        private userService: UserService,
+        private chartService: ChartService) {
     }
 
     ngOnInit() {
@@ -51,7 +56,7 @@ export class OverviewComponent implements OnInit {
 
         const colDat: number[] = [49.8, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4];
 
-        const overviewLeftChart = new Highcharts.Chart({
+        this.overviewLeftChart = new Highcharts.Chart({
             chart: {
                 type: "column",
                 renderTo: "overviewLeftChart"
@@ -92,15 +97,15 @@ export class OverviewComponent implements OnInit {
         });
 
         const pieDat = [
-            new PieData("Internet Explorer", 56.33),
-            new PieData("Chrome", 24.03),
-            new PieData("Firefox", 0.2),
-            new PieData("Safari", 4.77),
-            new PieData("Opera", 0.2),
-            new PieData("Proprietary or Undetectable", 0.91)
+            new MyPieData("Internet Explorer", 56.33),
+            new MyPieData("Chrome", 24.03),
+            new MyPieData("Firefox", 0.2),
+            new MyPieData("Safari", 4.77),
+            new MyPieData("Opera", 0.2),
+            new MyPieData("Proprietary or Undetectable", 0.91)
         ];
 
-        const overviewRightChart = new Highcharts.Chart({
+        this.overviewRightChart = new Highcharts.Chart({
             chart: {
                 type: "pie",
                 renderTo: "overviewRightChart"
@@ -134,31 +139,31 @@ export class OverviewComponent implements OnInit {
     getFormData() {
         this.userService.getUsers()
             .subscribe(
-            response => this.people = response,
-            error => this.errorMessage = (error as any));
+                response => this.people = response,
+                error => this.errorMessage = (error as any));
 
         this.categoryService.getCategories(true)
             .subscribe(
-            response => this.categories = response,
-            error => this.errorMessage = (error as any));
+                response => this.categories = response,
+                error => this.errorMessage = (error as any));
     }
 
     getTransactions() {
         this.transactionService.getTransactions()
             .subscribe(
-            response => this.transactions = response,
-            error => this.errorMessage = (error as any));
+                response => this.transactions = response,
+                error => this.errorMessage = (error as any));
     }
 
     postTransaction(tvm: TransactionViewModel) {
         this.transactionService.postTransaction(tvm)
             .subscribe(
-            () => {
-                this.transactions.unshift(tvm);
-                this.transactions.pop();
-                this.newTransaction();
-            },
-            error => this.errorMessage = (error as any));
+                () => {
+                    this.transactions.unshift(tvm);
+                    this.transactions.pop();
+                    this.newTransaction();
+                },
+                error => this.errorMessage = (error as any));
     }
 
     setTransactionType(isDebit: boolean) {
@@ -166,8 +171,8 @@ export class OverviewComponent implements OnInit {
 
         this.categoryService.getCategories(isDebit)
             .subscribe(
-            response => this.categories = response,
-            error => this.errorMessage = (error as any));
+                response => this.categories = response,
+                error => this.errorMessage = (error as any));
 
         this.model.categoryName = isDebit ? "Food" : "Salary";
     }
@@ -177,9 +182,24 @@ export class OverviewComponent implements OnInit {
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
+
+    updateOverviewCharts() {
+        //const dateFrom = new Date();
+        //dateFrom.setMonth(dateFrom.getMonth() - 6);
+        //const dateUntil = new Date();
+
+        //const target1 = $("#OverviewLeftChart");
+        //target1
+        //    .prop("src",
+        //        `/Home/DisplayChart?chartName=OverviewLeftChart${dateString(dateFrom, dateUntil)}${brString()}`);
+
+        //const target2 = $("#OverviewRightChart");
+        //target2.prop("src",
+        //    `/Home/DisplayChart?chartName=OverviewRightChart${dateString(dateFrom, dateUntil)}${brString()}`);
+    }
 }
 
-class PieData {
+class MyPieData {
     constructor(
         public name: string,
         public y: number) {
