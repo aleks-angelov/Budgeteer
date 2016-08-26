@@ -2,9 +2,7 @@
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 
-import { TransactionViewModel } from "./transaction-view-model";
 import { CategoryViewModel } from "./category-view-model";
-import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
 import { SpendingIncomeViewModel } from "./spending-income-view-model";
@@ -15,8 +13,6 @@ import { SpendingIncomeViewModel } from "./spending-income-view-model";
 })
 export class IncomeComponent implements OnInit {
     errorMessage: string;
-    transactions: TransactionViewModel[];
-
     people: string[];
     categories: string[];
     incomeModel = new SpendingIncomeViewModel("Aleks Angelov", null, null, "Salary");
@@ -26,7 +22,6 @@ export class IncomeComponent implements OnInit {
     constructor(
         private titleService: Title,
         private router: Router,
-        private transactionService: TransactionService,
         private categoryService: CategoryService,
         private userService: UserService) {
     }
@@ -34,7 +29,6 @@ export class IncomeComponent implements OnInit {
     ngOnInit() {
         this.titleService.setTitle("Income - Budgeteer");
         this.getFormData();
-        this.getTransactions();
 
         const incomeTopLeftChart = new Highcharts.Chart({
             chart: {
@@ -250,13 +244,6 @@ export class IncomeComponent implements OnInit {
         this.categoryService.getCategories(false)
             .subscribe(
                 response => this.categories = response,
-                error => this.errorMessage = (error as any));
-    }
-
-    getTransactions() {
-        this.transactionService.getTransactions()
-            .subscribe(
-                response => this.transactions = response,
                 error => this.errorMessage = (error as any));
     }
 

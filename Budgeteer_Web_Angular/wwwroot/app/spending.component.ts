@@ -2,9 +2,7 @@
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 
-import { TransactionViewModel } from "./transaction-view-model";
 import { CategoryViewModel } from "./category-view-model";
-import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
 import { SpendingIncomeViewModel } from "./spending-income-view-model";
@@ -15,18 +13,20 @@ import { SpendingIncomeViewModel } from "./spending-income-view-model";
 })
 export class SpendingComponent implements OnInit {
     errorMessage: string;
-    transactions: TransactionViewModel[];
-
     people: string[];
     categories: string[];
     spendingModel = new SpendingIncomeViewModel("Aleks Angelov", null, null, "Food");
     categoryModel = new CategoryViewModel("", true);
     active = true;
 
+    topLeftChart: HighchartsChartObject;
+    topRightChart: HighchartsChartObject;
+    bottomLeftChart: HighchartsChartObject;
+    bottomRightChart: HighchartsChartObject;
+
     constructor(
         private titleService: Title,
         private router: Router,
-        private transactionService: TransactionService,
         private categoryService: CategoryService,
         private userService: UserService) {
     }
@@ -34,9 +34,52 @@ export class SpendingComponent implements OnInit {
     ngOnInit() {
         this.titleService.setTitle("Spending - Budgeteer");
         this.getFormData();
-        this.getTransactions();
 
-        const spendingTopLeftChart = new Highcharts.Chart({
+        this.createCharts();
+    }
+
+    getFormData() {
+        this.userService.getUsers()
+            .subscribe(
+            response => this.people = response,
+            error => this.errorMessage = (error as any));
+
+        this.categoryService.getCategories(true)
+            .subscribe(
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
+    }
+
+    postCategory(cvm: CategoryViewModel) {
+        this.categoryService.postCategory(cvm)
+            .subscribe(
+            () => {
+                if (!this.findCategoryName(cvm.name)) {
+                    this.categories.unshift(cvm.name);
+                }
+                this.newCategory();
+            },
+            error => this.errorMessage = (error as any));
+    }
+
+    findCategoryName(newCatName: string) {
+        newCatName = newCatName.toLowerCase();
+        for (let catName of this.categories) {
+            if (newCatName === catName.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    newCategory() {
+        this.categoryModel = new CategoryViewModel("", true);
+        this.active = false;
+        setTimeout(() => this.active = true, 0);
+    }
+
+    createCharts() {
+        this.topLeftChart = new Highcharts.Chart({
             chart: {
                 type: "column",
                 renderTo: "spendingTopLeftChart"
@@ -89,7 +132,7 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const spendingTopRightChart = new Highcharts.Chart({
+        this.topRightChart = new Highcharts.Chart({
             chart: {
                 type: "column",
                 renderTo: "spendingTopRightChart"
@@ -142,7 +185,7 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const spendingBottomLeftChart = new Highcharts.Chart({
+        this.bottomLeftChart = new Highcharts.Chart({
             chart: {
                 type: "pie",
                 renderTo: "spendingBottomLeftChart"
@@ -191,7 +234,7 @@ export class SpendingComponent implements OnInit {
             ]
         });
 
-        const spendingBottomRightChart = new Highcharts.Chart({
+        this.bottomRightChart = new Highcharts.Chart({
             chart: {
                 type: "pie",
                 renderTo: "spendingBottomRightChart"
@@ -241,50 +284,11 @@ export class SpendingComponent implements OnInit {
         });
     }
 
-    getFormData() {
-        this.userService.getUsers()
-            .subscribe(
-            response => this.people = response,
-            error => this.errorMessage = (error as any));
-
-        this.categoryService.getCategories(true)
-            .subscribe(
-            response => this.categories = response,
-            error => this.errorMessage = (error as any));
+    updateLeftCharts() {
+        
     }
 
-    getTransactions() {
-        this.transactionService.getTransactions()
-            .subscribe(
-            response => this.transactions = response,
-            error => this.errorMessage = (error as any));
-    }
+    updateRightCharts() {
 
-    postCategory(cvm: CategoryViewModel) {
-        this.categoryService.postCategory(cvm)
-            .subscribe(
-            () => {
-                if (!this.findCategoryName(cvm.name)) {
-                    this.categories.unshift(cvm.name);
-                }
-                this.newCategory();
-            },
-            error => this.errorMessage = (error as any));
-    }
-
-    findCategoryName(newCatName: string) {
-        newCatName = newCatName.toLowerCase();
-        for (let catName of this.categories) {
-            if (newCatName === catName.toLowerCase()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    newCategory() {
-        this.categoryModel = new CategoryViewModel("", true);
-        this.active = false;
-        setTimeout(() => this.active = true, 0);
     }
 }

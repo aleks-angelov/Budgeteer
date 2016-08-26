@@ -16,7 +16,6 @@ import { ChartData, ColumnData, PieData } from "./chart-view-model";
 export class OverviewComponent implements OnInit {
     errorMessage: string;
     transactions: TransactionViewModel[];
-
     people: string[];
     categories: string[];
     model = new TransactionViewModel(null, 0, "Aleks Angelov", "Food", true, "");
