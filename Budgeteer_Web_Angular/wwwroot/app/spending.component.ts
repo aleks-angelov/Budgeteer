@@ -49,28 +49,16 @@ export class SpendingComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         $(this.selectPersonName.nativeElement)
-            .change(() => {
-                console.log("Updating Left Charts...");
-                this.updateLeftCharts();
-            });
+            .change(() => this.updateLeftCharts());
 
-        //$(this.selectPersonName.nativeElement)
-        //    .change(() => {
-        //        console.log("Updating Left Charts...");
-        //        this.updateLeftCharts();
-        //    });
+        $(this.inputDateFrom.nativeElement)
+            .change(() => this.updateAllCharts());
 
-        //$(this.selectPersonName.nativeElement)
-        //    .change(() => {
-        //        console.log("Updating Left Charts...");
-        //        this.updateLeftCharts();
-        //    });
+        $(this.inputDateUntil.nativeElement)
+            .change(() => this.updateAllCharts());
 
         $(this.selectCategoryName.nativeElement)
-            .change(() => {
-                console.log("Updating Right Charts...");
-                this.updateRightCharts();
-            });
+            .change(() => this.updateRightCharts());
     }
 
     getFormData() {

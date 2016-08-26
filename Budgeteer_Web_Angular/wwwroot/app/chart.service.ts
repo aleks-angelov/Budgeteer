@@ -45,6 +45,9 @@ export class ChartService {
     }
 
     private dateString(dateFrom, dateUntil): string {
+        dateFrom = new Date(dateFrom);
+        dateUntil = new Date(dateUntil);
+
         return "&dateFrom=" +
             (dateFrom.getMonth() + 1) +
             "%2F" +
