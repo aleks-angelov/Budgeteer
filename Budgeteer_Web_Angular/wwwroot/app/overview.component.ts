@@ -6,6 +6,7 @@ import { TransactionViewModel } from "./transaction-view-model";
 import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
+import { ChartService } from "./chart.service";
 
 @Component({
     selector: "my-overview",

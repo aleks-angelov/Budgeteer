@@ -12,6 +12,7 @@ import { IncomeComponent } from "./income.component";
 import { TransactionService } from "./transaction.service";
 import { CategoryService } from "./category.service";
 import { UserService } from "./user.service";
+import { ChartService } from "./chart.service";
 import { HelperService } from "./helper.service";
 
 @NgModule({
@@ -33,6 +34,7 @@ import { HelperService } from "./helper.service";
         TransactionService,
         CategoryService,
         UserService,
+        ChartService,
         HelperService
     ],
     bootstrap: [AppComponent]
