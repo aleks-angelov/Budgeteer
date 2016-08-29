@@ -18,7 +18,7 @@
     <div class="form-group margin-right-md" style="width: 175px">
         <label for="spendingDateFrom">From:</label>
         <input type="date" class="form-control" id="spendingDateFrom"
-               style="width: 175px"
+               style="width: 175px" required
                [(ngModel)]="spendingModel.dateFrom" name="spendingDateFrom"
                #spendingDateFrom="ngModel"
                #inputDateFrom>
@@ -31,7 +31,7 @@
     <div class="form-group margin-right-md" style="width: 175px">
         <label for="spendingDateUntil">Until:</label>
         <input type="date" class="form-control" id="spendingDateUntil"
-               style="width: 175px"
+               style="width: 175px" required
                [(ngModel)]="spendingModel.dateUntil" name="spendingDateUntil"
                #spendingDateUntil="ngModel"
                #inputDateUntil>
@@ -71,23 +71,15 @@
 </form>
 
 <div style="margin-top: 26px">
-    <div id="spendingTopLeftChart" style="width: 568px; height: 426px; float: left"></div>
+    <div id="spendingTopLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
-    <div id="spendingTopRightChart" style="width: 568px; height: 426px; float: right"></div>
+    <div id="spendingTopRightChart" style="float: right; height: 426px; width: 568px;"></div>
 </div>
 
 <div style="margin-top: 26px">
-    <div id="spendingBottomLeftChart" style="width: 568px; height: 426px; float: left"></div>
+    <div id="spendingBottomLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
-    <div id="spendingBottomRightChart" style="width: 568px; height: 426px; float: right"></div>
+    <div id="spendingBottomRightChart" style="float: right; height: 426px; width: 568px;"></div>
 </div>
 
 <div style="clear: both"></div>
-
-<!--<script type="text/javascript">
-    var date_6M = new Date();
-    date_6M.setMonth(date_6M.getMonth() - 6);
-
-    document.getElementById("spendingDateFrom").valueAsDate = date_6M;
-    document.getElementById("spendingDateUntil").valueAsDate = new Date();
-</script>-->

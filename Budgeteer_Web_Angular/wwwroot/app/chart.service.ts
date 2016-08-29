@@ -24,7 +24,8 @@ export class ChartService {
         personName: string = null,
         categoryName: string = null): Observable<ColumnData> {
 
-        this.chartsQuery = "?chartName=" + chartName + this.dateString(dateFrom, dateUntil) + "&personName=" + (personName || "") + "&categoryName=" + (categoryName || "");
+        this.chartsQuery = `?chartName=${chartName}${this
+            .dateString(dateFrom, dateUntil)}&personName=${personName || ""}&categoryName=${categoryName || ""}`;
 
         return (this.http.get(this.chartsUrl + this.chartsQuery)
             .map(this.helperService.extractData)
@@ -37,7 +38,8 @@ export class ChartService {
         personName: string = null,
         categoryName: string = null): Observable<PieData> {
 
-        this.chartsQuery = "?chartName=" + chartName + this.dateString(dateFrom, dateUntil) + "&personName=" + (personName || "") + "&categoryName=" + (categoryName || "");
+        this.chartsQuery = `?chartName=${chartName}${this
+            .dateString(dateFrom, dateUntil)}&personName=${personName || ""}&categoryName=${categoryName || ""}`;
 
         return (this.http.get(this.chartsUrl + this.chartsQuery)
             .map(this.helperService.extractData)
@@ -48,19 +50,8 @@ export class ChartService {
         dateFrom = new Date(dateFrom);
         dateUntil = new Date(dateUntil);
 
-        return "&dateFrom=" +
-            (dateFrom.getMonth() + 1) +
-            "%2F" +
-            dateFrom.getDate() +
-            "%2F" +
-            dateFrom.getFullYear() +
-            "%2000%3A00%3A00" +
-            "&dateUntil=" +
-            (dateUntil.getMonth() + 1) +
-            "%2F" +
-            dateUntil.getDate() +
-            "%2F" +
-            dateUntil.getFullYear() +
-            "%2000%3A00%3A00";
+        return `&dateFrom=${dateFrom.getMonth() + 1}%2F${dateFrom.getDate()}%2F${dateFrom
+            .getFullYear()}%2000%3A00%3A00&dateUntil=${dateUntil.getMonth() + 1}%2F${dateUntil.getDate()}%2F${dateUntil
+            .getFullYear()}%2000%3A00%3A00`;
     }
 }

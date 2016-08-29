@@ -24,7 +24,7 @@ namespace Budgeteer_Web_Angular.Controllers
                 .ThenBy(t => t.Category.Name)
                 .Take(10)
                 .ToList();
-            
+
             return TransactionViewModel.Convert(transactions, _context);
         }
 

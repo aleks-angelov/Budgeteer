@@ -1,6 +1,6 @@
 ﻿<h2>Income</h2>
 <form *ngIf="active" (ngSubmit)="postCategory(categoryModel)" class="form-inline" role="form" style="margin-top: 24px">
-    
+
     <div class="form-group margin-right-md" style="width: 162px">
         <label for="incomePersonName">Person:</label>
         <select class="form-control" id="incomePersonName"
@@ -18,7 +18,7 @@
     <div class="form-group margin-right-md" style="width: 175px">
         <label for="incomeDateFrom">From:</label>
         <input type="date" class="form-control" id="incomeDateFrom"
-               style="width: 175px"
+               style="width: 175px" required
                [(ngModel)]="incomeModel.dateFrom" name="incomeDateFrom"
                #incomeDateFrom="ngModel"
                #inputDateFrom>
@@ -31,7 +31,7 @@
     <div class="form-group margin-right-md" style="width: 175px">
         <label for="incomeDateUntil">Until:</label>
         <input type="date" class="form-control" id="incomeDateUntil"
-               style="width: 175px"
+               style="width: 175px" required
                [(ngModel)]="incomeModel.dateUntil" name="incomeDateUntil"
                #incomeDateUntil="ngModel"
                #inputDateUntil>
@@ -71,23 +71,15 @@
 </form>
 
 <div style="margin-top: 26px">
-    <div id="incomeTopLeftChart" style="width: 568px; height: 426px; float: left"></div>
+    <div id="incomeTopLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
-    <div id="incomeTopRightChart" style="width: 568px; height: 426px; float: right"></div>
+    <div id="incomeTopRightChart" style="float: right; height: 426px; width: 568px;"></div>
 </div>
 
 <div style="margin-top: 26px">
-    <div id="incomeBottomLeftChart" style="width: 568px; height: 426px; float: left"></div>
+    <div id="incomeBottomLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
-    <div id="incomeBottomRightChart" style="width: 568px; height: 426px; float: right"></div>
+    <div id="incomeBottomRightChart" style="float: right; height: 426px; width: 568px;"></div>
 </div>
 
 <div style="clear: both"></div>
-
-<!--<script type="text/javascript">
-    var date_6M = new Date();
-    date_6M.setMonth(date_6M.getMonth() - 6);
-
-    document.getElementById("incomeDateFrom").valueAsDate = date_6M;
-    document.getElementById("incomeDateUntil").valueAsDate = new Date();
-</script>-->

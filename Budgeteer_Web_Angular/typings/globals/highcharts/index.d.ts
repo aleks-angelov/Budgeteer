@@ -1277,7 +1277,9 @@ interface HighchartsLinearGradient {
 interface HighchartsGradient {
     linearGradient?: HighchartsLinearGradient | number[];
     radialGradient?: {
-        cx: number; cy: number; r: number;
+        cx: number;
+        cy: number;
+        r: number;
     };
     stops?: any[][];
     /**
@@ -1961,7 +1963,7 @@ interface HighchartsDrilldownOptions {
          * @since 3.0.8
          */
         theme?: HighchartsButtonStatesTheme;
-    }
+    };
     /**
      * An array of series configurations for the drill down. Each series configuration uses the same syntax as the
      * series option set. These drilldown series are hidden by default. The drilldown series is linked to the parent
@@ -3266,7 +3268,8 @@ interface HighchartsBarStates {
     halo?: boolean | HighchartsHalo;
 }
 
-interface HighchartsPieStates extends HighchartsBarStates, HighchartsLineStates { }
+interface HighchartsPieStates extends HighchartsBarStates, HighchartsLineStates {
+}
 
 interface HighchartsAreaZone {
     /**
@@ -4442,7 +4445,7 @@ interface HighchartsHeatMapChart extends HighchartsSeriesChart {
          * Options for the hovered series
          */
         hover?: HighchartsBarStates;
-    }
+    };
 }
 
 interface HighchartsLineChart extends HighchartsSeriesChart {
@@ -4637,7 +4640,8 @@ interface HighchartsPyramidChart extends HighchartsSeriesChart {
     width?: number | string;
 }
 
-interface HighchartsScatterChart extends HighchartsSeriesChart { }
+interface HighchartsScatterChart extends HighchartsSeriesChart {
+}
 
 /**
  * A gauge showing values using a filled arc with colors indicating the value. The solid gauge plots values against the
@@ -4661,7 +4665,8 @@ interface HighchartsSolidGaugeChart extends HighchartsSeriesChart {
     wrap?: boolean;
 }
 
-interface HighchartsSplineChart extends HighchartsSeriesChart { }
+interface HighchartsSplineChart extends HighchartsSeriesChart {
+}
 
 /**
  * The size of the point shape is determined by its value relative to its siblings values. Requires the module
@@ -4754,7 +4759,7 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
          * Options for the hovered series
          */
         hover?: HighchartsBarStates;
-    }
+    };
 }
 
 interface HighchartsWaterFallChart extends HighchartsBarChart {
@@ -4916,30 +4921,76 @@ interface HighchartsIndividualSeriesOptions {
     zIndex?: number;
 }
 
-interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart { }
+interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart {
+}
 
-interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
-interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
-interface HighchartsAreaSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaSplineChart { }
-interface HighchartsAreaSplineRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaSplineRangeChart { }
-interface HighchartsBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
-interface HighchartsBoxPlotChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBoxPlotChart { }
-interface HighchartsBubbleChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBubbleChart { }
-interface HighchartsColumnChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnChart { }
-interface HighchartsColumnRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnRangeChart { }
-interface HighchartsErrorBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsErrorBarChart { }
-interface HighchartsFunnelChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsFunnelChart { }
-interface HighchartsGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsGaugeChart { }
-interface HighchartsHeatMapSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsHeatMapChart { }
-interface HighchartsLineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsLineChart { }
-interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPieChart { }
-interface HighchartsPolygonChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPolygonChart { }
-interface HighchartsPyramidChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPyramidChart { }
-interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart { }
-interface HighchartsSolidGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSolidGaugeChart { }
-interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart { }
-interface HighchartsTreeMapChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsTreeMapChart { }
-interface HighchartsWaterFallChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsWaterFallChart { }
+interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart {
+}
+
+interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart {
+}
+
+interface HighchartsAreaSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaSplineChart {
+}
+
+interface HighchartsAreaSplineRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions,
+    HighchartsAreaSplineRangeChart {
+    }
+
+interface HighchartsBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart {
+}
+
+interface HighchartsBoxPlotChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBoxPlotChart {
+}
+
+interface HighchartsBubbleChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBubbleChart {
+}
+
+interface HighchartsColumnChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnChart {
+}
+
+interface HighchartsColumnRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions,
+    HighchartsColumnRangeChart {
+    }
+
+interface HighchartsErrorBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsErrorBarChart {
+}
+
+interface HighchartsFunnelChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsFunnelChart {
+}
+
+interface HighchartsGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsGaugeChart {
+}
+
+interface HighchartsHeatMapSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsHeatMapChart {
+}
+
+interface HighchartsLineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsLineChart {
+}
+
+interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPieChart {
+}
+
+interface HighchartsPolygonChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPolygonChart {
+}
+
+interface HighchartsPyramidChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPyramidChart {
+}
+
+interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart {
+}
+
+interface HighchartsSolidGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSolidGaugeChart {
+}
+
+interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart {
+}
+
+interface HighchartsTreeMapChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsTreeMapChart {
+}
+
+interface HighchartsWaterFallChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsWaterFallChart {
+}
 
 interface HighchartsDataPoint {
     /**
@@ -5172,7 +5223,8 @@ interface HighchartsTitleOptions {
 interface HighchartsCrosshairObject {
     color?: string | HighchartsGradient;
     width?: number;
-    dashStyle?: string; //Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
+    dashStyle?: string;
+//Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
     zIndex?: number;
 }
 
@@ -5225,7 +5277,8 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
      *
      * @default null
      */
-    crosshairs?: boolean | [boolean, boolean] | HighchartsCrosshairObject | [HighchartsCrosshairObject, HighchartsCrosshairObject];
+    crosshairs?: boolean | [boolean, boolean] | HighchartsCrosshairObject | [HighchartsCrosshairObject,
+    HighchartsCrosshairObject];
     /**
      * Enable or disable the tooltip.
      * @default true
@@ -5518,8 +5571,7 @@ interface HighchartsGlobalOptions extends HighchartsOptions {
     lang?: HighchartsLangObject;
 }
 
-interface HighchartsDateFormatSpecifiers
-{
+interface HighchartsDateFormatSpecifiers {
     [index: string]: (timestamp: number) => string;
 }
 
@@ -5599,7 +5651,11 @@ interface HighchartsAxisObject {
      * @param {boolean | HighchartsAnimation} animation When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | HighchartsAnimation, eventArguments?: any): void;
+    setExtremes(min?: number,
+        max?: number,
+        redraw?: boolean,
+        animation?: boolean | HighchartsAnimation,
+        eventArguments?: any): void;
     /**
      * Update the title of the axis after render time.
      * @param {HighchartsAxisTitle} title  The new title options on the same format as given in xAxis.title.
@@ -5650,7 +5706,8 @@ interface HighchartsChartObject {
      * @return {HighchartsAxisObject}
      * @since 3.0
      */
-    addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | HighchartsAnimation): HighchartsAxisObject;
+    addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | HighchartsAnimation):
+        HighchartsAxisObject;
     /**
      * Add a series to the chart after render time. Note that this method should never be used when adding data
      * synchronously at chart render time, as it adds expense to the calculations and rendering. When adding data at the
@@ -5659,7 +5716,9 @@ interface HighchartsChartObject {
      * @param [boolean] redraw
      * @since 1.2.0
      */
-    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | HighchartsAnimation): T;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T,
+        redraw?: boolean,
+        animation?: boolean | HighchartsAnimation): T;
     /**
      * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
      * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
@@ -5843,21 +5902,21 @@ interface HighchartsChart {
      * @param  {HighchartsOptions} options The chart options
      * @return {HighchartsChartObject}
      */
-    new (options: HighchartsOptions): HighchartsChartObject;
+    new(options: HighchartsOptions): HighchartsChartObject;
     /**
      * This is the constructor for creating a new chart object.
      * @param {HighchartsOptions} options The chart options
      * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
      * @return {HighchartsChartObject}
      */
-    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    new(options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
     /**
      * This is the constructor for creating a new chart object.
      * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
      * @param {HighchartsOptions} options The chart options
      * @return {HighchartsChartObject}
      */
-    new (renderTo: string | HTMLElement, options: HighchartsOptions): HighchartsChartObject;
+    new(renderTo: string | HTMLElement, options: HighchartsOptions): HighchartsChartObject;
     /**
      * This is the constructor for creating a new chart object.
      * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
@@ -5865,7 +5924,8 @@ interface HighchartsChart {
      * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
      * @return {HighchartsChartObject}
      */
-    new (renderTo: string | HTMLElement, options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    new(renderTo: string | HTMLElement, options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void):
+        HighchartsChartObject;
 }
 
 /**
@@ -5962,7 +6022,8 @@ interface HighchartsRendererObject {
      * @return {HighchartsElementObject}
      * @since 2.0
      */
-    arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): HighchartsElementObject;
+    arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number):
+        HighchartsElementObject;
     /**
      * Draw circle on the renderer canvas.
      * @param  {number} centerX The x position of the circle's center in the SVG element.
@@ -6007,7 +6068,15 @@ interface HighchartsRendererObject {
      * @return {HighchartsElementObject}
      * @since 2.0
      */
-    label(str: string, x: number, y: number, shape?: string, anchorX?: number, anchorY?: number, useHTML?: boolean, baseline?: boolean, className?: string): HighchartsElementObject;
+    label(str: string,
+        x: number,
+        y: number,
+        shape?: string,
+        anchorX?: number,
+        anchorY?: number,
+        useHTML?: boolean,
+        baseline?: boolean,
+        className?: string): HighchartsElementObject;
     /**
      * Add a path based on SVG's path commands. In SVG capable browsers all path commands are supported, but in VML only
      * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
@@ -6039,7 +6108,7 @@ interface HighchartsRendererObject {
 }
 
 interface HighchartsRenderer {
-    new (parentNode: HTMLElement, width: number, height: number): HighchartsRendererObject;
+    new(parentNode: HTMLElement, width: number, height: number): HighchartsRendererObject;
 }
 
 interface HighchartsStatic {
@@ -6056,7 +6125,10 @@ interface HighchartsStatic {
      * As Highcharts.Chart, but without need for the new keyword.
      * @since 4.2.0
      */
-    chart(renderTo: string | HTMLElement, options: HighchartsOptions, callback?: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    chart(renderTo: string | HTMLElement,
+        options: HighchartsOptions,
+        callback?: (chart: HighchartsChartObject) =>
+        void): HighchartsChartObject;
     /**
      * An array containing the current chart objects in the page. A chart's position in the array is preserved
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
@@ -6173,7 +6245,9 @@ interface HighchartsPointObject {
      * @param {boolean|HighchartsAnimation} animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    update(options: number | [number, number] | HighchartsDataPoint, redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
+    update(options: number | [number, number] | HighchartsDataPoint,
+        redraw?: boolean,
+        animation?: boolean | HighchartsAnimation): void;
     /**
      * The x value for the point.
      * @since 1.2.0
@@ -6210,7 +6284,10 @@ interface HighchartsSeriesObject {
      * @param [(boolean|HighchartsAnimation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
      * @since 1.2.0
      */
-    addPoint(options: number |[number, number]| HighchartsDataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | HighchartsAnimation): void;
+    addPoint(options: number |[number, number]| HighchartsDataPoint,
+        redraw?: boolean,
+        shift?: boolean,
+        animation?: boolean | HighchartsAnimation): void;
     /**
      * Read only. The chart that the series belongs to.
      * @since 1.2.0
@@ -6273,7 +6350,10 @@ interface HighchartsSeriesObject {
      * @param [boolean] updatePoints - When the updated data is the same length as the existing data, points will be updated instead of replace. This option prevents this, and makes setData behave like it did prior to Highcharts 3.0.10.
      * @since 1.2.0
      */
-    setData(data: number[] | number[][] | HighchartsDataPoint[], redraw?: boolean, animation?: boolean | HighchartsAnimation, updatePoints?: boolean): void;
+    setData(data: number[] | number[][] | HighchartsDataPoint[],
+        redraw?: boolean,
+        animation?: boolean | HighchartsAnimation,
+        updatePoints?: boolean): void;
     /**
      * A utility function to show or hide the series with an optional redraw.
      * @param [boolean] visible - Whether to show or hide the series. If undefined, the visibility is toggled.

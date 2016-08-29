@@ -1,34 +1,34 @@
 ﻿<h2>Overview</h2>
-<form *ngIf="active" (ngSubmit)="postTransaction(model)" #transactionForm="ngForm" class="form-inline" role="form" style="margin-top: 13px">
+<form *ngIf="active" (ngSubmit)="postTransaction(overviewModel)" #transactionForm="ngForm" class="form-inline" role="form" style="margin-top: 13px">
 
     <div class="form-group margin-right-sm" style="width: 175px">
-        <label for="date">Date:</label>
-        <input type="date" class="form-control" id="date"
+        <label for="overviewDate">Date:</label>
+        <input type="date" class="form-control" id="overviewDate"
                required
-               [(ngModel)]="model.date" name="date"
-               #date="ngModel">
-        <div [hidden]="date.valid || date.pristine"
+               [(ngModel)]="overviewModel.date" name="overviewDate"
+               #overviewDate="ngModel">
+        <div [hidden]="overviewDate.valid || overviewDate.pristine"
              class="alert alert-danger">
             The Date field is required.
         </div>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
-        <label for="personName">Person:</label>
-        <select class="form-control" id="personName"
+        <label for="overviewPersonName">Person:</label>
+        <select class="form-control" id="overviewPersonName"
                 style="width: 162px" required
-                [(ngModel)]="model.personName" name="personName"
-                #personName="ngModel">
+                [(ngModel)]="overviewModel.personName" name="overviewPersonName"
+                #overviewPersonName="ngModel">
             <option *ngFor="let person of people" [value]="person">{{person}}</option>
         </select>
-        <div [hidden]="personName.valid || personName.pristine" class="alert alert-danger">
+        <div [hidden]="overviewPersonName.valid || overviewPersonName.pristine" class="alert alert-danger">
             The Person field is required.
         </div>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 117px">
-        <label for="isDebit">Type:</label>
-        <div class="form-control" id="isDebit">
+        <label for="overviewIsDebit">Type:</label>
+        <div class="form-control" id="overviewIsDebit">
             <a href="javascript:void(0)" (click)="setTransactionType(true)">Debit</a>
             &nbsp;|&nbsp;
             <a href="javascript:void(0)" (click)="setTransactionType(false)">Credit</a>
@@ -36,33 +36,33 @@
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
-        <label for="categoryName">Category:</label>
-        <select class="form-control" id="categoryName"
+        <label for="overviewCategoryName">Category:</label>
+        <select class="form-control" id="overviewCategoryName"
                 style="width: 162px" required
-                [(ngModel)]="model.categoryName" name="categoryName"
-                #categoryName="ngModel">
+                [(ngModel)]="overviewModel.categoryName" name="overviewCategoryName"
+                #overviewCategoryName="ngModel">
             <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
         </select>
-        <div [hidden]="categoryName.valid || categoryName.pristine" class="alert alert-danger">
+        <div [hidden]="overviewCategoryName.valid || overviewCategoryName.pristine" class="alert alert-danger">
             The Category field is required.
         </div>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 162px">
-        <label for="amount">Amount:</label>
-        <input type="text" class="form-control" id="amount"
+        <label for="overviewAmount">Amount:</label>
+        <input type="text" class="form-control" id="overviewAmount"
                style="width: 162px" required
-               [(ngModel)]="model.amount" name="amount"
-               #amount="ngModel">
-        <div [hidden]="amount.valid || amount.pristine"
+               [(ngModel)]="overviewModel.amount" name="overviewAmount"
+               #overviewAmount="ngModel">
+        <div [hidden]="overviewAmount.valid || overviewAmount.pristine"
              class="alert alert-danger">
             The Amount field is required.
         </div>
     </div>
 
     <div class="form-group margin-right-sm" style="width: 221px">
-        <label for="note">Note:</label>
-        <input type="text" class="form-control" id="note" style="width: 221px" [(ngModel)]="model.note" name="note">
+        <label for="overviewNote">Note:</label>
+        <input type="text" class="form-control" id="overviewNote" style="width: 221px" [(ngModel)]="overviewModel.note" name="overviewNote">
     </div>
 
     <button type="submit" class="btn btn-default" style="margin-top: 25px" [disabled]="!transactionForm.form.valid">Add</button>
@@ -71,38 +71,34 @@
 <div class="table-responsive" style="margin-top: 30px">
     <table class="table table-striped table-bordered table-hover table-condensed" style="font-size: 14px">
         <thead>
-            <tr>
-                <th style="width: 190px">Date</th>
-                <th style="width: 177px">Person</th>
-                <th style="width: 132px">Type</th>
-                <th style="width: 177px">Category</th>
-                <th style="width: 177px">Amount</th>
-                <th>Note</th>
-            </tr>
+        <tr>
+            <th style="width: 190px">Date</th>
+            <th style="width: 177px">Person</th>
+            <th style="width: 132px">Type</th>
+            <th style="width: 177px">Category</th>
+            <th style="width: 177px">Amount</th>
+            <th>Note</th>
+        </tr>
         </thead>
         <tbody id="tableBody">
-            <tr *ngFor="let trans of transactions">
-                <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
-                <td>{{trans.personName}}</td>
-                <td *ngIf="trans.isDebit">Debit</td>
-                <td *ngIf="!trans.isDebit">Credit</td>
-                <td>{{trans.categoryName}}</td>
-                <td>{{trans.amount}}</td>
-                <td>{{trans.note}}</td>
-            </tr>
+        <tr *ngFor="let trans of transactions">
+            <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
+            <td>{{trans.personName}}</td>
+            <td *ngIf="trans.isDebit">Debit</td>
+            <td *ngIf="!trans.isDebit">Credit</td>
+            <td>{{trans.categoryName}}</td>
+            <td>{{trans.amount}}</td>
+            <td>{{trans.note}}</td>
+        </tr>
         </tbody>
     </table>
 </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
 <div style="margin-top: 6px">
-    <div id="overviewLeftChart" style="width: 568px; height: 426px; float: left"></div>
+    <div id="overviewLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
-    <div id="overviewRightChart" style="width: 568px; height: 426px; float: right"></div>
+    <div id="overviewRightChart" style="float: right; height: 426px; width: 568px;"></div>
 </div>
 
 <div style="clear: both"></div>
-
-<!--<script type="text/javascript">
-    document.getElementById("date").valueAsDate = new Date();
-</script>-->
