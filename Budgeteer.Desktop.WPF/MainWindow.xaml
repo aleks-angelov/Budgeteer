@@ -1,0 +1,567 @@
+﻿<Window
+    x:Name="HomeWindow"
+    x:Class="Budgeteer.Desktop.WPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="1280"
+    Height="830"
+    Background="#FFE5E5E5"
+    Loaded="HomeWindow_Loaded"
+    Title="Budgeteer - Your Family Budget Tracker"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d" Closed="HomeWindow_Closed">
+    <Window.Resources>
+        <Style TargetType="DatePickerTextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <TabControl x:Name="TabControl" SelectedIndex="1" TabStripPlacement="Left">
+            <TabItem Width="192" Height="173" Focusable="False">
+                <TabItem.Header>
+                    <Calendar FirstDayOfWeek="Monday" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Height="205" Header="Overview">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="85" />
+                        <RowDefinition Height="291" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Height="30"
+                        Grid.Row="0"
+                        Margin="30,9,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal" HorizontalAlignment="Left" Width="937">
+                        <Label
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Date:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="31" Opacity="0" />
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Person:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="34" Opacity="0" />
+                        <Label
+                            Width="104"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Type:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="33" Opacity="0" />
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Category:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="31" Opacity="0" />
+                        <Label
+                            Width="90"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Amount:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="25" Opacity="0" />
+                        <Label
+                            Width="180"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Note (optional):"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                    </StackPanel>
+                    <StackPanel
+                        Height="25"
+                        Grid.Row="0"
+                        Margin="30,42,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal" HorizontalAlignment="Left" Width="937">
+                        <DatePicker
+                            x:Name="DatePickerAdd"
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FirstDayOfWeek="Monday"
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="31" Opacity="0" />
+                        <ComboBox
+                            x:Name="ComboBoxAddPerson"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            SelectedIndex="0" IsEditable="True" />
+                        <Separator Width="31" Opacity="0" />
+                        <RadioButton
+                            x:Name="RadioButtonDebit"
+                            HorizontalAlignment="Left"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Top"
+                            Content="Debit"
+                            GroupName="EntryType"
+                            IsChecked="True" />
+                        <Separator Width="10" Opacity="0" />
+                        <RadioButton
+                            x:Name="RadioButtonCredit"
+                            HorizontalAlignment="Left"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Top"
+                            Checked="RadioButtonCredit_Checked"
+                            Content="Credit"
+                            GroupName="EntryType"
+                            Unchecked="RadioButtonCredit_Unchecked" />
+                        <Separator Width="31" Opacity="0" />
+                        <ComboBox
+                            x:Name="ComboBoxAddCategory"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            SelectedIndex="0" IsEditable="True" />
+                        <Separator Width="31" Opacity="0" />
+                        <TextBox
+                            x:Name="TextBoxAddAmount"
+                            Width="90"
+                            Height="23"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top" />
+                        <Separator Width="31" Opacity="0" />
+                        <TextBox
+                            x:Name="TextBoxAddNote"
+                            Width="169"
+                            Height="23"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            SpellCheck.IsEnabled="True" />
+                    </StackPanel>
+                    <Button
+                        x:Name="ButtonAdd"
+                        Width="46"
+                        Height="47"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="989,18,0,0"
+                        VerticalAlignment="Top"
+                        Click="ButtonAdd_Click"
+                        Content="Add" />
+                    <DataGrid
+                        x:Name="DataGridOverview"
+                        Width="1005"
+                        Height="270"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Margin="30,1,0,0"
+                        VerticalAlignment="Top"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding Source=records}" IsReadOnly="True" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="0.3*" Binding="{Binding Date, StringFormat=dd/MM/yyyy}"
+                                                Header="Date" />
+                            <DataGridTextColumn Width="0.8*" Binding="{Binding Person}" Header="Person" />
+                            <DataGridTextColumn Width="0.2*" Binding="{Binding Type}" Header="Type" />
+                            <DataGridTextColumn Width="0.6*" Binding="{Binding Category}" Header="Category" />
+                            <DataGridTextColumn Width="0.3*" Binding="{Binding Amount}" Header="Amount" />
+                            <DataGridTextColumn Width="*" Binding="{Binding Note}" Header="Note" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <chartingToolkit:Chart
+                        x:Name="ChartOverviewLeft"
+                        Width="486"
+                        Height="369"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="30,22,0,0"
+                        VerticalAlignment="Top"
+                        SnapsToDevicePixels="True"
+                        Title="Budget Balance (last 6 months)">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Income" />
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Spending" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartOverviewRight"
+                        Width="486"
+                        Height="369"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="549,22,0,0"
+                        VerticalAlignment="Top"
+                        Title="Spending Distribution (last 6 months)">
+                        <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                   ItemsSource="{Binding}" Title="Income" />
+                    </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+            <TabItem Height="204" Header="Spending">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="84" />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Width="517"
+                        Height="30"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Person:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
+                        <Label
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="From:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="25"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,49,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="ComboBoxSpendingPerson"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DropDownClosed="ComboBoxSpendingPerson_DropDownClosed"
+                            SelectedIndex="0" />
+                        <Separator Width="262" Opacity="0" />
+                        <DatePicker
+                            x:Name="DatePickerSpendingFrom"
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FirstDayOfWeek="Monday"
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="30"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Until:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Category:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="25"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,49,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <DatePicker
+                            x:Name="DatePickerSpendingUntil"
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FirstDayOfWeek="Monday"
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="262" Opacity="0" />
+                        <ComboBox
+                            x:Name="ComboBoxSpendingCategory"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DropDownClosed="ComboBoxSpendingCategory_DropDownClosed"
+                            SelectedIndex="0" />
+                    </StackPanel>
+                    <chartingToolkit:Chart
+                        x:Name="ChartSpendingTopLeft"
+                        Width="517"
+                        Height="336"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Spending of ">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Spending" />
+                        <chartingToolkit:Chart.LegendStyle>
+                            <Style TargetType="Control">
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
+                            </Style>
+                        </chartingToolkit:Chart.LegendStyle>
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartSpendingTopRight"
+                        Width="517"
+                        Height="336"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Spending for ">
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Spending" />
+                        <chartingToolkit:Chart.LegendStyle>
+                            <Style TargetType="Control">
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
+                            </Style>
+                        </chartingToolkit:Chart.LegendStyle>
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartSpendingBottomLeft"
+                        Width="517"
+                        Height="335"
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Spending Distribution of ">
+                        <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                   ItemsSource="{Binding}" Title="Income" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartSpendingBottomRight"
+                        Width="517"
+                        Height="335"
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Spending Distribution for ">
+                        <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                   ItemsSource="{Binding}" Title="Income" />
+                    </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+            <TabItem Height="205" Header="Income">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="84" />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        Width="517"
+                        Height="30"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Person:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
+                        <Label
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="From:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="25"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,49,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="ComboBoxIncomePerson"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DropDownClosed="ComboBoxIncomePerson_DropDownClosed"
+                            SelectedIndex="0" />
+                        <Separator Width="262" Opacity="0" />
+                        <DatePicker
+                            x:Name="DatePickerIncomeFrom"
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FirstDayOfWeek="Monday"
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="30"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Until:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                        <Separator Width="262" Opacity="0" />
+                        <Label
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Content="Category:"
+                            HorizontalContentAlignment="Center"
+                            RenderTransformOrigin="0.132,-0.385" />
+                    </StackPanel>
+                    <StackPanel
+                        Width="517"
+                        Height="25"
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Margin="10,49,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                        <DatePicker
+                            x:Name="DatePickerIncomeUntil"
+                            Width="105"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            FirstDayOfWeek="Monday"
+                            SelectedDate="{x:Static sys:DateTime.Today}" />
+                        <Separator Width="262" Opacity="0" />
+                        <ComboBox
+                            x:Name="ComboBoxIncomeCategory"
+                            Width="150"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DropDownClosed="ComboBoxIncomeCategory_DropDownClosed"
+                            SelectedIndex="0" />
+                    </StackPanel>
+                    <chartingToolkit:Chart
+                        x:Name="ChartIncomeTopLeft"
+                        Width="517"
+                        Height="336"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Income of ">
+                        <chartingToolkit:Chart.LegendStyle>
+                            <Style TargetType="{x:Type Control}">
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
+                            </Style>
+                        </chartingToolkit:Chart.LegendStyle>
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Spending" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartIncomeTopRight"
+                        Width="517"
+                        Height="336"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Income from ">
+                        <chartingToolkit:Chart.LegendStyle>
+                            <Style TargetType="{x:Type Control}">
+                                <Setter Property="Width" Value="0" />
+                                <Setter Property="Height" Value="0" />
+                            </Style>
+                        </chartingToolkit:Chart.LegendStyle>
+                        <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                      ItemsSource="{Binding}" Title="Spending" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartIncomeBottomLeft"
+                        Width="517"
+                        Height="335"
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Income Distribution of ">
+                        <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                   ItemsSource="{Binding}" Title="Income" />
+                    </chartingToolkit:Chart>
+                    <chartingToolkit:Chart
+                        x:Name="ChartIncomeBottomRight"
+                        Width="517"
+                        Height="335"
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="10,10,0,0"
+                        VerticalAlignment="Top"
+                        Title="Income Distribution from ">
+                        <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
+                                                   ItemsSource="{Binding}" Title="Income" />
+                    </chartingToolkit:Chart>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

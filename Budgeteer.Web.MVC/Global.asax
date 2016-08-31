@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Budgeteer.Web.MVC.MvcApplication" Language="C#" %>

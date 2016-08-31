@@ -1,0 +1,52 @@
+﻿@using Budgeteer.Web.MVC.Models
+@model SpendingAndIncomeViewModel
+
+@{
+    ViewBag.Title = "Income";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="form-inline" style="margin-top: 24px">
+    <div class="form-group margin-right-md" style="width: 162px">
+        @Html.LabelFor(ivm => ivm.PersonName, "Person:")
+        @Html.DropDownListFor(ivm => ivm.PersonName, Model.UserItems, new {@class = "form-control", id = "IncomePersonName", style = "width:162px"})
+    </div>
+
+    <div class="form-group margin-right-md" style="width: 175px">
+        @Html.LabelFor(ivm => ivm.DateFrom, "From:")
+        @Html.TextBoxFor(ivm => ivm.DateFrom, new {type = "date", @class = "form-control", id = "IncomeDateFrom", style = "width:175px"})
+    </div>
+
+    <div class="form-group margin-right-md" style="width: 175px">
+        @Html.LabelFor(ivm => ivm.DateUntil, "Until:")
+        @Html.TextBoxFor(ivm => ivm.DateUntil, new {type = "date", @class = "form-control", id = "IncomeDateUntil", style = "width:175px"})
+    </div>
+
+    <div class="form-group margin-right-lg" style="width: 162px">
+        @Html.LabelFor(ivm => ivm.CategoryName, "Category:")
+        @Html.DropDownListFor(ivm => ivm.CategoryName, Model.CategoryItems, new {@class = "form-control", id = "IncomeCategoryName", style = "width:162px"})
+    </div>
+
+    @Html.Partial("AddCategory", new CategoryViewModel {IsDebit = false})
+</div>
+
+<div style="margin-top: 26px">
+    <img id="IncomeTopLeftChart" src="@Url.Action("DisplayChart", "Home", new {chartName = "IncomeTopLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income of"/>
+
+    <img id="IncomeTopRightChart" src="@Url.Action("DisplayChart", "Home", new {chartName = "IncomeTopRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income from"/>
+</div>
+
+<div style="margin-top: 26px">
+    <img id="IncomeBottomLeftChart" src="@Url.Action("DisplayChart", "Home", new {chartName = "IncomeBottomLeftChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, personName = "Aleks Angelov", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution of"/>
+
+    <img id="IncomeBottomRightChart" src="@Url.Action("DisplayChart", "Home", new {chartName = "IncomeBottomRightChart", dateFrom = DateTime.Today.AddMonths(-6), dateUntil = DateTime.Today, categoryName = "Salary", br = DateTime.Now.TimeOfDay.ToString()})" alt="Income Distribution from"/>
+</div>
+
+<script type="text/javascript">
+    var date_6M = new Date();
+    date_6M.setMonth(date_6M.getMonth() - 6);
+
+    document.getElementById("IncomeDateFrom").valueAsDate = date_6M;
+    document.getElementById("IncomeDateUntil").valueAsDate = new Date();
+</script>
