@@ -10,6 +10,9 @@ namespace Budgeteer_Web.Models
     {
         public SpendingAndIncomeViewModel(bool isSpending)
         {
+            DateUntil = DateTime.Today;
+            DateFrom = DateUntil.AddMonths(-6);
+
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 UserItems = new List<SelectListItem>();

@@ -1,6 +1,6 @@
 ﻿@model Budgeteer_Web.Models.TransactionViewModel
 
-@using (Ajax.BeginForm("Overview", "Home", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts" }, new { @class = "form-inline", role = "form", style = "margin-top:13px" }))
+@using (Ajax.BeginForm("Index", "Overview", null, new AjaxOptions { UpdateTargetId = "tableBody", OnSuccess = "updateOverviewCharts" }, new { @class = "form-inline", role = "form", style = "margin-top:13px" }))
 {
     @Html.ValidationSummary()
 

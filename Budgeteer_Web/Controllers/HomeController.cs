@@ -15,21 +15,7 @@ namespace Budgeteer_Web.Controllers
         {
             return View();
         }
-
-        [Authorize]
-        public JsonResult GetCategoryNames(bool debit)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            List<Category> categories = context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).ToList();
-            string userId = User.Identity.GetUserId();
-            ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
-
-            var data = categories.Where(c => currentUser.Categories.Contains(c)).Select(c => new { catName = c.Name });
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-
+        
         [Authorize]
         public ActionResult DisplayChart(string chartName, string br, DateTime dateFrom, DateTime dateUntil,
             string personName = null, string categoryName = null)
