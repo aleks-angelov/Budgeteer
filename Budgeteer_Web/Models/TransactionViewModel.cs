@@ -14,6 +14,8 @@ namespace Budgeteer_Web.Models
 
         public TransactionViewModel(string userId)
         {
+            Date = DateTime.Today;
+
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
                 ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);

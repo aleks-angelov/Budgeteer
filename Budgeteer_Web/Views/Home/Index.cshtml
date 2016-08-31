@@ -6,14 +6,7 @@
     <h1>Budgeteer</h1>
     <p class="lead">Budgeteer is a free web application for keeping track of where your money comes and goes on a daily basis.</p>
     <p>
-        @if (Request.IsAuthenticated)
-        {
-            <a class="btn btn-primary btn-lg" href="/Home/Overview">Get started &raquo;</a>
-        }
-        else
-        {
-            <a class="btn btn-primary btn-lg" href="/Account/Login">Get started &raquo;</a>
-        }
+        <a class="btn btn-primary btn-lg" href="/Overview">Get started &raquo;</a>
     </p>
 </div>
 
@@ -24,21 +17,21 @@
             Add new transaction records, look at your most recent ones, and see your budget balance.
         </p>
         <p>
-            <a class="btn btn-default" href="/Home/Overview">Take me there &raquo;</a>
+            <a class="btn btn-default" href="/Overview">Take me there &raquo;</a>
         </p>
     </div>
     <div class="col-md-4">
         <h2>Spending</h2>
         <p>Easily figure out where your money goes to using our customizable column and pie charts.</p>
         <p>
-            <a class="btn btn-default" href="/Home/Spending">Take me there &raquo;</a>
+            <a class="btn btn-default" href="/Spending">Take me there &raquo;</a>
         </p>
     </div>
     <div class="col-md-4">
         <h2>Income</h2>
         <p>Easily figure out where your money comes from using our customizable column and pie charts.</p>
         <p>
-            <a class="btn btn-default" href="/Home/Income">Take me there &raquo;</a>
+            <a class="btn btn-default" href="/Income">Take me there &raquo;</a>
         </p>
     </div>
 </div>
