@@ -1,6 +1,6 @@
 ﻿@model Budgeteer_Web.Models.CategoryViewModel
 
-@using (Html.BeginForm(Model.IsDebit ? "AddSpendingCategory" : "AddIncomeCategory", null, FormMethod.Post, new { @class = "form-inline", role = "form", style = "display:inline" }))
+@using (Html.BeginForm("AddCategory", "Home", FormMethod.Post, new { @class = "form-inline", role = "form", style = "display:inline" }))
 {
     <div class="form-group margin-right-sm" style="width: 162px">
         @Html.LabelFor(cvm => cvm.Name, "New Category:")

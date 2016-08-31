@@ -1,4 +1,6 @@
-﻿@model Budgeteer_Web.Models.SpendingAndIncomeViewModel
+﻿@using Budgeteer_Web.Models
+@model Budgeteer_Web.Models.SpendingAndIncomeViewModel
+
 
 @{
     ViewBag.Title = "Spending";
@@ -38,8 +40,8 @@
         @Html.LabelFor(svm => svm.CategoryName, "Category:")
         @Html.DropDownListFor(svm => svm.CategoryName, Model.CategoryItems, new {@class = "form-control", id = "SpendingCategoryName", style = "width:162px"})
     </div>
-
-    @Html.Action("AddSpendingCategory", new {isDebit = true})
+    
+    @Html.Partial("AddCategory", new CategoryViewModel {IsDebit = true})
 </div>
 
 <div style="margin-top: 26px">

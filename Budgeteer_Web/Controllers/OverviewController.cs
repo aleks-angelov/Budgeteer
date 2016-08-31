@@ -49,13 +49,6 @@ namespace Budgeteer_Web.Controllers
         }
 
         [Authorize]
-        [ChildActionOnly]
-        public ActionResult AddTransaction()
-        {
-            return PartialView(new TransactionViewModel(User.Identity.GetUserId()));
-        }
-
-        [Authorize]
         public ActionResult ListTransactions()
         {
             ApplicationDbContext context = new ApplicationDbContext();
