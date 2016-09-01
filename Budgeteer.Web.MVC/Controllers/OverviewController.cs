@@ -7,11 +7,20 @@ namespace Budgeteer.Web.MVC.Controllers
 {
     public class OverviewController : Controller
     {
+        private const int PageSize = 10;
+
         // GET: Overview
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            return View();
+            ApplicationDbContext context = ApplicationDbContext.Create();
+
+            return View(new TransactionPagingInfo
+            {
+                CurrentPage = page,
+                ItemsPerPage = PageSize,
+                TotalItems = context.Transactions.Count()
+            });
         }
 
         [Authorize]
@@ -45,7 +54,7 @@ namespace Budgeteer.Web.MVC.Controllers
         }
 
         [Authorize]
-        public ActionResult ListTransactions()
+        public ActionResult ListTransactions(int page = 1)
         {
             ApplicationDbContext context = ApplicationDbContext.Create();
 
@@ -53,7 +62,8 @@ namespace Budgeteer.Web.MVC.Controllers
                 PartialView(context.Transactions.OrderByDescending(t => t.Date)
                     .ThenBy(t => t.Person.Name)
                     .ThenBy(t => t.Category.Name)
-                    .Take(10)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize)
                     .ToList());
         }
     }
