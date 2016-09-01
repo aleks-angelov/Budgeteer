@@ -81,7 +81,8 @@ namespace Budgeteer.Web.MVC.Migrations
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com")
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                        context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
                 },
                 new Category
@@ -91,6 +92,7 @@ namespace Budgeteer.Web.MVC.Migrations
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                         context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
                 },
@@ -100,6 +102,7 @@ namespace Budgeteer.Web.MVC.Migrations
                     IsDebit = true,
                     ApplicationUsers = new List<ApplicationUser>
                     {
+                        context.Users.First(u => u.Email == "aia131@aubg.edu"),
                         context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                         context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
@@ -111,7 +114,8 @@ namespace Budgeteer.Web.MVC.Migrations
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu"),
-                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com")
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
+                        context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
                 },
                 new Category
@@ -121,6 +125,7 @@ namespace Budgeteer.Web.MVC.Migrations
                     ApplicationUsers = new List<ApplicationUser>
                     {
                         context.Users.First(u => u.Email == "aia131@aubg.edu"),
+                        context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                         context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }
                 },
@@ -130,6 +135,7 @@ namespace Budgeteer.Web.MVC.Migrations
                     IsDebit = false,
                     ApplicationUsers = new List<ApplicationUser>
                     {
+                        context.Users.First(u => u.Email == "aia131@aubg.edu"),
                         context.Users.First(u => u.Email == "boris_ruskov@gmail.com"),
                         context.Users.First(u => u.Email == "mariya.stancheva@abv.bg")
                     }

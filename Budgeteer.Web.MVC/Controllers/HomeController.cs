@@ -29,7 +29,7 @@ namespace Budgeteer.Web.MVC.Controllers
         [HttpPost]
         public ActionResult AddCategory(CategoryViewModel cvm)
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationDbContext context = ApplicationDbContext.Create();
 
             Category existingCategory =
                 context.Categories.FirstOrDefault(c => c.Name.Equals(cvm.Name, StringComparison.OrdinalIgnoreCase));

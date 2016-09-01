@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Budgeteer.Web.MVC.Models;
-using Microsoft.AspNet.Identity;
 
 namespace Budgeteer.Web.MVC.Controllers
 {
@@ -19,7 +18,7 @@ namespace Budgeteer.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Index(TransactionViewModel tvm)
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationDbContext context = ApplicationDbContext.Create();
             Transaction newTransaction = new Transaction
             {
                 Date = tvm.Date,
@@ -38,12 +37,9 @@ namespace Budgeteer.Web.MVC.Controllers
         [Authorize]
         public JsonResult GetCategoryNames(bool debit)
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationDbContext context = ApplicationDbContext.Create();
             List<Category> categories = context.Categories.Where(c => c.IsDebit == debit).OrderBy(c => c.Name).ToList();
-            string userId = User.Identity.GetUserId();
-            ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
-
-            var data = categories.Where(c => currentUser.Categories.Contains(c)).Select(c => new {catName = c.Name});
+            IEnumerable<string> data = categories.Select(c => c.Name);
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -51,7 +47,7 @@ namespace Budgeteer.Web.MVC.Controllers
         [Authorize]
         public ActionResult ListTransactions()
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationDbContext context = ApplicationDbContext.Create();
 
             return
                 PartialView(context.Transactions.OrderByDescending(t => t.Date)

@@ -10,19 +10,14 @@ namespace Budgeteer.Web.MVC.Models
     {
         public TransactionViewModel()
         {
-        }
-
-        public TransactionViewModel(string userId)
-        {
             Date = DateTime.Today;
 
             using (ApplicationDbContext context = ApplicationDbContext.Create())
             {
-                ApplicationUser currentUser = context.Users.Single(u => u.Id == userId);
-                Users = new List<SelectListItem>
-                {
-                    new SelectListItem {Text = currentUser.Name, Value = currentUser.Name}
-                };
+                List<string> userNames = context.Users.Select(usr => usr.Name).OrderBy(name => name).ToList();
+                Users = new List<SelectListItem>();
+                foreach (string userName in userNames)
+                    Users.Add(new SelectListItem { Text = userName, Value = userName });
             }
         }
 

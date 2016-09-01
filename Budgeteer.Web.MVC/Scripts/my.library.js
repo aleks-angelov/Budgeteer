@@ -4,8 +4,8 @@ function listCategories(data) {
     var target = $("#CategoryName");
     target.empty();
     for (var i = 0; i < data.length; i++) {
-        var category = data[i];
-        target.append("<option value=\"" + category.catName + "\">" + category.catName + "</option>");
+        var catName = data[i];
+        target.append("<option value=\"" + catName + "\">" + catName + "</option>");
     }
 }
 

@@ -17,7 +17,7 @@ export class IncomeComponent implements OnInit, AfterViewInit {
     errorMessage: string;
     people: string[];
     categories: string[];
-    incomeModel = new SpendingIncomeViewModel("Aleks Angelov", new Date(), new Date(), "Salary");
+    incomeModel = new SpendingIncomeViewModel("Aleks Angelov", new Date(), new Date(), "Bonus");
     categoryModel = new CategoryViewModel("", false);
     active = true;
 

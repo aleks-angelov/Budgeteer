@@ -1,12 +1,11 @@
 ﻿@using Budgeteer.Web.MVC.Models
-@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Overview";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@Html.Partial("AddTransaction", new TransactionViewModel(User.Identity.GetUserId()))
+@Html.Partial("AddTransaction", new TransactionViewModel())
 
 <div class="table-responsive" style="margin-top: 30px">
     <table class="table table-striped table-bordered table-hover table-condensed">
