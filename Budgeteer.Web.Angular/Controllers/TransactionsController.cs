@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Budgeteer.Web.Angular.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace Budgeteer.Web.Angular.Controllers
     public class TransactionsController : Controller
     {
         private readonly BudgeteerDbContext _context;
+        private const int PageSize = 10;
 
         public TransactionsController(BudgeteerDbContext context)
         {
@@ -17,12 +19,24 @@ namespace Budgeteer.Web.Angular.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<TransactionViewModel> Get()
+        public int[] GetPageNumbers()
+        {
+            int totalPages = (int)Math.Ceiling((decimal)_context.Transactions.Count() / PageSize);
+            int[] pageNumbers = new int[totalPages];
+            for (int i = 0; i < totalPages; i++)
+                pageNumbers[i] = i + 1;
+
+            return pageNumbers;
+        }
+
+        [HttpGet("{page}")]
+        public IEnumerable<TransactionViewModel> Get(int page)
         {
             List<Transactions> transactions = _context.Transactions.OrderByDescending(t => t.Date)
                 .ThenBy(t => t.User.Name)
                 .ThenBy(t => t.Category.Name)
-                .Take(10)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
                 .ToList();
 
             return TransactionViewModel.Convert(transactions, _context);

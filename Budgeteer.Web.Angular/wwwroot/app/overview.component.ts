@@ -16,6 +16,8 @@ import { ColumnData, PieData } from "./chart-view-model";
 export class OverviewComponent implements OnInit, AfterViewInit {
     errorMessage: string;
     transactions: TransactionViewModel[];
+    pageNumbers: string[];
+    currentPage = 1;
     people: string[];
     categories: string[];
     overviewModel = new TransactionViewModel(new Date(), 0, "Aleks Angelov", "Food", true, "");
@@ -39,7 +41,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.titleService.setTitle("Overview - Budgeteer");
         this.getFormData();
-        this.getTransactions();
+        this.getTotalPages();
+        this.getTransactions(1);
 
         this.dateFrom.setMonth(this.dateFrom.getMonth() - 6);
         this.createCharts();
@@ -55,32 +58,43 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     getFormData() {
         this.userService.getUsers()
             .subscribe(
-                response => this.people = response,
-                error => this.errorMessage = (error as any));
+            response => this.people = response,
+            error => this.errorMessage = (error as any));
 
         this.categoryService.getCategories(true)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
     }
 
-    getTransactions() {
-        this.transactionService.getTransactions()
+    getTotalPages() {
+        this.transactionService.getTotalPages()
             .subscribe(
-                response => this.transactions = response,
-                error => this.errorMessage = (error as any));
+            response => this.pageNumbers = response,
+            error => this.errorMessage = (error as any));
+    }
+
+    isCurrentPage(n: number): boolean {
+        return this.currentPage === n;
+    }
+
+    getTransactions(page: number) {
+        this.currentPage = page;
+        this.transactionService.getTransactions(page)
+            .subscribe(
+            response => this.transactions = response,
+            error => this.errorMessage = (error as any));
     }
 
     postTransaction(tvm: TransactionViewModel) {
         this.transactionService.postTransaction(tvm)
             .subscribe(
-                () => {
-                    this.transactions.unshift(tvm);
-                    this.transactions.pop();
-                    this.newTransaction();
-                    this.updateCharts();
-                },
-                error => this.errorMessage = (error as any));
+            () => {
+                this.getTransactions(1);
+                this.newTransaction();
+                this.updateCharts();
+            },
+            error => this.errorMessage = (error as any));
     }
 
     setTransactionType(isDebit: boolean) {
@@ -88,10 +102,10 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
         this.categoryService.getCategories(isDebit)
             .subscribe(
-                response => this.categories = response,
-                error => this.errorMessage = (error as any));
+            response => this.categories = response,
+            error => this.errorMessage = (error as any));
 
-        this.overviewModel.categoryName = isDebit ? "Food" : "Salary";
+        this.overviewModel.categoryName = isDebit ? "Food" : "Bonus";
     }
 
     newTransaction() {
@@ -108,83 +122,83 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     createCharts() {
         this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil)
             .subscribe(
-                data => {
-                    this.leftChart = new Highcharts.Chart({
-                        chart: {
-                            type: "column",
-                            renderTo: "overviewLeftChart"
-                        },
-                        title: data.title,
-                        xAxis: {
-                            categories: data.xAxisCategories,
-                            crosshair: true
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: "Total (Bulgarian lev)"
-                            }
-                        },
-                        tooltip: {
-                            pointFormat: "{series.name}: <b>BGN {point.y:.2f}</b>"
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0
-                            }
-                        },
-                        series: data.series
-                    });
-                },
-                error => this.errorMessage = (error as any));
+            data => {
+                this.leftChart = new Highcharts.Chart({
+                    chart: {
+                        type: "column",
+                        renderTo: "overviewLeftChart"
+                    },
+                    title: data.title,
+                    xAxis: {
+                        categories: data.xAxisCategories,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "Total (Bulgarian lev)"
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: "{series.name}: <b>BGN {point.y:.2f}</b>"
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: data.series
+                });
+            },
+            error => this.errorMessage = (error as any));
 
         this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil)
             .subscribe(
-                data => {
-                    this.rightChart = new Highcharts.Chart({
-                        chart: {
-                            type: "pie",
-                            renderTo: "overviewRightChart"
-                        },
-                        title: data.title,
-                        tooltip: {
-                            headerFormat: "",
-                            pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
-                        },
-                        plotOptions: {
-                            pie: {
-                                allowPointSelect: true,
-                                cursor: "pointer",
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                showInLegend: true
-                            }
-                        },
-                        series: [
-                            {
-                                name: data.series.name,
-                                data: data.series.data
-                            }
-                        ]
-                    });
-                },
-                error => this.errorMessage = (error as any));
+            data => {
+                this.rightChart = new Highcharts.Chart({
+                    chart: {
+                        type: "pie",
+                        renderTo: "overviewRightChart"
+                    },
+                    title: data.title,
+                    tooltip: {
+                        headerFormat: "",
+                        pointFormat: "{point.name}: <b>BGN {point.y:.2f}</b> ({point.percentage:.1f}%)"
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: "pointer",
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [
+                        {
+                            name: data.series.name,
+                            data: data.series.data
+                        }
+                    ]
+                });
+            },
+            error => this.errorMessage = (error as any));
     }
 
     updateCharts() {
         this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil)
             .subscribe(
-                data => {
-                    this.leftChart.series[0].setData(data.series[0].data);
-                    this.leftChart.series[1].setData(data.series[1].data);
-                },
-                error => this.errorMessage = (error as any));
+            data => {
+                this.leftChart.series[0].setData(data.series[0].data);
+                this.leftChart.series[1].setData(data.series[1].data);
+            },
+            error => this.errorMessage = (error as any));
 
         this.chartService.getPieChartData("OverviewRightChart", this.dateFrom, this.dateUntil)
             .subscribe(
-                data => this.rightChart.series[0].setData(data.series.data),
-                error => this.errorMessage = (error as any));
+            data => this.rightChart.series[0].setData(data.series.data),
+            error => this.errorMessage = (error as any));
     }
 }

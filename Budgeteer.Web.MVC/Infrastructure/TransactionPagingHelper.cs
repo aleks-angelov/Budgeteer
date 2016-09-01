@@ -18,10 +18,7 @@ namespace Budgeteer.Web.MVC.Infrastructure
                 tag.MergeAttribute("style", "margin-left: 2px");
                 tag.InnerHtml = i.ToString();
                 if (i == pagingInfo.CurrentPage)
-                {
-                    tag.AddCssClass("selected");
                     tag.AddCssClass("btn-primary");
-                }
                 tag.AddCssClass("btn btn-default");
                 result.Append(tag);
             }

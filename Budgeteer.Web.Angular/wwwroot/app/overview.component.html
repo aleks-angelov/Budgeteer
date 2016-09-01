@@ -71,31 +71,36 @@
 <div class="table-responsive" style="margin-top: 30px">
     <table class="table table-striped table-bordered table-hover table-condensed" style="font-size: 14px">
         <thead>
-        <tr>
-            <th style="width: 190px">Date</th>
-            <th style="width: 177px">Person</th>
-            <th style="width: 132px">Type</th>
-            <th style="width: 177px">Category</th>
-            <th style="width: 177px">Amount</th>
-            <th>Note</th>
-        </tr>
+            <tr>
+                <th style="width: 190px">Date</th>
+                <th style="width: 177px">Person</th>
+                <th style="width: 132px">Type</th>
+                <th style="width: 177px">Category</th>
+                <th style="width: 177px">Amount</th>
+                <th>Note</th>
+            </tr>
         </thead>
         <tbody id="tableBody">
-        <tr *ngFor="let trans of transactions">
-            <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
-            <td>{{trans.personName}}</td>
-            <td *ngIf="trans.isDebit">Debit</td>
-            <td *ngIf="!trans.isDebit">Credit</td>
-            <td>{{trans.categoryName}}</td>
-            <td>{{trans.amount}}</td>
-            <td>{{trans.note}}</td>
-        </tr>
+            <tr *ngFor="let trans of transactions">
+                <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
+                <td>{{trans.personName}}</td>
+                <td *ngIf="trans.isDebit">Debit</td>
+                <td *ngIf="!trans.isDebit">Credit</td>
+                <td>{{trans.categoryName}}</td>
+                <td>{{trans.amount}}</td>
+                <td>{{trans.note}}</td>
+            </tr>
         </tbody>
     </table>
+
+    <div style="float: right; margin-top: -10px">
+        <a *ngFor="let number of pageNumbers" (click)="getTransactions(number)"
+           class="btn btn-default" [class.btn-primary]="isCurrentPage(number)" routerLink="/overview/{{number}}" style="margin-left: 2px">{{number}}</a>
+    </div>
 </div>
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
-<div style="margin-top: 6px">
+<div style="margin-top: 12px">
     <div id="overviewLeftChart" style="float: left; height: 426px; width: 568px;"></div>
 
     <div id="overviewRightChart" style="float: right; height: 426px; width: 568px;"></div>

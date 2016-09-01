@@ -17,8 +17,14 @@ export class TransactionService {
         private helperService: HelperService) {
     }
 
-    getTransactions(): Observable<TransactionViewModel[]> {
+    getTotalPages(): Observable<string[]> {
         return (this.http.get(this.transactionsUrl)
+            .map(this.helperService.extractData)
+            .catch(this.helperService.handleError));
+    }
+
+    getTransactions(page: number): Observable<TransactionViewModel[]> {
+        return (this.http.get(this.transactionsUrl + "/" + page)
             .map(this.helperService.extractData)
             .catch(this.helperService.handleError));
     }
