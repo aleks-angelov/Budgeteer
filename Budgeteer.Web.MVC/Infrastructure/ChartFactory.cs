@@ -99,8 +99,10 @@ namespace Budgeteer.Web.MVC.Infrastructure
                     spendingYData.Add(period.Sum());
                 }
 
+                double budgetBalance = incomeYData.Sum() - spendingYData.Sum();
+
                 return new Chart(568, 426, ChartTheme.Blue)
-                    .AddTitle("Budget Balance (last 6 months)")
+                    .AddTitle($"Budget Balance (last 6 months): {budgetBalance:C}")
                     .AddSeries("Income", "Column", xValue: incomeXData, yValues: incomeYData)
                     .AddSeries("Spending", "Column", xValue: spendingXData, yValues: spendingYData)
                     .AddLegend();

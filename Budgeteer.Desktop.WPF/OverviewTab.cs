@@ -9,6 +9,9 @@ namespace Budgeteer.Desktop.WPF
 {
     public partial class MainWindow
     {
+        private List<KeyValuePair<string, double>> _incomeData;
+        private List<KeyValuePair<string, double>> _spendingData;
+
         private void SetupOverviewTab()
         {
             ComboBoxAddPerson.ItemsSource = Transaction.People;
@@ -23,6 +26,7 @@ namespace Budgeteer.Desktop.WPF
         {
             LoadIncomeData();
             LoadSpendingData();
+            CalculateBudgetBalance();
             LoadSpendingDistributionData();
         }
 
@@ -37,11 +41,11 @@ namespace Budgeteer.Desktop.WPF
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> incomeData = new List<KeyValuePair<string, double>>();
+            _incomeData = new List<KeyValuePair<string, double>>();
             foreach (IGrouping<string, double> period in incomeRecordsByMonth)
-                incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
+                _incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
-            ((ColumnSeries) ChartOverviewLeft.Series[0]).ItemsSource = incomeData;
+            ((ColumnSeries) ChartOverviewLeft.Series[0]).ItemsSource = _incomeData;
         }
 
         private void LoadSpendingData()
@@ -55,11 +59,20 @@ namespace Budgeteer.Desktop.WPF
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
+            _spendingData = new List<KeyValuePair<string, double>>();
             foreach (IGrouping<string, double> period in spendingRecordsByMonth)
-                spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
+                _spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
-            ((ColumnSeries) ChartOverviewLeft.Series[1]).ItemsSource = spendingData;
+            ((ColumnSeries) ChartOverviewLeft.Series[1]).ItemsSource = _spendingData;
+        }
+
+        private void CalculateBudgetBalance()
+        {
+            double incomeTotal = _incomeData.Sum(incomePair => incomePair.Value);
+            double spendingTotal = _spendingData.Sum(spendingPair => spendingPair.Value);
+            double budgetBalance = incomeTotal - spendingTotal;
+
+            ChartOverviewLeft.Title = $"Budget Balance (last 6 months): {budgetBalance:C}";
         }
 
         private void LoadSpendingDistributionData()

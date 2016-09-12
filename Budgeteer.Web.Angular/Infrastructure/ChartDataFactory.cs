@@ -97,11 +97,14 @@ namespace Budgeteer.Web.Angular.Infrastructure
                 spendingYData.Add(period.Sum());
             }
 
+
+            double budgetBalance = incomeYData.Sum() - spendingYData.Sum();
+
             ColumnData data = new ColumnData
             {
                 Title = new Title
                 {
-                    Text = "Budget Balance (last 6 months)"
+                    Text = $"Budget Balance (last 6 months): {budgetBalance:C}"
                 },
                 XAxisCategories = incomeXData.Count > spendingXData.Count ? incomeXData : spendingXData,
                 Series = new List<ColumnSeries>
