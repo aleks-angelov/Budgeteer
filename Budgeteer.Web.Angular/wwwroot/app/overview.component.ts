@@ -191,6 +191,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         this.chartService.getColumnChartData("OverviewLeftChart", this.dateFrom, this.dateUntil)
             .subscribe(
             data => {
+                this.leftChart.setTitle(data.title);
                 this.leftChart.series[0].setData(data.series[0].data);
                 this.leftChart.series[1].setData(data.series[1].data);
             },
