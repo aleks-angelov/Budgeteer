@@ -43,19 +43,19 @@ namespace Budgeteer.Desktop.WPF
 
         private void HomeWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDataFromBinary();
+            LoadDataFromXml();
             _records.CollectionChanged += RecordsOnCollectionChanged;
             SetupOverviewTab();
             SetupSpendingTab();
             SetupIncomeTab();
         }
 
-        private static void LoadDataFromBinary()
+        private static void LoadDataFromXml()
         {
             using (Stream fStream = new FileStream("People.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Transaction.People = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
+                    Transaction.People = (ObservableCollection<string>)StringSerializer.Deserialize(fStream);
                 else
                     Transaction.People = new ObservableCollection<string>();
             }
@@ -63,7 +63,7 @@ namespace Budgeteer.Desktop.WPF
             using (Stream fStream = new FileStream("DebitCategories.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Debit.DebitCategories = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
+                    Debit.DebitCategories = (ObservableCollection<string>)StringSerializer.Deserialize(fStream);
                 else
                     Debit.DebitCategories = new ObservableCollection<string>();
             }
@@ -71,7 +71,7 @@ namespace Budgeteer.Desktop.WPF
             using (Stream fStream = new FileStream("CreditCategories.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Credit.CreditCategories = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
+                    Credit.CreditCategories = (ObservableCollection<string>)StringSerializer.Deserialize(fStream);
                 else
                     Credit.CreditCategories = new ObservableCollection<string>();
             }
@@ -79,26 +79,26 @@ namespace Budgeteer.Desktop.WPF
             using (Stream fStream = new FileStream("Records.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    _records = (ObservableCollection<Transaction>) TransactionSerializer.Deserialize(fStream);
+                    _records = (ObservableCollection<Transaction>)TransactionSerializer.Deserialize(fStream);
                 else
                     _records = new ObservableCollection<Transaction>();
             }
 
             _debitQuery = from record in _records
-                where record.Type == "Debit"
-                select record as Debit;
+                          where record.Type == "Debit"
+                          select record as Debit;
 
             _creditQuery = from record in _records
-                where record.Type == "Credit"
-                select record as Credit;
+                           where record.Type == "Credit"
+                           select record as Credit;
         }
 
         private void HomeWindow_Closed(object sender, EventArgs e)
         {
-            SaveDataToBinary();
+            SaveDataToXml();
         }
 
-        private static void SaveDataToBinary()
+        private static void SaveDataToXml()
         {
             using (Stream fStream = new FileStream("People.xml", FileMode.Create))
             {
