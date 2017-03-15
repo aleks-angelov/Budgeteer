@@ -55,19 +55,19 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadIncomeByData()
         {
-            List<Credit> incomeRecords = _creditQuery.ToList();
+            var incomeRecords = _creditQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
+            var incomeRecordsByMonth = from record in incomeRecords
                 where
-                (record.Person == ComboBoxIncomePerson.Text) && (record.Date >= DatePickerIncomeFrom.DisplayDate) &&
-                (record.Date <= DatePickerIncomeUntil.DisplayDate)
+                record.Person == ComboBoxIncomePerson.Text && record.Date >= DatePickerIncomeFrom.DisplayDate &&
+                record.Date <= DatePickerIncomeUntil.DisplayDate
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> incomeData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in incomeRecordsByMonth)
+            var incomeData = new List<KeyValuePair<string, double>>();
+            foreach (var period in incomeRecordsByMonth)
                 incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ChartIncomeTopLeft.Title = $"Income of {ComboBoxIncomePerson.Text}";
@@ -76,16 +76,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadIncomeDistributionOfData()
         {
-            List<Credit> incomeRecords = _creditQuery.ToList();
+            var incomeRecords = _creditQuery.ToList();
 
-            List<KeyValuePair<string, double>> incomeDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string incomeCategory in Credit.CreditCategories)
+            var incomeDistributionData = new List<KeyValuePair<string, double>>();
+            foreach (var incomeCategory in Credit.CreditCategories)
             {
-                double categoryTotal = (from record in incomeRecords
+                var categoryTotal = (from record in incomeRecords
                     where
-                    (record.Category == incomeCategory) && (record.Person == ComboBoxIncomePerson.Text) &&
-                    (record.Date >= DatePickerIncomeFrom.DisplayDate) &&
-                    (record.Date <= DatePickerIncomeUntil.DisplayDate)
+                    record.Category == incomeCategory && record.Person == ComboBoxIncomePerson.Text &&
+                    record.Date >= DatePickerIncomeFrom.DisplayDate &&
+                    record.Date <= DatePickerIncomeUntil.DisplayDate
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)
@@ -97,20 +97,20 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadIncomeForData()
         {
-            List<Credit> incomeRecords = _creditQuery.ToList();
+            var incomeRecords = _creditQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
+            var incomeRecordsByMonth = from record in incomeRecords
                 where
-                (record.Category == ComboBoxIncomeCategory.Text) &&
-                (record.Date >= DatePickerIncomeFrom.DisplayDate) &&
-                (record.Date <= DatePickerIncomeUntil.DisplayDate)
+                record.Category == ComboBoxIncomeCategory.Text &&
+                record.Date >= DatePickerIncomeFrom.DisplayDate &&
+                record.Date <= DatePickerIncomeUntil.DisplayDate
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> incomeData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in incomeRecordsByMonth)
+            var incomeData = new List<KeyValuePair<string, double>>();
+            foreach (var period in incomeRecordsByMonth)
                 incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ChartIncomeTopRight.Title = $"Income from {ComboBoxIncomeCategory.Text}";
@@ -119,16 +119,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadIncomeDistributionForData()
         {
-            List<Credit> incomeRecords = _creditQuery.ToList();
+            var incomeRecords = _creditQuery.ToList();
 
-            List<KeyValuePair<string, double>> incomeDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string incomePerson in Transaction.People)
+            var incomeDistributionData = new List<KeyValuePair<string, double>>();
+            foreach (var incomePerson in Transaction.People)
             {
-                double categoryTotal = (from record in incomeRecords
+                var categoryTotal = (from record in incomeRecords
                     where
-                    (record.Person == incomePerson) && (record.Category == ComboBoxIncomeCategory.Text) &&
-                    (record.Date >= DatePickerIncomeFrom.DisplayDate) &&
-                    (record.Date <= DatePickerIncomeUntil.DisplayDate)
+                    record.Person == incomePerson && record.Category == ComboBoxIncomeCategory.Text &&
+                    record.Date >= DatePickerIncomeFrom.DisplayDate &&
+                    record.Date <= DatePickerIncomeUntil.DisplayDate
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)

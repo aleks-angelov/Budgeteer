@@ -55,19 +55,19 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadSpendingByData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
+            var spendingRecordsByMonth = from record in spendingRecords
                 where
-                (record.Person == ComboBoxSpendingPerson.Text) && (record.Date >= DatePickerSpendingFrom.DisplayDate) &&
-                (record.Date <= DatePickerSpendingUntil.DisplayDate)
+                record.Person == ComboBoxSpendingPerson.Text && record.Date >= DatePickerSpendingFrom.DisplayDate &&
+                record.Date <= DatePickerSpendingUntil.DisplayDate
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in spendingRecordsByMonth)
+            var spendingData = new List<KeyValuePair<string, double>>();
+            foreach (var period in spendingRecordsByMonth)
                 spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ChartSpendingTopLeft.Title = $"Spending of {ComboBoxSpendingPerson.Text}";
@@ -76,16 +76,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadSpendingDistributionOfData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string spendingCategory in Debit.DebitCategories)
+            var spendingDistributionData = new List<KeyValuePair<string, double>>();
+            foreach (var spendingCategory in Debit.DebitCategories)
             {
-                double categoryTotal = (from record in spendingRecords
+                var categoryTotal = (from record in spendingRecords
                     where
-                    (record.Category == spendingCategory) && (record.Person == ComboBoxSpendingPerson.Text) &&
-                    (record.Date >= DatePickerSpendingFrom.DisplayDate) &&
-                    (record.Date <= DatePickerSpendingUntil.DisplayDate)
+                    record.Category == spendingCategory && record.Person == ComboBoxSpendingPerson.Text &&
+                    record.Date >= DatePickerSpendingFrom.DisplayDate &&
+                    record.Date <= DatePickerSpendingUntil.DisplayDate
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)
@@ -97,20 +97,20 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadSpendingForData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
+            var spendingRecordsByMonth = from record in spendingRecords
                 where
-                (record.Category == ComboBoxSpendingCategory.Text) &&
-                (record.Date >= DatePickerSpendingFrom.DisplayDate) &&
-                (record.Date <= DatePickerSpendingUntil.DisplayDate)
+                record.Category == ComboBoxSpendingCategory.Text &&
+                record.Date >= DatePickerSpendingFrom.DisplayDate &&
+                record.Date <= DatePickerSpendingUntil.DisplayDate
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
-            List<KeyValuePair<string, double>> spendingData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in spendingRecordsByMonth)
+            var spendingData = new List<KeyValuePair<string, double>>();
+            foreach (var period in spendingRecordsByMonth)
                 spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ChartSpendingTopRight.Title = $"Spending for {ComboBoxSpendingCategory.Text}";
@@ -119,16 +119,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadSpendingDistributionForData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string spendingPerson in Transaction.People)
+            var spendingDistributionData = new List<KeyValuePair<string, double>>();
+            foreach (var spendingPerson in Transaction.People)
             {
-                double categoryTotal = (from record in spendingRecords
+                var categoryTotal = (from record in spendingRecords
                     where
-                    (record.Person == spendingPerson) && (record.Category == ComboBoxSpendingCategory.Text) &&
-                    (record.Date >= DatePickerSpendingFrom.DisplayDate) &&
-                    (record.Date <= DatePickerSpendingUntil.DisplayDate)
+                    record.Person == spendingPerson && record.Category == ComboBoxSpendingCategory.Text &&
+                    record.Date >= DatePickerSpendingFrom.DisplayDate &&
+                    record.Date <= DatePickerSpendingUntil.DisplayDate
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)

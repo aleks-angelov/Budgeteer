@@ -188,7 +188,7 @@
                         Margin="30,22,0,0"
                         VerticalAlignment="Top"
                         SnapsToDevicePixels="True"
-                        Title="Budget Balance (last 6 months)">
+                        Title="Overall Budget Balance">
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
                                                       ItemsSource="{Binding}" Title="Income" />
                         <chartingToolkit:ColumnSeries DependentValuePath="Value" IndependentValuePath="Key"
@@ -202,7 +202,7 @@
                         HorizontalAlignment="Left"
                         Margin="549,22,0,0"
                         VerticalAlignment="Top"
-                        Title="Spending Distribution (last 6 months)">
+                        Title="Overall Spending Distribution">
                         <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key"
                                                    ItemsSource="{Binding}" Title="Income" />
                     </chartingToolkit:Chart>

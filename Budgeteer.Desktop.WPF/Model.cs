@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
 
 namespace Budgeteer.Desktop.WPF
 {
     [Serializable]
-    internal abstract class Transaction
+    [XmlInclude(typeof(Debit))]
+    [XmlInclude(typeof(Credit))]
+    public abstract class Transaction
     {
         public static ObservableCollection<string> People;
+
+        protected Transaction()
+        {
+        }
 
         protected Transaction(DateTime d, string p, string t, string c, double a, string n = "")
         {
@@ -27,9 +34,13 @@ namespace Budgeteer.Desktop.WPF
     }
 
     [Serializable]
-    internal class Debit : Transaction
+    public class Debit : Transaction
     {
         public static ObservableCollection<string> DebitCategories;
+
+        public Debit()
+        {
+        }
 
         public Debit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Debit", c, a, n)
@@ -38,9 +49,13 @@ namespace Budgeteer.Desktop.WPF
     }
 
     [Serializable]
-    internal class Credit : Transaction
+    public class Credit : Transaction
     {
         public static ObservableCollection<string> CreditCategories;
+
+        public Credit()
+        {
+        }
 
         public Credit(DateTime d, string p, string c, double a, string n = "")
             : base(d, p, "Credit", c, a, n)

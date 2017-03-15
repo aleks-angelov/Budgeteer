@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
+using System.Xml.Serialization;
 
 namespace Budgeteer.Desktop.WPF
 {
@@ -19,7 +19,10 @@ namespace Budgeteer.Desktop.WPF
         private static IEnumerable<Debit> _debitQuery;
         private static IEnumerable<Credit> _creditQuery;
 
-        private static readonly BinaryFormatter BinFormat = new BinaryFormatter();
+        private static readonly XmlSerializer StringSerializer = new XmlSerializer(typeof(ObservableCollection<string>));
+
+        private static readonly XmlSerializer TransactionSerializer =
+            new XmlSerializer(typeof(ObservableCollection<Transaction>));
 
         public MainWindow()
         {
@@ -49,38 +52,34 @@ namespace Budgeteer.Desktop.WPF
 
         private static void LoadDataFromBinary()
         {
-            using (Stream fStream = new FileStream("People.bin",
-                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (Stream fStream = new FileStream("People.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Transaction.People = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                    Transaction.People = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
                 else
                     Transaction.People = new ObservableCollection<string>();
             }
 
-            using (Stream fStream = new FileStream("DebitCategories.bin",
-                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (Stream fStream = new FileStream("DebitCategories.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Debit.DebitCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                    Debit.DebitCategories = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
                 else
                     Debit.DebitCategories = new ObservableCollection<string>();
             }
 
-            using (Stream fStream = new FileStream("CreditCategories.bin",
-                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (Stream fStream = new FileStream("CreditCategories.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    Credit.CreditCategories = (ObservableCollection<string>) BinFormat.Deserialize(fStream);
+                    Credit.CreditCategories = (ObservableCollection<string>) StringSerializer.Deserialize(fStream);
                 else
                     Credit.CreditCategories = new ObservableCollection<string>();
             }
 
-            using (Stream fStream = new FileStream("Records.bin",
-                FileMode.OpenOrCreate, FileAccess.Read, FileShare.None))
+            using (Stream fStream = new FileStream("Records.xml", FileMode.OpenOrCreate))
             {
                 if (fStream.Length > 0)
-                    _records = (ObservableCollection<Transaction>) BinFormat.Deserialize(fStream);
+                    _records = (ObservableCollection<Transaction>) TransactionSerializer.Deserialize(fStream);
                 else
                     _records = new ObservableCollection<Transaction>();
             }
@@ -101,28 +100,24 @@ namespace Budgeteer.Desktop.WPF
 
         private static void SaveDataToBinary()
         {
-            using (Stream fStream = new FileStream("People.bin",
-                FileMode.Create, FileAccess.Write, FileShare.None))
+            using (Stream fStream = new FileStream("People.xml", FileMode.Create))
             {
-                BinFormat.Serialize(fStream, Transaction.People);
+                StringSerializer.Serialize(fStream, Transaction.People);
             }
 
-            using (Stream fStream = new FileStream("DebitCategories.bin",
-                FileMode.Create, FileAccess.Write, FileShare.None))
+            using (Stream fStream = new FileStream("DebitCategories.xml", FileMode.Create))
             {
-                BinFormat.Serialize(fStream, Debit.DebitCategories);
+                StringSerializer.Serialize(fStream, Debit.DebitCategories);
             }
 
-            using (Stream fStream = new FileStream("CreditCategories.bin",
-                FileMode.Create, FileAccess.Write, FileShare.None))
+            using (Stream fStream = new FileStream("CreditCategories.xml", FileMode.Create))
             {
-                BinFormat.Serialize(fStream, Credit.CreditCategories);
+                StringSerializer.Serialize(fStream, Credit.CreditCategories);
             }
 
-            using (Stream fStream = new FileStream("Records.bin",
-                FileMode.Create, FileAccess.Write, FileShare.None))
+            using (Stream fStream = new FileStream("Records.xml", FileMode.Create))
             {
-                BinFormat.Serialize(fStream, _records);
+                TransactionSerializer.Serialize(fStream, _records);
             }
         }
 
@@ -148,11 +143,11 @@ namespace Budgeteer.Desktop.WPF
                 return;
             }
 
-            string person = ComboBoxAddPerson.Text;
+            var person = ComboBoxAddPerson.Text;
             if (!Transaction.People.Contains(person))
             {
-                bool wasInserted = false;
-                int pos = 0;
+                var wasInserted = false;
+                var pos = 0;
                 while (pos < Transaction.People.Count)
                 {
                     if (string.Compare(person, Transaction.People[pos], StringComparison.OrdinalIgnoreCase) <= 0)
@@ -171,11 +166,11 @@ namespace Budgeteer.Desktop.WPF
             Transaction newTransaction;
             if (RadioButtonDebit.IsChecked == true)
             {
-                string debitCategory = ComboBoxAddCategory.Text;
+                var debitCategory = ComboBoxAddCategory.Text;
                 if (!Debit.DebitCategories.Contains(debitCategory))
                 {
-                    bool wasInserted = false;
-                    int pos = 0;
+                    var wasInserted = false;
+                    var pos = 0;
                     while (pos < Debit.DebitCategories.Count)
                     {
                         if (
@@ -199,11 +194,11 @@ namespace Budgeteer.Desktop.WPF
             }
             else
             {
-                string creditCategory = ComboBoxAddCategory.Text;
+                var creditCategory = ComboBoxAddCategory.Text;
                 if (!Credit.CreditCategories.Contains(creditCategory))
                 {
-                    bool wasInserted = false;
-                    int pos = 0;
+                    var wasInserted = false;
+                    var pos = 0;
                     while (pos < Credit.CreditCategories.Count)
                     {
                         if (string.Compare(creditCategory, Credit.CreditCategories[pos],

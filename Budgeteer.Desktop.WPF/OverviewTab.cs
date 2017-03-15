@@ -32,17 +32,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadIncomeData()
         {
-            List<Credit> incomeRecords = _creditQuery.ToList();
+            var incomeRecords = _creditQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> incomeRecordsByMonth = from record in incomeRecords
-                where record.Date.AddMonths(7) > DateTime.Today
+            var incomeRecordsByMonth = from record in incomeRecords
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
             _incomeData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in incomeRecordsByMonth)
+            foreach (var period in incomeRecordsByMonth)
                 _incomeData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ((ColumnSeries) ChartOverviewLeft.Series[0]).ItemsSource = _incomeData;
@@ -50,17 +49,16 @@ namespace Budgeteer.Desktop.WPF
 
         private void LoadSpendingData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            IOrderedEnumerable<IGrouping<string, double>> spendingRecordsByMonth = from record in spendingRecords
-                where record.Date.AddMonths(7) > DateTime.Today
+            var spendingRecordsByMonth = from record in spendingRecords
                 group record.Amount by record.Date.ToString("yyyy/MM")
                 into monthlyRecords
                 orderby monthlyRecords.Key
                 select monthlyRecords;
 
             _spendingData = new List<KeyValuePair<string, double>>();
-            foreach (IGrouping<string, double> period in spendingRecordsByMonth)
+            foreach (var period in spendingRecordsByMonth)
                 _spendingData.Add(new KeyValuePair<string, double>(period.Key, period.Sum()));
 
             ((ColumnSeries) ChartOverviewLeft.Series[1]).ItemsSource = _spendingData;
@@ -68,22 +66,22 @@ namespace Budgeteer.Desktop.WPF
 
         private void CalculateBudgetBalance()
         {
-            double incomeTotal = _incomeData.Sum(incomePair => incomePair.Value);
-            double spendingTotal = _spendingData.Sum(spendingPair => spendingPair.Value);
-            double budgetBalance = incomeTotal - spendingTotal;
+            var incomeTotal = _incomeData.Sum(incomePair => incomePair.Value);
+            var spendingTotal = _spendingData.Sum(spendingPair => spendingPair.Value);
+            var budgetBalance = incomeTotal - spendingTotal;
 
-            ChartOverviewLeft.Title = $"Budget Balance (last 6 months): {budgetBalance:C}";
+            ChartOverviewLeft.Title = $"Overall Budget Balance: {budgetBalance:C}";
         }
 
         private void LoadSpendingDistributionData()
         {
-            List<Debit> spendingRecords = _debitQuery.ToList();
+            var spendingRecords = _debitQuery.ToList();
 
-            List<KeyValuePair<string, double>> spendingDistributionData = new List<KeyValuePair<string, double>>();
-            foreach (string spendingCategory in Debit.DebitCategories)
+            var spendingDistributionData = new List<KeyValuePair<string, double>>();
+            foreach (var spendingCategory in Debit.DebitCategories)
             {
-                double categoryTotal = (from record in spendingRecords
-                    where (record.Category == spendingCategory) && (record.Date.AddMonths(7) > DateTime.Today)
+                var categoryTotal = (from record in spendingRecords
+                    where record.Category == spendingCategory && record.Date.AddMonths(7) > DateTime.Today
                     select record.Amount).Sum();
 
                 if (categoryTotal > 0)
@@ -94,7 +92,7 @@ namespace Budgeteer.Desktop.WPF
 
         private void SortDataGridByDate()
         {
-            ICollectionView gridData = CollectionViewSource.GetDefaultView(DataGridOverview.ItemsSource);
+            var gridData = CollectionViewSource.GetDefaultView(DataGridOverview.ItemsSource);
             gridData.SortDescriptions.Clear();
             gridData.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
             DataGridOverview.Columns[0].SortDirection = ListSortDirection.Descending;
